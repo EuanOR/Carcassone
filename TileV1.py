@@ -1,6 +1,6 @@
-#Class to represent 'Tile' object
+#Super class to represent 'Tile' object
 #Author: Eimear
-#Version: 1
+#Version: 2
 
 from copy import deepcopy
 
@@ -12,7 +12,7 @@ class Tile:
         self.meeple_placement = None
         #Treats tile as a 9-block grid in order to match placement of meeple to correct landmark
         #E.g. where 'C' = city, 'R' = road etc.
-        self.landmark = [[None, 'C', None],['R', 'R', 'R'],[None, None, None]]
+        self.landmark = [[None, None, None],[None, None, None],[None, None, None]]
         #Orientation attributes for tile rotation
         self.top = 'top'
         self.right = 'right'
@@ -39,10 +39,25 @@ class Tile:
         print(self.landmark)
         print("Tile rotation: T:%s, R:%s, B:%s, L:%s" % (self.top, self.right, self. bottom,self.left))
 
+    def getTile(self):
+        return self
+
+#Sub class to represent the intial tile to start the game
+class IntialTile(Tile):
+    def __init__(self):
+        #Inherits from 'Tile' super class
+        super(Tile, self).__init__()
+        self.landmark = [['C', 'C', 'C'], ['R', 'R', 'R'], [None, None, None]]
+
+    def getTile(self):
+        super(Tile, self).getTile()
+    
 def main():
     tile = Tile()
     tile.rotateTile()
     tile.rotateTile()
+    start_tile = IntialTile()
+    print(start_tile.landmark)
 
 if __name__ == "__main__":
     main()
