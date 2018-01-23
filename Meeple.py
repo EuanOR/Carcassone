@@ -9,8 +9,8 @@ class Meeple(object):
 
     def __str__(self):
         outstr = ""
-        outstr += ("Colour:%s,Tile:%s,Player:%s,Placed:%r"\
-                       (self._colour,self._tile,self._player,self._placed))
+        outstr += ("Colour:%s\nTile:%s\nPlayer:%s\nPlaced:%r"%(self._colour,self._tile,self._player,self._placed))
+        return outstr
 
     #Set the colour of the meeple
     def setColour(self,colour):
@@ -38,7 +38,14 @@ class Meeple(object):
 
     #If a meeple is placed on a tile this sets placed to True
     def place(self):
-        self.placed = True
+        self._placed = True
 
     def take_back(self):
-        self.placed = False
+        self._placed = False
+
+if __name__ == "__main__":
+    m = Meeple("Blue","34,21","John")
+    print(m)
+    print("\n")
+    m.place()
+    print(m)
