@@ -1,10 +1,11 @@
 class Meeple(object):
     colours = ["red","blue","green","yellow"]
 
-    def __init__(self,colour,tile,player,):
+    def __init__(self,colour,tile,player):
         self._colour = colour
         self._tile = tile
         self._player =  player
+        self._placed = False
 
     def setColour(self,colour):
         self._colour = colour
@@ -23,3 +24,9 @@ class Meeple(object):
 
     def getPlayer(self):
         return self._player
+
+    def place(self):
+        self.placed = True
+
+    def take_back(self):
+        self.placed = False
