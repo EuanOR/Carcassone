@@ -5,14 +5,14 @@ class Tile:
     #Current version: V.01
 
 
-    def __init__(self, town, north, south, east, west):
-        self._town = town
+    def __init__(self, north, south, east, west):
         self._north = north
         self._south = south
         self._east = east
         self._west = west
-        self._xpos = 0
-        self._ypos = 0
+        self._x = 0
+        self._y = 0
+        self._order = 0
 
     #Rotates the positions clockwise
     def rotate_left(self):

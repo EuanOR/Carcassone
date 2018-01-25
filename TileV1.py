@@ -18,6 +18,7 @@ class Tile:
         self.right = 'right'
         self.bottom = 'bottom'
         self.left = 'left'
+        self.crest = False
         self._xpos=None
         self._ypos=None
 
@@ -95,17 +96,7 @@ class Tile:
     
            
                   
-        
-
-#Sub class to represent the intial tile to start the game
-class IntialTile(Tile):
-    def __init__(self):
-        #Inherits from 'Tile' super class
-        super(Tile, self).__init__()
-        self.landmark = [['C', 'C', 'C'], ['R', 'R', 'R'], [None, None, None]]
-
-    def getTile(self):
-        super(Tile, self).getTile()
+     
     
 def main():
     tile = Tile()
