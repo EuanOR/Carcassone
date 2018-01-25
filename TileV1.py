@@ -64,30 +64,30 @@ class Tile:
                     return self
             else:
                 if self._landmark[1][0]!=None or self._landmark[1][1]!=None or self._landmark[1][2] != None:
-                    userIn=input("Do you want to place your Meeple in the middle of this tile?") # Can edit this to display what is on the tile using string formatting i.e do you want to place on the road.
-                    if UserIn=="yes":
-                        if len(self._player._meeples)!=0:
-                            self._Meeple=self._player._meeple[0] #Assuming player has a meeple list
-                            for i in self._landmark[1]:
-                                if i != None: #Only one can be a landmark?
-                                    self.meeple_placement=i
-                                    return self
-                    else:
-                        print("Sorry no more Meeples available")
-                        return self
-            if self._landmark[2][0]!=None or self._landmark[2][1]!=None or self._landmark[2][2] != None:
-                userIn=input("Do you want to place your Meeple on top of this tile?") # Can edit this to display what is on the tile using string formatting i.e do you want to place on the road.
+                userIn=input("Do you want to place your Meeple in the middle of this tile?") # Can edit this to display what is on the tile using string formatting i.e do you want to place on the road.
                 if UserIn=="yes":
                     if len(self._player._meeples)!=0:
                         self._Meeple=self._player._meeple[0] #Assuming player has a meeple list
-                        for i in self._landmark[0]:
+                        for i in self._landmark[1]:
                             if i != None: #Only one can be a landmark?
                                 self.meeple_placement=i
                                 return self
                     else:
                         print("Sorry no more Meeples available")
                         return self
-            return grid
+            if self._landmark[2][0]!=None or self._landmark[2][1]!=None or self._landmark[2][2] != None:
+            userIn=input("Do you want to place your Meeple on top of this tile?") # Can edit this to display what is on the tile using string formatting i.e do you want to place on the road.
+            if UserIn=="yes":
+                if len(self._player._meeples)!=0:
+                    self._Meeple=self._player._meeple[0] #Assuming player has a meeple list
+                    for i in self._landmark[0]:
+                        if i != None: #Only one can be a landmark?
+                            self.meeple_placement=i
+                            return self
+                else:
+                    print("Sorry no more Meeples available")
+                    return self
+        return grid
     
     #Return the owner of the meeple which occupies the tile
     def getMeepleOwner(self):
@@ -96,9 +96,7 @@ class Tile:
     
            
                   
-        
-
-
+     
     
 def main():
     tile = Tile()
