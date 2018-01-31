@@ -4,13 +4,13 @@
 
 
 class Tile:
-    def __init__(self, id, top, right, left, bottom):
+    def __init__(self, id, top, left, right, bottom):
         #Corresponding ID in database of tile graphics
         self._id = id
         #Represents the meeple object placed on tile or None if no meeple on this tile
         self._meeple = None
-        #Represents where on tile the meeple object has been placed i.e. top
-        self._meeple_placement = None
+        #Represents where on tile the meeple object has been placed i.e. [landmark, side]
+        self._meeple_placement = [None, None]
         #Orientation attributes for tile rotation
         self._top = top #Landmark object
         self._right = right #Landmark object
