@@ -9,8 +9,8 @@ class Tile:
         self._id = id
         #Represents the meeple object placed on tile or None if no meeple on this tile
         self._meeple = None
-        #Represents where on tile the meeple object has been placed i.e. [landmark, side]
-        self._meeple_placement = [None, None]
+        #Represents where on tile the meeple object has been placed i.e. top
+        self._meeple_placement = None
         #Orientation attributes for tile rotation
         self._top = top #Landmark object
         self._right = right #Landmark object
