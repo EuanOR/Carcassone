@@ -53,6 +53,7 @@ class Grass(Landmark):
         score = 0
         Landmark.__init__(self, score)
 
+    
 #--- May or may not be added in at a later stage. ---#
 class Monastery(Landmark):
     def __init__(self):
