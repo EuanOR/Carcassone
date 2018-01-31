@@ -26,6 +26,7 @@ class DeckOfTiles():
     def buildDeck(self):
         for i in range(1):
             ct = CityTile()
+            print(ct)
             self._tileList += [ct]
             tscc = ThreeSidedCapCrest()
             self._tileList += [tscc]
