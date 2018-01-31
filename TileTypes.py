@@ -8,7 +8,7 @@ class IntialTile(Tile):
     def __init__(self):
         #Inherits from 'Tile' super class
         super(Tile, self).__init__()
-        self.landmark = [['C', 'C', 'C'], ['R', 'R', 'R'], [None, None, None]]
+        self.landmark = [['C', 'C', 'C'], ['R', 'R', 'R'], ["G", "G", "G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -33,7 +33,7 @@ class CityTile(Tile):
 class CityCapTile(Tile):s
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],[None, None, None],[None, None, None]]
+        self.landmark = [["C","C","C"],["G", "G", "G"],["G", "G", "G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -45,7 +45,7 @@ class CityCapTile(Tile):s
 class CapLeftBend(Tile):s
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],["R", "R", None],[None,"R",None]]
+        self.landmark = [["C","C","C"],["R", "R", "G"],["G","R","G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -57,7 +57,7 @@ class CapLeftBend(Tile):s
 class CapRightBend(Tile):s
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],[None, "R", "R"],[None,"R",None]]
+        self.landmark = [["C","C","C"],["G", "R", "R"],["G","R","G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -68,7 +68,7 @@ class CapRightBend(Tile):s
 class CapStraightRoad(Tile):s
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],['R', 'R', 'R'], [None, None, None]]
+        self.landmark = [["C","C","C"],['R', 'R', 'R'], ["G", "G", "G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -80,7 +80,7 @@ class CapStraightRoad(Tile):s
 class CapTJunction(Tile):s
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],["R","R","R"],[None,"R",None]]
+        self.landmark = [["C","C","C"],["R","R","R"],["G","R","G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -92,7 +92,7 @@ class CapTJunction(Tile):s
 class OppositeCaps(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C",None,"C"],["C",None,"C"],["C",None,"C"]]
+        self.landmark = [["C","G","C"],["C","G","C"],["C","G","C"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -104,7 +104,7 @@ class OppositeCaps(Tile):
 class AdjacentCaps(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],[None,None,"C"],[None,None,"C"]]
+        self.landmark = [["C","C","C"],["G","G","C"],["G","G","C"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -116,7 +116,7 @@ class AdjacentCaps(Tile):
 class DiagonalCap(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],["C","C",None],["C",None,None]]
+        self.landmark = [["C","C","C"],["C","C","G"],["C","G","G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -127,7 +127,7 @@ class DiagonalCap(Tile):
 class DiagonalCapCrest(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],["C","C",None],["C",None,None]]
+        self.landmark = [["C","C","C"],["C","C","G"],["C","G","G"]]
         self.crest = True
 
     def getTile(self):
@@ -140,7 +140,7 @@ class DiagonalCapCrest(Tile):
 class DiagonalRoad(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],["C","R","R"],["C","R",None]]
+        self.landmark = [["C","C","C"],["C","R","R"],["C","R","G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -151,7 +151,7 @@ class DiagonalRoad(Tile):
 class DiagonalRoadCrest(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],["C","C",None],["C",None,None]]
+        self.landmark = [["C","C","C"],["C","C","G"],["C","G","G"]]
         self.crest = True
 
     def getTile(self):
@@ -164,7 +164,7 @@ class DiagonalRoadCrest(Tile):
 class ThreeSidedCap(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],["C","C","C"],["C",None,"C"]]
+        self.landmark = [["C","C","C"],["C","C","C"],["C","G","C"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -175,14 +175,14 @@ class ThreeSidedCap(Tile):
 class ThreeSidedCapCrest(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [["C","C","C"],["C","C","C"],["C",None,"C"]]
+        self.landmark = [["C","C","C"],["C","C","C"],["C","G","C"]]
         self.crest = True
 
     def getTile(self):
         super(Tile, self).getTile()
 
 #16
-#Same as ThreeSidedCap but has a road space instead of a None space
+#Same as ThreeSidedCap but has a road space instead of a "G" space
 #There is 1 tile of this type
 class ThreeSidedCapRoad(Tile):
     def __init__(self):
@@ -211,7 +211,7 @@ class ThreeSidedCapRoadCrest(Tile):
 class Monastery(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [[None, None, None],[None,"C",None],[None,None,None]]
+        self.landmark = [["G", "G", "G"],["G","C","G"],["G","G","G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -222,7 +222,7 @@ class Monastery(Tile):
 class MonasteryRoad(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [[None, None, None],[None,"C",None],[None,"R",None]]
+        self.landmark = [["G", "G", "G"],["G","C","G"],["G","R","G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -234,7 +234,7 @@ class MonasteryRoad(Tile):
 class FourWayCrossroad(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [[None,"R",None],["R","C","R"],[None,"R",None]]
+        self.landmark = [["G","R","G"],["R","C","R"],["G","R","G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -245,7 +245,7 @@ class FourWayCrossroad(Tile):
 class TownTJunction(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [[None,None,None],["R","C","R"],[None,"R",None]]
+        self.landmark = [["G","G","G"],["R","C","R"],["G","R","G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -257,7 +257,7 @@ class TownTJunction(Tile):
 class StraightRoad(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [[None, "R", None],[None, "R", None],[None, "R", None]]
+        self.landmark = [["G", "R", "G"],["doesn't have the northern roadG", "R", "G"],["G", "R", "G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
@@ -269,11 +269,17 @@ class StraightRoad(Tile):
 class LRoad(Tile):
     def __init__(self):
         super(Tile, self).__init__()
-        self.landmark = [[None,"R",None],["R","R",None],[None,None,None]]
+        self.landmark = [["G","R","G"],["R","R","G"],["G","G","G"]]
 
     def getTile(self):
         super(Tile, self).getTile()
 
+#24
+#Subclass t#21
+#Same as 4WayCrossroad but doesn't have the northern road
+#There are 4 tile of this typeo represent a specific tile type, a city tile connecting 2 opposite sides
+#It has a city connecting 2 sides perpendicular to each other, with the rest being grass
+#There is 1 tile of this type
 class CityCone(Tile):
     def __init__(self):
         super(Tile, self).__init__()
@@ -282,6 +288,9 @@ class CityCone(Tile):
     def getTile(self):
         super(Tile, self).getTile()
 
+#21
+#Same as CityCone but crested
+#There are 2 tiles of this type
 class CityConeCrest(Tile):
     def __init__(self):
         super(Tile, self).__init__()
@@ -290,6 +299,7 @@ class CityConeCrest(Tile):
 
     def getTile(self):
         super(Tile, self).getTile()
+
 class TemplateTile(Tile):
     def __init__(self):
         super(Tile, self).__init__()
