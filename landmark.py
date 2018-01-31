@@ -20,12 +20,12 @@ class Landmark:
 
 
 class Road(Landmark):
-    def __init__(self, roadId, isRoadEnd=False):
+    def __init__(self, isRoadEnd=False):
         """A road piece is worth a score of 1
         isRoadEnd is a boolean to represent that this road has an end
         e.g in tile with a village, the road landmarks end in the village"""
         score = 1
-        Landmark.__init__(self, roadId, score)
+        Landmark.__init__(self, score)
         self._isRoadEnd = isRoadEnd
 
     def isRoadEnd(self):
@@ -34,7 +34,7 @@ class Road(Landmark):
 
 
 class City(Landmark):
-    def __init__(self, cityId, hasCrest=False):
+    def __init__(self, hasCrest=False):
         """Cities have scores of 2, or 4 if they have a crest"""
         score = 2
         if hasCrest:
