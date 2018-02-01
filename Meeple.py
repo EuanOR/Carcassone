@@ -32,6 +32,7 @@ class Meeple(object):
 
     def take_back(self):
         self._placed = False
+        self._player.takeBack(self)
 
 if __name__ == "__main__":
     m = Meeple("Blue","34,21","John")
