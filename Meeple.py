@@ -1,7 +1,7 @@
 class Meeple(object):
 
-    def __init__(self,colour,tile,player):
-        self._colour = colour
+    def __init__(self,player):
+        self._colour = ""
         self._player =  player
         self._placed = False
 
@@ -32,10 +32,3 @@ class Meeple(object):
 
     def take_back(self):
         self._placed = False
-
-if __name__ == "__main__":
-    m = Meeple("Blue","34,21","John")
-    print(m)
-    print("\n")
-    m.place()
-    print(m)
