@@ -74,7 +74,7 @@ class CapRightBend(Tile):
         self._city1 = City()
         self._road1 = Road()
         self._grass1 = Grass()
-        self._d = "23"
+        self._id = "23"
         Tile.__init__(self, self._id, self._city1, self._grass1, self._road1, self._road1)
 
         
@@ -223,7 +223,7 @@ class ThreeSidedCapCrest(Tile):
     def __init__(self):
         self._city1 = City(True)
         self._grass1 = Grass()
-        self._ID = "08"
+        self._id = "08"
         Tile.__init__(self, self._ID, self._city1, self._city1, self._city1, self._grass1)
 
         
