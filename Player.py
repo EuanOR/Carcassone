@@ -11,10 +11,13 @@ class Player(object):
         self._activeMeeples = []
         self._inactiveMeeples = []
     
-    #Payer sets the colour their meeples will be 
+    #Player sets the colour their meeples will be 
     def setColour(self,colour):
         self._colour = colour
-
+    #Returns the players colour
+    def getColour(self):
+        return self._colour
+    
     #returns the players name
     def getName(self):
         return self._name
@@ -32,7 +35,7 @@ class Player(object):
     #of that colour and places them in the inactive meeple list
     def createMeeples(self):
         for _ in range(0,8):
-            m = Meeple(self._colour,self)
+            m = Meeple(self)
             self._inactiveMeeples.append(m)
 
     #returns the amount of meeples available
