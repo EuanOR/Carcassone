@@ -1,7 +1,7 @@
 class Meeple(object):
 
     def __init__(self,player):
-        self._colour = ""
+        self._colour = self._player.getColour()
         self._player =  player
         self._placed = False
 
@@ -9,10 +9,6 @@ class Meeple(object):
         outstr = ""
         outstr += ("Meeple Colour :%s\n Meeple Player :%s\nMeeple Placed :%b",(self._colour,self._player._name,self._placed))
         return outstr
-
-    #Set the colour of the meeple
-    def setColour(self,colour):
-        self._colour = self._player._colour
 
     #Returns the colour of the meeple
     def getColour(self):
