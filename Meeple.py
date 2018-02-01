@@ -3,7 +3,6 @@ class Meeple(object):
 
     def __init__(self,colour,tile,player):
         self._colour = colour
-        self._tile = tile
         self._player =  player
         self._placed = False
 
@@ -14,19 +13,11 @@ class Meeple(object):
 
     #Set the colour of the meeple
     def setColour(self,colour):
-        self._colour = colour
+        self._colour = self._player._colour
 
     #Returns the colour of the meeple
     def getColour(self):
         return self._colour
-
-    #Puts the meeple on a tile
-    def setTile(self,tile):
-        self._tile = tile
-
-    #Returns the tile that the meeple is on
-    def getTile(self):
-        return self._tile
 
     #Associates the meeple with a player
     def setPlayer(self,player):
