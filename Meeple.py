@@ -1,32 +1,18 @@
 class Meeple(object):
-    colours = ["red","blue","green","yellow"]
 
-    def __init__(self,colour,tile,player):
-        self._colour = colour
-        self._tile = tile
+    def __init__(self,player):
         self._player =  player
         self._placed = False
+        self._colour = self._player.getColour()
 
     def __str__(self):
         outstr = ""
-        outstr += ("Colour:%s\nTile:%s\nPlayer:%s\nPlaced:%r"%(self._colour,self._tile,self._player,self._placed))
+        outstr += ("Meeple Colour :%s\n Meeple Player :%s\nMeeple Placed :%b",(self._colour,self._player._name,self._placed))
         return outstr
-
-    #Set the colour of the meeple
-    def setColour(self,colour):
-        self._colour = colour
 
     #Returns the colour of the meeple
     def getColour(self):
         return self._colour
-
-    #Puts the meeple on a tile
-    def setTile(self,tile):
-        self._tile = tile
-
-    #Returns the tile that the meeple is on
-    def getTile(self):
-        return self._tile
 
     #Associates the meeple with a player
     def setPlayer(self,player):
@@ -42,10 +28,3 @@ class Meeple(object):
 
     def take_back(self):
         self._placed = False
-
-if __name__ == "__main__":
-    m = Meeple("Blue","34,21","John")
-    print(m)
-    print("\n")
-    m.place()
-    print(m)
