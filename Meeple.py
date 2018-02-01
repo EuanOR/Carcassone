@@ -1,5 +1,4 @@
 class Meeple(object):
-    colours = ["red","blue","green","yellow"]
 
     def __init__(self,colour,tile,player):
         self._colour = colour
