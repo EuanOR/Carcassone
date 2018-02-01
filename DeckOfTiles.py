@@ -1,13 +1,13 @@
 # List structure to hold all tiles to be played in game
 # Needs to generate tiles randomly!!!
 from TileTypes import *
+from landmark import *
 
 class DeckOfTiles():
-    def __init__(self, size):
+    def __init__(self):
         self._tileList = []
         self._firstTile = None
-        self._size = size
-        self.buildTiles()
+        self.buildDeck()
         self.getTileList()
     # Adds starting tile and other remaining tiles to the list
     # Needs to start by adding an initial tile which has not been done here
@@ -24,18 +24,18 @@ class DeckOfTiles():
             self._tileList += [tile]
 
     def buildDeck(self):
-        for i in range(1):
-            ct = CityTile()
-            print(ct)
-            self._tileList += [ct]
-            tscc = ThreeSidedCapCrest()
-            self._tileList += [tscc]
-            tscr = ThreeSidedCapRoad()
-            self._tileList += [tscr]
-            fwc = FourWayCrossroad()
-            self._tile += [fwc]
-            cc = CityCone()
-            self._tileList += [cc]
+        
+        ct = CityTile()
+        print(ct._top)
+        self._tileList += [ct]
+        tscc = ThreeSidedCapCrest()
+        self._tileList += [tscc]
+        tscr = ThreeSidedCapRoad()
+        self._tileList += [tscr]
+        fwc = FourWayCrossroad()
+        self._tileList += [fwc]
+        cc = CityCone()
+        self._tileList += [cc]
         for i in range(2):
             ccc = CityConeCrest()
             self._tileList += [ccc]
@@ -44,7 +44,7 @@ class DeckOfTiles():
             ac = AdjacentCaps()
             self._tileList += [ac]
             dcc = DiagonalCapCrest()
-            self._tileList += [dc]
+            self._tileList += [dcc]
             drc = DiagonalRoadCrest()
             self._tileList += [drc]
             tscrc = ThreeSidedCapRoadCrest()
@@ -55,7 +55,7 @@ class DeckOfTiles():
             crb = CapRightBend()
             self._tileList += [crb]
             csr = CapStraightRoad()
-            self._titleList += [csr]
+            self._tileList += [csr]
             ctj = CapTJunction()
             self._tileList += [ctj]
             oc = OppositeCaps()
@@ -84,3 +84,4 @@ class DeckOfTiles():
     # Return tile list 
     def getTileList(self):
         return self._tileList
+

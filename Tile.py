@@ -1,47 +1,38 @@
+#Super class to represent 'Tile' object
+#Author: Eimear , Stephen
+#Version: 3
+
+
 class Tile:
-    #class to represent a tile from the game Carcassonne
-    #V.01 designed for tiles with only roads and towns
-    #V.01 can correctly generate 10 types of tiles
-    #Current version: V.01
+    def __init__(self, id, top, left, right, bottom):
+        #Corresponding ID in database of tile graphics
+        self._id = id
+        #Represents the meeple object placed on tile or None if no meeple on this tile
+        self._meeple = None
+        #Represents where on tile the meeple object has been placed i.e. side
+        self._meeple_placement = None
+        #Orientation attributes for tile rotation
+        self._top = top #Landmark object
+        self._right = right #Landmark object
+        self._bottom = bottom #Landmark object
+        self._left = left #Landmark object
 
+    def rotateTile(self):
+        #Rotates tile clockwise as user desires it
+        l = self._left
+        self._left = self._top
+        self._top = self._right
+        self._right = self._bottom
+        self._bottom = l 
+        print("Tile rotation: T:%s, R:%s, B:%s, L:%s" % (self._top, self._right, self._bottom, self._left))
 
-    def __init__(self, north, south, east, west):
-        self._north = north
-        self._south = south
-        self._east = east
-        self._west = west
-        self._x = 0
-        self._y = 0
-        self._order = 0
-
-    #Rotates the positions clockwise
-    def rotate_left(self):
-        n = self._north
-        self._north = self._west
-        self._west = self._south
-        self._south = self._east
-        self._east = n
-
-    #Rotates the positions anti-clockwise
-    def rotate_right(self):
-        n = self._north
-        self._north = self._east
-        self._east = self._south
-        self._south = self._west
-        self._west = n
-
-    #When the pieces are added to the board, records the current x and
-    #y positions        
-    def add_to_board(self, xpos, ypos):
-        self._xpos = xpos
-        self._ypos = ypos
-
-    #String representation of the tile's sides
-    def __str__(self):
-        return("North: %s West: %s %s South: East: %s" % (self._north,
-                                                         self._south,
-                                                         self._west,
-                                                         self._east))
-
+    def getTile(self):
+        return self
     
-    
+def main():
+    tile = Tile(1, "City", "City", "City", "Grass")
+    tile.rotateTile()
+    tile.rotateTile()
+
+if __name__ == "__main__":
+    main()
