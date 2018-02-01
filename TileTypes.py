@@ -1,4 +1,4 @@
-from Tile import Tile
+from Tile import *
 from landmark import *
 
 #1
@@ -223,8 +223,8 @@ class ThreeSidedCapCrest(Tile):
     def __init__(self):
         self._city1 = City(True)
         self._grass1 = Grass()
-        self._ID = "08"
-        Tile.__init__(self, self._ID, self._city1, self._city1, self._city1, self._grass1)
+        self._id = "08"
+        Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._grass1)
 
         
     def getTile(self):
@@ -262,12 +262,12 @@ class ThreeSidedCapRoadCrest(Tile):
 #Subclass to represent the Monastery tile
 #It has a monastery tile in the center of the piece, and nothing else
 #There are 4 tiles of this type
-class Monastery(Tile):
+class MonasteryTile(Tile):
     def __init__(self):
         self._grass1 = Grass()
         self._id = "01"
         Tile.__init__(self, self._id, self._grass1, self._grass1, self._grass1, self._grass1)
-
+        self._monastery = Monastery()
         
     def getTile(self):
         Tile.getTile(self)
@@ -279,9 +279,10 @@ class MonasteryRoad(Tile):
     def __init__(self):
         self._road1 = Road(True)
         self._grass1 = Grass()
-        id = "02"
+        self._monastery = Monastery()
+        self._id = "02"
         Tile.__init__(self, self._id, self._grass1, self._grass1, self._grass1, self._road1)
-
+        
         
     def getTile(self):
         Tile.getTile(self)
@@ -344,7 +345,7 @@ class LRoad(Tile):
         self._road1 = Road(True)
         self._grass1 = Grass()
         self._id = "09"
-        Tile.__init__(self,self._ id, self._grass1, self._road1, self._grass1, self._road1)
+        Tile.__init__(self, self._id, self._grass1, self._road1, self._grass1, self._road1)
 
         
     def getTile(self):
@@ -393,3 +394,13 @@ class TemplateTile(Tile):
     def getTile(self):
         Tile.getTile(self)
 
+def main():
+    ac = AdjacentCaps()
+    cc = CityCone()
+    ttj = TownTJunction()
+    mr = MonasteryRoad()
+    print(ac._top._score)
+    
+
+if __name__ == "__main__":
+    main()
