@@ -388,3 +388,4 @@ class TemplateTile(Tile):
         
     def getTile(self):
         Tile.getTile(self)
+
