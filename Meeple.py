@@ -7,7 +7,7 @@ class Meeple(object):
 
     def __str__(self):
         outstr = ""
-        outstr += ("Colour:%s\nTile:%s\nPlayer:%s\nPlaced:%r"%(self._colour,self._tile,self._player,self._placed))
+        outstr += ("Meeple Colour :%s\n Meeple Player :%s\nMeeple Placed :%b",(self._colour,self._player._name,self._placed))
         return outstr
 
     #Set the colour of the meeple
