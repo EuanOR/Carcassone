@@ -1,9 +1,9 @@
 class Meeple(object):
 
     def __init__(self,player):
-        self._colour = self._player.getColour()
         self._player =  player
         self._placed = False
+        self._colour = self._player.getColour()
 
     def __str__(self):
         outstr = ""
