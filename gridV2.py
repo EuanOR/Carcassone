@@ -23,59 +23,117 @@ class Grid:
 
         # A list where it holds all the open locations.
         self._openLocation= []
+
+        # A list where it holds all the placed tiles. 
+        self._placedTiles = []
         self.createGrid()
+
+        
 
     def __str__(self):
         return str(self._grid)
 
     # Creates grid and places initial tile in center of grid
     def createGrid(self):
-        self.insertTile(self._center, self._center, self._initialTile)
+        self._grid += [[[self._center,self._center], self._initialTile]]
+        self._placedTiles += [[self._center,self._center]]
+        self.checkAvailability()
         return self._grid
 
     # Places tile at grid location x, y
     def insertTile(self, x, y, tile):
 
-        self.checkAvailability()
-        self._grid += [[[x,y], tile]]
-        self.checkAvailability()
-
-        # After placing the tile remove it from open location array
         if [x,y] in self._openLocation:
-            self._openLocation.remove([x,y])
+            if (self.isValidLocation([x,y], tile)):
+                self._grid += [[[x,y], tile]]
+                self._placedTiles += [[x,y]]
+                self.checkAvailability()
 
-    # Returns a list of open location valid locations on the grid
+                # After placing the tile remove it from open location array
+                if [x,y] in self._openLocation:
+                    self._openLocation.remove([x,y])
+                return True
+        return False
+
+        # Returns a list of open location valid locations on the grid
     def checkAvailability(self):
 
         tempResultArray = []
-        for placedTile in self._grid:
+        for placedTile in self._placedTiles:
 
             # placeTileX contains the x value, these variable is used so the code looks neater
-            placedTileX = placedTile[0][0]
-            placedTileY = placedTile[0][1]
+            placedTileX = placedTile[0]
+            placedTileY = placedTile[1]
 
             # Calculating the top, right, bottom, left tile co-ordinates
-            top = [placedTileX, placedTileY - 1]
+            top = [placedTileX, placedTileY + 1]
             right = [placedTileX + 1, placedTileY]
-            bottom = [placedTileX, placedTileY + 1]
+            bottom = [placedTileX, placedTileY - 1]
             left = [placedTileX - 1, placedTileY]
 
             # Checking if it is free tile, if it is free tile then add it to resultArray.
-            if top != placedTile and top not in self._openLocation and top not in tempResultArray and top != [0,0]:
+            if top != placedTile and top not in self._placedTiles and top not in tempResultArray:
                 tempResultArray += [top]
-            if right != placedTile and right not in self._openLocation and right not in tempResultArray and right != [0,0]:
+            if right != placedTile and right not in self._placedTiles and right not in tempResultArray:
                 tempResultArray += [right]
-            if bottom != placedTile and bottom not in self._openLocation and bottom not in tempResultArray and bottom != [0,0]:
+            if bottom != placedTile and bottom not in self._placedTiles and bottom not in tempResultArray:
                 tempResultArray += [bottom]
-            if left != placedTile and left not in self._openLocation and left not in tempResultArray and left != [0,0]:
+            if left != placedTile and left not in self._placedTiles and left not in tempResultArray:
                 tempResultArray += [left]
 
         self._openLocation = tempResultArray
         return(self._openLocation)
 
+
+    # Returns a Boolean if the location given is valid.
+    # If valid, meaning the surrounding tiles matches landmark with the tile. EG road matches road, city matches city.
+    def isValidLocation(self, XYList, newTile):
+
+        x = XYList[0]
+        y = XYList[1]
+
+        # Calculating the x, y coordiantes of the surrounding new tile.
+        topTile = [x, y + 1]
+        rightTile = [x + 1, y]
+        bottomTile = [x, y - 1]
+        leftTile = [x - 1, y]
+
+        for placedTile in self._grid:
+            placedTileObject = placedTile[1]
+
+            if topTile == placedTile[0]:
+                if type(newTile._top) != type(placedTileObject._bottom):
+                    return False
+
+            if rightTile == placedTile[0]:
+                if type(newTile._right) != type(placedTileObject._left):
+                    return False
+
+            if bottomTile == placedTile[0]:
+                if type(newTile._bottom) != type(placedTileObject._top):
+                    return False
+
+            if leftTile == placedTile[0]:
+                if type(newTile._left) != type(placedTileObject._right):
+                    return False
+        return True
+            
+
 def main():
     initialTile = IntialTile()
+    fourWayRoad = FourWayCrossroad()
+
     grid = Grid(initialTile)
 
-    print(grid._openLocation)
+    print(grid.insertTile(1,0,fourWayRoad)) #Adding four way road to the right of initial tile, should return True -> valid location and in openLocation
+
+    print(grid.insertTile(0,1, fourWayRoad)) # Adding four way road to the top of initial tile, should return False -> incorrect valid location but in openlocation
+
+    print(grid.insertTile(-1, 0, fourWayRoad)) # Adding four way road to the left of initial tile, should return True -> valid location but in openLocation
+
+    print(grid.insertTile(0, -1, fourWayRoad)) # Adding four way road to the bottom of initial tile, should return False -> invalid location but in openLocation
+
+    print(grid.insertTile(10, 10, fourWayRoad)) # Adding four way road to (10,10), should return False -> Not inside openlocation
+
 main()
+
