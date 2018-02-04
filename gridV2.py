@@ -125,13 +125,13 @@ def main():
 
     grid = Grid(initialTile)
 
-    print(grid.insertTile(1,0,fourWayRoad)) #Adding four way road to the right of initial tile, should return True -> valid location and in openLocation
+    print(grid.insertTile(1,0,fourWayRoad)) #Adding four way road to the right of initial tile, should return True -> valid location and inside openLocation
 
-    print(grid.insertTile(0,1, fourWayRoad)) # Adding four way road to the top of initial tile, should return False -> incorrect valid location but in openlocation
+    print(grid.insertTile(0,1, fourWayRoad)) # Adding four way road to the top of initial tile, should return False -> incorrect valid location but inside openlocation
 
-    print(grid.insertTile(-1, 0, fourWayRoad)) # Adding four way road to the left of initial tile, should return True -> valid location but in openLocation
+    print(grid.insertTile(-1, 0, fourWayRoad)) # Adding four way road to the left of initial tile, should return True -> valid location but inside openLocation
 
-    print(grid.insertTile(0, -1, fourWayRoad)) # Adding four way road to the bottom of initial tile, should return False -> invalid location but in openLocation
+    print(grid.insertTile(0, -1, fourWayRoad)) # Adding four way road to the bottom of initial tile, should return False -> invalid location but inside openLocation
 
     print(grid.insertTile(10, 10, fourWayRoad)) # Adding four way road to (10,10), should return False -> Not inside openlocation
 
