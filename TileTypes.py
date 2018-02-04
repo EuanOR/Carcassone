@@ -74,7 +74,7 @@ class CapRightBend(Tile):
         self._city1 = City()
         self._road1 = Road()
         self._grass1 = Grass()
-        self._d = "23"
+        self._id = "23"
         Tile.__init__(self, self._id, self._city1, self._grass1, self._road1, self._road1)
 
         
@@ -297,7 +297,7 @@ class FourWayCrossroad(Tile):
         self._road2 = Road(True)
         self._road3 = Road(True)
         self._road4 = Road(True)
-        id = "15"
+        self._id = "15"
         Tile.__init__(self, self._id, self._road1, self._road2, self._road3, self._road4)
 
         
@@ -313,7 +313,7 @@ class TownTJunction(Tile):
         self._road2 = Road(True)
         self._road3 = Road(True)
         self._road4 = Road(True)
-        id = "16"
+        self._id = "16"
         Tile.__init__(self, id, self._grass1, self._road2, self._road3, self._road4)
 
         
