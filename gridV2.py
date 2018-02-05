@@ -47,6 +47,7 @@ class Grid:
             if (self.isValidLocation([x,y], tile)):
                 self._grid += [[[x,y], tile]]
                 self._placedTiles += [[x,y]]
+                tile.setPosition(x,y)
                 self.checkAvailability()
 
                 # After placing the tile remove it from open location array
