@@ -40,7 +40,8 @@ class Player(object):
 
     #returns the amount of meeples available
     def meeplesAvailable(self):
-        return len(self._inactiveMeeples)
+        meeples=len(self._inactiveMeeples)
+        return meeples
 
     #returns a meeple for placement if one is available
     def placeMeeple(self):
@@ -56,15 +57,4 @@ class Player(object):
     def takeBack(self,meeple):
         m = self._activeMeeples.pop(meeple)
         self._inactiveMeeples.append(m)    
-        
-def test():
-    p = Player("John")
-    p.setColour("Red")
-    print(p.getScore())
-    p.createMeeples()
-    print(p.meeplesAvailable())
-
-test()
-    
-    
-    
+       
