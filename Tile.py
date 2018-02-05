@@ -16,6 +16,13 @@ class Tile:
         self._right = right #Landmark object
         self._bottom = bottom #Landmark object
         self._left = left #Landmark object
+        self._xPos = None #x-position on grid
+        self._yPos = None #y-position on grid
+       
+    def setPosition(self, x, y):
+        #Sets the x and y position of the tile on the grid
+        self._xPos = x
+        self._yPos = y
 
     def rotateTile(self):
         #Rotates tile clockwise as user desires it
