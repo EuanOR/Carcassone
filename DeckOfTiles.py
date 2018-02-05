@@ -2,28 +2,57 @@
 # Needs to generate tiles randomly!!!
 from TileTypes import *
 from landmark import *
+from random import randint
+
+class Stack:
+
+    def __init__(self):
+        self._alist = []
+
+    def push(self, element):
+        self._alist.append(element)
+
+    def pop(self):
+        if self.is_empty():
+            return None
+        return self._alist.pop()
+
+    def top(self):
+        if self.is_empty():
+            return None
+        return self._alist[-1]
+
+    def length(self):
+        return len(self._alist)
+
+    def is_empty(self):
+        return self.length() == 0
 
 class DeckOfTiles():
     def __init__(self):
         self._tileList = []
-        self._firstTile = None
+        self._deck = Stack()
+        self._nextTile = None
+        self.generateTiles()
         self.buildDeck()
-        self.getTileList()
     # Adds starting tile and other remaining tiles to the list
     # Needs to start by adding an initial tile which has not been done here
     # ATTENTION: Brendan/Eimear/Cathy, the subclasses of the tile 
     # need to be generated here and ID's are needed to allow randomisation
     # Sorry, didn't know what I was doing and feel free to change this to make it work better
 
-    def buildTiles(self):
-        tile = Tile()
-        self._tileList += [tile]
-        self._firstTile = self._tileList[0]
-        for i in range(1, self._size):
-            tile = Tile()
-            self._tileList += [tile]
-
     def buildDeck(self):
+        for i in range(len(self._tileList)):
+            rand = len(self._tileList) - 1
+            while rand > -1:
+                point = randint(0, rand)
+                self._deck.push(self._tileList[point])
+                del self._tileList[point]
+                rand -= 1
+        self._nextTile = self._deck.top()
+            
+
+    def generateTiles(self):
         
         ct = CityTile()
         print(ct._top)
@@ -67,7 +96,7 @@ class DeckOfTiles():
             tsc = ThreeSidedCap()
             self._tileList += [tsc]
         for i in range(4):
-            m = Monastery()
+            m = MonasteryTile()
             self._tileList += [m]
             ttj = TownTJunction()
             self._tileList += [ttj]
@@ -84,4 +113,7 @@ class DeckOfTiles():
     # Return tile list 
     def getTileList(self):
         return self._tileList
+
+    def drawTile(self):
+        return self._deck.pop()
 
