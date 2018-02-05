@@ -7,8 +7,8 @@ from landmark import *
 #There 1 tile of this type
 class InitialTile(Tile):
     def __init__(self):
-        self._city1 = City()
-        self._road1 = Road()
+        self._city1 = City([self])
+        self._road1 = Road([self])
         self._grass1 = Grass()
         self._id = "00"
         Tile.__init__(self, self._id, self._city1, self._road1, self._road1, self._grass1)
@@ -24,7 +24,7 @@ class InitialTile(Tile):
 #There 1 tile of this type (which is crested)
 class CityTile(Tile):
     def __init__(self):
-        self._city1 = City()
+        self._city1 = City([self], 1)
         self._id = "03"
         Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._city1)
 
@@ -38,7 +38,7 @@ class CityTile(Tile):
 #There are 5 tiles of this type
 class CityCapTile(Tile):
     def __init__(self):
-        self._city1 = City()
+        self._city1 = City([self])
         self._grass1 = Grass()
         self._id = "21"
         Tile.__init__(self, self._id, self._city1, self._grass1, self._grass1, self._grass1)
@@ -54,8 +54,8 @@ class CityCapTile(Tile):
 #There are 3 tiles of this type
 class CapLeftBend(Tile):
     def __init__(self):
-        self._city1 = City()
-        self._road1 = Road()
+        self._city1 = City([self])
+        self._road1 = Road([self])
         self._grass1 = Grass()
         self._id = "19"
         Tile.__init__(self, self._id, self._city1, self._road1, self._grass1, self._road1)
@@ -71,8 +71,8 @@ class CapLeftBend(Tile):
 #There are 3 tiles of this type
 class CapRightBend(Tile):
     def __init__(self):
-        self._city1 = City()
-        self._road1 = Road()
+        self._city1 = City([self])
+        self._road1 = Road([self])
         self._grass1 = Grass()
         self._id = "23"
         Tile.__init__(self, self._id, self._city1, self._grass1, self._road1, self._road1)
@@ -87,8 +87,8 @@ class CapRightBend(Tile):
 #There are 3 tiles of this type
 class CapStraightRoad(Tile):
     def __init__(self):
-        self._city1 = City()
-        self._road1 = Road()
+        self._city1 = City([self])
+        self._road1 = Road([self])
         self._grass1 = Grass()
         self._id = "00"
         Tile.__init__(self, self._id, self._city1, self._road1, self._road1, self._grass1)
@@ -103,8 +103,8 @@ class CapStraightRoad(Tile):
 #There are 3 tiles of this type
 class CapTJunction(Tile):
     def __init__(self):
-        self._city1 = City()
-        self._road1 = Road()
+        self._city1 = City([self])
+        self._road1 = Road([self])
         self._id = "20"
         Tile.__init__(self, self._id, self._city1, self._road1, self._road1, self._road1)
 
@@ -118,8 +118,8 @@ class CapTJunction(Tile):
 #There are 3 tiles of this type
 class OppositeCaps(Tile):
     def __init__(self):
-        self._city1 = City()
-        self._city2 = City()
+        self._city1 = City([self])
+        self._city2 = City([self])
         self._grass1 = Grass()
         self._id = "22"
         Tile.__init__(self, self._id, self._grass1, self._city1, self._city2, self._grass1)
@@ -134,8 +134,8 @@ class OppositeCaps(Tile):
 #There are 2 tiles of this type
 class AdjacentCaps(Tile):
     def __init__(self):
-        self._city1 = City()
-        self._city2 = City()
+        self._city1 = City([self])
+        self._city2 = City([self])
         self._grass1 = Grass()
         self._id = "03"
         Tile.__init__(self, id, self._city1, self._grass1, self._city2, self._grass1)
@@ -150,7 +150,7 @@ class AdjacentCaps(Tile):
 #There are 3 tiles of this type
 class DiagonalCap(Tile):
     def __init__(self):
-        self._city1 = City()
+        self._city1 = City([self])
         self._grass1 = Grass()
         self._id = "13"
         Tile.__init__(self, self._id, self._city1, self._city1, self._grass1, self._grass1)
@@ -164,7 +164,7 @@ class DiagonalCap(Tile):
 #There are 2 tiles of this type
 class DiagonalCapCrest(Tile):
     def __init__(self):
-        self._city1 = City(True)
+        self._city1 = City([self], 1)
         self._grass1 = Grass()
         self._id = "14"
         Tile.__init__(self, self._id, self._city1, self._city1, self._grass1, self._grass1)
@@ -179,8 +179,8 @@ class DiagonalCapCrest(Tile):
 #There are 3 tiles of this type
 class DiagonalRoad(Tile):
     def __init__(self):
-        self._city1 = City()
-        self._road1 = Road()
+        self._city1 = City([self])
+        self._road1 = Road([self])
         self._id = "12"
         Tile.__init__(self, self._id, self._city1, self._city1, self._road1, self._road1)
 
@@ -193,8 +193,8 @@ class DiagonalRoad(Tile):
 #There are 2 tiles of this type
 class DiagonalRoadCrest(Tile):
     def __init__(self):
-        self._city1 = City(True)
-        self._road1 = Road()
+        self._city1 = City([self], 1)
+        self._road1 = Road([self])
         self._id = "17"
         Tile.__init__(self, self._id, self._city1, self._city1, self._road1, self._road1)
     
@@ -207,7 +207,7 @@ class DiagonalRoadCrest(Tile):
 #There are 3 tiles of this type
 class ThreeSidedCap(Tile):
     def __init__(self):
-        self._city1 = City()
+        self._city1 = City([self])
         self._grass1 = Grass()
         self._id = "07"
         Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._grass1)
@@ -221,7 +221,7 @@ class ThreeSidedCap(Tile):
 #There is 1 tile of this type
 class ThreeSidedCapCrest(Tile):
     def __init__(self):
-        self._city1 = City(True)
+        self._city1 = City([self], 1)
         self._grass1 = Grass()
         self._id = "08"
         Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._grass1)
@@ -235,8 +235,8 @@ class ThreeSidedCapCrest(Tile):
 #There is 1 tile of this type
 class ThreeSidedCapRoad(Tile):
     def __init__(self):
-        self._city1 = City()
-        self._road1 = Road(True)
+        self._city1 = City([self])
+        self._road1 = Road([self], 1)
         self._id = "05"
         Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._road1)
 
@@ -249,14 +249,17 @@ class ThreeSidedCapRoad(Tile):
 #There are 2 tile of this type
 class ThreeSidedCapRoadCrest(Tile):
     def __init__(self):
-        self._city1 = City(True)
-        self._road1 = Road(True)
+        self._city1 = City([self], 1)
+        self._road1 = Road([self], 1)
         self._id = "04"
-        self._Tile.__init__(self, id, city1, city1, city1, city1)
+        Tile.__init__(self, id, self._city1, self._city1, self._city1, self._city1)
+                           
 
         
     def getTile(self):
+                           
         Tile.getTile(self)
+
 
 #18
 #Subclass to represent the Monastery tile
@@ -265,9 +268,10 @@ class ThreeSidedCapRoadCrest(Tile):
 class MonasteryTile(Tile):
     def __init__(self):
         self._grass1 = Grass()
+        self._monastery = Monastery()
         self._id = "01"
         Tile.__init__(self, self._id, self._grass1, self._grass1, self._grass1, self._grass1)
-        self._monastery = Monastery()
+        
         
     def getTile(self):
         Tile.getTile(self)
@@ -277,7 +281,7 @@ class MonasteryTile(Tile):
 #There are 2 tile of this type
 class MonasteryRoad(Tile):
     def __init__(self):
-        self._road1 = Road(True)
+        self._road1 = Road([self], 1)
         self._grass1 = Grass()
         self._monastery = Monastery()
         self._id = "02"
@@ -293,10 +297,10 @@ class MonasteryRoad(Tile):
 #There is 1 tiles of this type
 class FourWayCrossroad(Tile):
     def __init__(self):
-        self._road1 = Road(True)
-        self._road2 = Road(True)
-        self._road3 = Road(True)
-        self._road4 = Road(True)
+        self._road1 = Road([self], 1)
+        self._road2 = Road([self], 1)
+        self._road3 = Road([self], 1)
+        self._road4 = Road([self], 1)
         self._id = "15"
         Tile.__init__(self, self._id, self._road1, self._road2, self._road3, self._road4)
 
@@ -310,11 +314,11 @@ class FourWayCrossroad(Tile):
 class TownTJunction(Tile):
     def __init__(self):
         self._grass1 = Grass()
-        self._road2 = Road(True)
-        self._road3 = Road(True)
-        self._road4 = Road(True)
+        self._road2 = Road([self], 1)
+        self._road3 = Road([self], 1)
+        self._road4 = Road([self], 1)
         self._id = "16"
-        Tile.__init__(self, id, self._grass1, self._road2, self._road3, self._road4)
+        Tile.__init__(self, self._id, self._grass1, self._road2, self._road3, self._road4)
 
         
     def getTile(self):
@@ -326,11 +330,11 @@ class TownTJunction(Tile):
 #There are 8 tiles of this type
 class StraightRoad(Tile):
     def __init__(self):
-        self._road1 = Road(True)
+        self._road1 = Road([self], 1)
         self._grass1 = Grass()
         self._grass2 = Grass()
         self._id = "18"
-        self._Tile.__init__(self, self._id, self._road1, self._grass1, self._grass2, self._road1)
+        Tile.__init__(self, self._id, self._road1, self._grass1, self._grass2, self._road1)
 
         
     def getTile(self):
@@ -342,7 +346,7 @@ class StraightRoad(Tile):
 #There are 9 tiles of this type
 class LRoad(Tile):
     def __init__(self):
-        self._road1 = Road(True)
+        self._road1 = Road([self], 1)
         self._grass1 = Grass()
         self._id = "09"
         Tile.__init__(self, self._id, self._grass1, self._road1, self._grass1, self._road1)
@@ -357,7 +361,7 @@ class LRoad(Tile):
 #There is 1 tile of this type
 class CityCone(Tile):
     def __init__(self):
-        self._city1 = City()
+        self._city1 = City([self])
         self._grass1 = Grass()
         self._grass2 = Grass()
         self._id = "11"
@@ -372,7 +376,7 @@ class CityCone(Tile):
 #There are 2 tiles of this type
 class CityConeCrest(Tile):
     def __init__(self):
-        self._city1 = City(True)
+        self._city1 = City([self], 1)
         self._grass1 = Grass()
         self._grass2 = Grass()
         self._id = "06"
