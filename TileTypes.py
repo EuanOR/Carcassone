@@ -5,7 +5,7 @@ from landmark import *
 #Subclass to represent a specific tile type. This is the starting tile for the game.
 #This piece has a straight road and a city cap and a grassy area either side of
 #There 1 tile of this type
-class IntialTile(Tile):
+class InitialTile(Tile):
     def __init__(self):
         self._city1 = City()
         self._road1 = Road()
