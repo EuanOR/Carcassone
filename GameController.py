@@ -4,13 +4,6 @@ from tileTypes import *
 from landmark import *
 
 
-# list of changes made:
-# 1) Made cities and landmarks joinable
-# 2) Started on GameController class
-# 3) Added _xPos and _yPos attributes back into Tile class + tile.setPosition(x, y)
-# 4) Added getTile method to Grid (give xPos and yPos, it returns tile there or None)
-# 5) Had to alter the city/road initialisers in tileTypes for the new landmark._tiles to work
-
 class GameController:
 
 	def __init__(self):
