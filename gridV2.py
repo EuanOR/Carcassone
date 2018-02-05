@@ -28,10 +28,15 @@ class Grid:
         self._placedTiles = []
         self.createGrid()
 
-        
-
     def __str__(self):
         return str(self._grid)
+
+    # Return the tile at x,y location
+    def getTile(self, x, y):
+        for pos, tile in self._grid:
+            if pos[0] == x and pos[1] == y:
+                return Tile
+        return None
 
     # Creates grid and places initial tile in center of grid
     def createGrid(self):
