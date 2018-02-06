@@ -10,14 +10,14 @@ class Player(object):
         self._score = 0
         self._activeMeeples = []
         self._inactiveMeeples = []
-    
-    #Player sets the colour their meeples will be 
+
+    #Player sets the colour their meeples will be
     def setColour(self,colour):
         self._colour = colour
     #Returns the players colour
     def getColour(self):
         return self._colour
-    
+
     #returns the players name
     def getName(self):
         return self._name
@@ -45,16 +45,22 @@ class Player(object):
 
     #returns a meeple for placement if one is available
     def placeMeeple(self):
-        if self.meeplesAvailable > 0:
+        if len(self._inactiveMeeples) > 0:
             m = self._inactiveMeeples.pop()
             m.place()
             self._activeMeeples.append(m)
             return m
-        
+
         else:
             print("No meeples available for placement; all on board.")
 
     def takeBack(self,meeple):
         m = self._activeMeeples.pop(meeple)
-        self._inactiveMeeples.append(m)    
-       
+        self._inactiveMeeples.append(m)
+
+if __name__=="__main__":
+    p=Player("Brian")
+    p.setColour("Red")
+    p.createMeeples()
+    meeple=p.getMeeple()
+    print(meeple)
