@@ -10,7 +10,7 @@ class GameController:
         #Note: Only added in the functionality I needed for the isLandmarkComplete
 	self._grid = Grid()
         self._players = []
-        self._playing = 0 #This is an index pointing to current player in self._playing not a counter of players in game
+        self._playing = player
         self._gameOver = False
         self._deck = DeckOfTiles()
         self._turns = 0
@@ -84,18 +84,23 @@ class GameController:
     
     def placeTile(self,tile,x,y):
         self._grid.insertTile(x,y,tile)
-
-    def placeMeeple(self,tile,user_choice):
-        #This function places a Meeple on a landmark
-        #Assuming user choice is a side (i.e tile._top)
-        player=self._players[self._playing]
-        if not isinstance(user_choice, Grass):
-            if player.meeplesAvailable() > 0:
-                meeple=player.getMeeple()
-                tile._meeple=meeple
-                tile._meeple_placement=user_choice
-                user_choice.placeMeeple(meeple)
-            else:
-                print("No available Meeples")
-        else:
-            print("Cannot place on grass")
+        self.placeMeeple(tile)
+    
+    def placeMeeple(self,player = self._playing, tile):
+        meeple = player.placeMeeple()
+        landmarks = []
+        
+        if tile._top != "Grass":
+            landmarks.append(tile._top)
+        
+        if tile._bottom != "Grass":
+            landmarks.append(tile._bottom)
+        
+        if tile._left != "Grass":
+            landmarks.append(tile._left)
+        
+        if tile._right != "Grass":
+            landmarks.append(tile._right)
+        
+        for l in landmarks:
+            print(l)
