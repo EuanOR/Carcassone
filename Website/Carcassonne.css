@@ -1,0 +1,54 @@
+/* Nav Bar CSS */
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #66d9ff;
+}
+
+li {
+    float: left;
+    border-right:.05em solid #6699ff;
+}
+
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 1em 2em;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #007399;
+}
+
+.active {
+    background-color: #ccf2ff;
+}
+/* Nav Bar End */
+
+
+body {
+    background-color: black;
+}
+
+h1 {
+    color: #ccf2ff;
+    text-align: center;
+    font-size: 2.5em;
+}
+
+p {
+    font-family: verdana;
+    font-size: 1em;
+    color: #ccf2ff;
+}
+h2 {
+  color : #ccf2ff;
+  font-size : 1.5em;
+  text-decoration: underline;
+}
