@@ -398,6 +398,11 @@ class TemplateTile(Tile):
     def getTile(self):
         Tile.getTile(self)
 
+class FreeTile(Tile):
+    def __init__(self):
+        self._id = "24"
+        Tile.__init__(self, self._id, None, None, None, None)
+
 def main():
     ac = AdjacentCaps()
     cc = CityCone()
