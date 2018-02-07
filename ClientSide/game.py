@@ -1,4 +1,5 @@
 #!/usr/local/bin/python3
+# Not tested!
 from cgitb import enable 
 enable()
 from http.cookies import SimpleCookie
