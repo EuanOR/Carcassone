@@ -35,7 +35,7 @@ class Grid:
     def getTile(self, x, y):
         for pos, tile in self._grid:
             if pos[0] == x and pos[1] == y:
-                return Tile
+                return tile
         return None
 
     # Creates grid and places initial tile in center of grid
