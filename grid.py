@@ -41,6 +41,7 @@ class Grid:
     # Creates grid and places initial tile in center of grid
     def createGrid(self):
         self._grid += [[[self._center,self._center], self._initialTile]]
+        self._initialTile.setPosition(self._center, self._center)
         self._placedTiles += [[self._center,self._center]]
         self.checkAvailability()
         return self._grid
