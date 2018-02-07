@@ -3,6 +3,7 @@ from Meeple import *
 from TileTypes import *
 from DeckOfTiles import *
 from landmark import *
+from Player import *
 
 class GameController:
 
@@ -67,8 +68,8 @@ class GameController:
             return self.isCityComplete(landmark)
     	elif isinstance(landmark, Road):
             return self.isRoadComplete(landmark)
-    	else:
-            raise NotImplementedError("Unknown landmark type")
+        elif isinstance(landmark, Grass):
+	    return True
 
     def isRoadComplete(self, road):
         """Returns True if the road 'road' is complete."""
@@ -214,15 +215,43 @@ def main():
     end2 = FourWayCrossroad()
     gc = GameController()
     Brian = Player("Brian")
+    
     Brian.createMeeples()
     gc.joinGame(Brian)
-
     meeple_placements = gc.placeTile(end1, -1, 0)
     
     gc.placeMeeple(end1, end1._right)
+    print(end1._right)
     gc.placeTile(end2, 1, 0)
+    print(end1._right)
+    print(gc.isLandmarkComplete(end1._right))
+    print("Brian's score=(should be 3)", Brian._score)
+    print("\n\n")
+
+    #-- city test --#
+    gc2 = GameController()
+    Anne = Player("Anne")
+    Anne.createMeeples()
+    gc2.joinGame(Anne)
     
-    print("Brian's score=", Brian._score)
+    diag = DiagonalCap()
+    diag.rotateTile()
+    diag.rotateTile()
+
+    gc2.placeTile(diag, 0, -1)
+    gc2.placeMeeple(diag, diag._bottom)
+
+    cap1 = CityCapTile()
+    cap1.rotateTile()
+
+    gc2.placeTile(cap1, 1, -1)
+    print("\ncap1.leftneighbour=", gc2.getNeighbour(cap1, "left"))
+    print("diag._bottom=",  diag._bottom)
+    print("diag._right=",  diag._right)
+    print("init._top=", gc2._grid.getTile(0,0)._top)
+    print("cap1._left= ", cap1._left)
+    print("Anne's score (should equal 6):", Anne._score)
 
 if __name__ == "__main__":
-main()
+    main()
+
