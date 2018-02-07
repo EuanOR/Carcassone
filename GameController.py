@@ -19,8 +19,8 @@ class GameController:
             #for p in self._players:
                 #self._playing = player
 
-    def joinGame(self,player):
-        self._players.append(player)
+	def joinGame(self,player):
+		self._players.append(player)
 	
 	def isLandmarkComplete(self, landmark):
 		"""Returns True if the landmark 'landmark' is complete."""
