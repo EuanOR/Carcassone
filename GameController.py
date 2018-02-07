@@ -37,15 +37,25 @@ class GameController:
         self._playing = self._players[self._turns%len(self._players)]"""
 
 
-    def start_game(self):
+   def startGame(self):
         self._playing = self._players[0]
-        while self._turns < self._maxTurns:
+        while not self._gameOver:
             self.turn()
-        
+			self.maximumTurns()
+	
+	def maximumTurns(self):
+		if self._maxTurns > 71:
+			while self._maxTurns > 71:
+				self._maxTurnsPP -= 1
+				self._maxTurns = self.setMaximumTurns()
+       
+	def setMaximumTurns(self):
+		return self._maxTurnsPP*len(self._players)
+	
     def joinGame(self,player):
         if len(self._players) < 4:
             self._players.append(player)
-            self._max_turns = len(self._players)*10
+            self._maxTurns = len(self._players)*self._maxTurnsPP
 	
     def isLandmarkComplete(self, landmark):
         """Returns True if the landmark 'landmark' is complete."""
@@ -173,7 +183,7 @@ class GameController:
                         #this gets score, frees up meeples etc
                         self.finishLandmark(self.getTileSide(tile, side))
         # returns a list of valid places to place a meeple (to be used with placeMeeple()
-	validMeeplePlacements = []
+		validMeeplePlacements = []
         for side in sides:
             landmark = self.getTileSide(tile, side)
             if (not self.isLandmarkComplete(landmark)) and landmark._meeples == []:
@@ -211,4 +221,4 @@ def main():
     print("Brian's score=", Brian._score)
 
 if __name__ == "__main__":
-    main()
+main()
