@@ -187,7 +187,7 @@ class GameController:
                         #this gets score, frees up meeples etc
                         self.finishLandmark(self.getTileSide(tile, side))
         # returns a list of valid places to place a meeple (to be used with placeMeeple()
-		validMeeplePlacements = []
+	validMeeplePlacements = []
         for side in sides:
             landmark = self.getTileSide(tile, side)
             if (not self.isLandmarkComplete(landmark)) and landmark._meeples == []:
