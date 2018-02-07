@@ -14,12 +14,12 @@ from TileTypes import *
 
 """
 class Grid:
-    def __init__(self, tile):
+    def __init__(self):
         self._grid = []
 
         # Used for center location of the tile -> [0,0]
         self._center = 0
-        self._initialTile = tile
+        self._initialTile = InitialTile()
 
         # A list where it holds all the open locations.
         self._openLocation= []
