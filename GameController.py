@@ -1,10 +1,7 @@
-import gridv2
-import Meeple
-import Tile
-import TileTypes
+from Meeple import *
 from grid import *
-from tile import *
-from tileTypes import *
+from Tile import *
+from TileTypes import *
 from landmark import *
 
 class GameController:
