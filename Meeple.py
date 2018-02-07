@@ -34,21 +34,3 @@ class Meeple(object):
     #If a meeple is removed from a tile this sets placed to False
     def take_back(self):
         self._placed = False
-
-"""Meeple needs to be tested within the Player class, as a Meeple cannot be created without a player object
-   The following is the Meeples test suite.
-   
-   if __name__=="__main__":
-    Player1=Player("Brian")
-    Player1.setColour("Green")
-    Meeple1=Meeple(Player1)
-    colourTest=Meeple1.getColour()
-    print(colourTest)
-    playerTest=Meeple1.getPlayer()
-    print(playerTest)
-    Meeple1.place()
-    print(Meeple1)
-    Meeple1.take_back()
-    print(Meeple1)
-    
- """
