@@ -7,7 +7,7 @@ from landmark import *
 class GameController:
 
     def __init__(self):
-		#Note: Only added in the functionality I needed for the isLandmarkComplete
+        #Note: Only added in the functionality I needed for the isLandmarkComplete
         self._grid = Grid(InitialTile())
         self._players = []
         self._playing = 0 #This is an index pointing to current player in self._playing not a counter of players in game
