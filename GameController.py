@@ -60,26 +60,21 @@ class GameController:
 				if neighbour not in tiles:
 					return False
 		return True
-    
+ 
     def placeTile(self,tile,x,y):
         self._grid.insertTile(x,y,tile)
-        self.placeMeeple(tile)
-    
-    def placeMeeple(self,player = self._playing, tile):
-        meeple = player.placeMeeple()
-        landmarks = []
-        
-        if tile._top != "Grass":
-            landmarks.append(tile._top)
-        
-        if tile._bottom != "Grass":
-            landmarks.append(tile._bottom)
-        
-        if tile._left != "Grass":
-            landmarks.append(tile._left)
-        
-        if tile._right != "Grass":
-            landmarks.append(tile._right)
-        
-        for l in landmarks:
-            print(l)
+
+    def placeMeeple(self,tile,user_choice):
+        #This function places a Meeple on a landmark
+        #Assuming user choice is a side (i.e tile._top)
+        player=self._players[self._playing]
+        if not isinstance(user_choice, Grass):
+            if player.meeplesAvailable() > 0:
+                meeple=player.getMeeple()
+                tile._meeple=meeple
+                tile._meeple_placement=user_choice
+                user_choice.placeMeeple(meeple)
+            else:
+                print("No available Meeples")
+        else:
+            print("Cannot place on grass")
