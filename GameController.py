@@ -58,7 +58,7 @@ class GameController:
 
     def isRoadComplete(self, road):
         """Returns True if the road 'road' is complete."""
-    	return road.getEndCount == 2
+    	return road.getEndCount() == 2
 
     def isCityComplete(self, city):
         """Returns True if the city 'city' is complete."""
