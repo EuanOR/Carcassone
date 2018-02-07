@@ -57,10 +57,3 @@ class Player(object):
     def takeBack(self,meeple):
         m = self._activeMeeples.pop(meeple)
         self._inactiveMeeples.append(m)
-
-if __name__=="__main__":
-    p=Player("Brian")
-    p.setColour("Red")
-    p.createMeeples()
-    meeple=p.getMeeple()
-    print(meeple)
