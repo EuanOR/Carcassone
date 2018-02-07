@@ -47,6 +47,8 @@ class Landmark:
                 tile._top = newLandmark
             if tile._bottom == old1 or tile._bottom == old2:
                 tile._bottom = newLandmark
+            if tile._meeple_placement == old1 or tile._meeple_placement ==  old2:
+                tile._meeple_placement = newLandmark
 
 
 class Road(Landmark):
