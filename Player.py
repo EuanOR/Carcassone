@@ -44,7 +44,7 @@ class Player(object):
         return meeples
 
     #returns a meeple for placement if one is available
-    def placeMeeple(self):
+    def getMeeple(self):
         if len(self._inactiveMeeples) > 0:
             m = self._inactiveMeeples.pop()
             m.place()
