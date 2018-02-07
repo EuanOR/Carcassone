@@ -126,7 +126,7 @@ class Grid:
             
 
 def main():
-    initialTile = IntialTile()
+    initialTile = InitialTile()
     fourWayRoad = FourWayCrossroad()
 
     grid = Grid(initialTile)
@@ -141,5 +141,6 @@ def main():
 
     print(grid.insertTile(10, 10, fourWayRoad)) # Adding four way road to (10,10), should return False -> Not inside openlocation
 
-main()
+if __name__ == "__main__":
+    main()
 
