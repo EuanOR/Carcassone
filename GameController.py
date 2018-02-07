@@ -6,7 +6,7 @@ from landmark import *
 
 class GameController:
 
-	def __init__(self):
+    def __init__(self):
 		#Note: Only added in the functionality I needed for the isLandmarkComplete
 		self._grid = Grid(InitialTile())
         self._players = []
