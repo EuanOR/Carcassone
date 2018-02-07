@@ -41,21 +41,25 @@ class GameController:
         self._playing = self._players[0]
         while not self._gameOver:
             self.turn()
-			self.maximumTurns()
+	    self.gameFinished()
+   
+    def gameFinished(self):
+	if self._turns == self._maxTurns:
+	    self._gameOver = True
 	
-	def maximumTurns(self):
-		if self._maxTurns > 71:
-			while self._maxTurns > 71:
-				self._maxTurnsPP -= 1
-				self._maxTurns = self.setMaximumTurns()
+    def maximumTurns(self):
+        if self._maxTurns > 71:
+        while self._maxTurns > 71:
+	    self._maxTurnsPP -= 1
+	    self._maxTurns = self.setMaximumTurns()
        
-	def setMaximumTurns(self):
-		return self._maxTurnsPP*len(self._players)
+    def setMaximumTurns(self):
+        return self._maxTurnsPP*len(self._players)
 	
     def joinGame(self,player):
         if len(self._players) < 4:
             self._players.append(player)
-            self._maxTurns = len(self._players)*self._maxTurnsPP
+            self.maximumTurns()
 	
     def isLandmarkComplete(self, landmark):
         """Returns True if the landmark 'landmark' is complete."""
