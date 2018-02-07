@@ -13,8 +13,7 @@ class GameController:
 		#Note: Only added in the functionality I needed for the isLandmarkComplete
 		self._grid = Grid(InitialTile())
         self._players = []
-        self._playing = player
-        self._gameOver = False
+        self._playing = 0 #This is an index pointing to current player in self._playing not a counter of players in game
     
     #Just the bones of how the game could go through each turn
     #Each player has a turn and places a tile and a meeple until the game is over
