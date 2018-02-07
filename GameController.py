@@ -10,7 +10,7 @@ class GameController:
         #Note: Only added in the functionality I needed for the isLandmarkComplete
 	self._grid = Grid()
         self._players = []
-        self._playing = 0
+        self._playing = 0 #This is an index pointing to current player in self._playing not a counter of players in game
         self._gameOver = False
         self._deck = DeckOfTiles()
         self._turns = 0
