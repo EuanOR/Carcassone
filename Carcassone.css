@@ -7,13 +7,6 @@
     border: 1px solid black;
 }
 
-#deckTile {
-	border: : 1px black;
-	margin-bottom: 10%;
-	float: right;
-	display: inline;
-}
-
 .available {
 	cursor: pointer;
 }
