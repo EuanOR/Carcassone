@@ -16,6 +16,10 @@ class Landmark:
         """Returns the score of the landmark."""
         return self._score
 
+    def getEndgameScore(self):
+        """Returns the score of an unfinished landmark at end of game."""
+        return self._score
+
     def setScore(self, score):
         self._score = score
 
@@ -95,24 +99,10 @@ class City(Landmark):
         """Returns true if city has a crest"""
         return self._crestCount
 
-    def isComplete(self):
-        """Returns True if the city is complete."""
-        #for tile in self._tiles:
-            #for side on tile
-                #if side in city
-                    #get tile adjacent to that side
-                    #if adjacent tile NOT in self._tiles:
-                        #return False
-        #return True
-        for tile in self._tiles:
-            if tile._left == self:
-                pass
-            if tile._right == self:
-                pass
-            if tile._bottom == self:
-                pass
-            if tile._top == self:
-                pass
+    # Overriding Landmark.getEndgameScore
+    def getEndgameScore(self):
+        """Returns the score of an unfinished city at end of game."""
+        return self._score//2
 
     @staticmethod
     def join(city1, city2):
