@@ -124,6 +124,17 @@ class Grid:
                 if type(newTile._left) != type(placedTileObject._right):
                     return False
         return True
+    
+    #   Returns a list of valid locations of a tile
+    def returnValidLocations(self, newTile):
+
+        result = []
+
+        for openLocation in self._openLocation:
+            if self.isValidLocation([openLocation[0], openLocation[1]], newTile):
+                result += [openLocation]
+
+        return result
             
 
 def main():
