@@ -330,7 +330,7 @@ class TownTJunction(Tile):
 #There are 8 tiles of this type
 class StraightRoad(Tile):
     def __init__(self):
-        self._road1 = Road([self], 1)
+        self._road1 = Road([self])
         self._grass1 = Grass()
         self._grass2 = Grass()
         self._id = "18"
@@ -346,7 +346,7 @@ class StraightRoad(Tile):
 #There are 9 tiles of this type
 class LRoad(Tile):
     def __init__(self):
-        self._road1 = Road([self], 1)
+        self._road1 = Road([self])
         self._grass1 = Grass()
         self._id = "09"
         Tile.__init__(self, self._id, self._grass1, self._road1, self._grass1, self._road1)
