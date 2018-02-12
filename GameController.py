@@ -14,8 +14,6 @@ class GameController:
         self._playing = 0 # This is an index pointing to current player in self._playing not a counter of players in game
         self._gameOver = False
         self._deck = DeckOfTiles()
-        self._turns = 0
-        self._maxTurns = 10*len(self._players)
     
     # Just the bones of how the game could go through each turn
     # Each player has a turn and places a tile and a meeple until the game is over
