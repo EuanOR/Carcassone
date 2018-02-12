@@ -15,12 +15,12 @@ class GameController:
         self._gameOver = False
         self._deck = DeckOfTiles()
     
-    # Just the bones of how the game could go through each turn
-    # Each player has a turn and places a tile and a meeple until the game is over
-    # def play(self):
-        # while not self._gameOver:
-            # for p in self._players:
-                # self._playing = player
+    	# Just the bones of how the game could go through each turn
+    	# Each player has a turn and places a tile and a meeple until the game is over
+    	# def play(self):
+        	# while not self._gameOver:
+            		# for p in self._players:
+                		# self._playing = player
 
     """def turn(self):
         turnsTile = self._deck.pop()
@@ -43,7 +43,7 @@ class GameController:
             self.gameFinished()
    
     def gameFinished(self):
-        if self._turns == self._maxTurns:
+        if self._deck.is_empty:
             self._gameOver = True
             self.finishGame()
 
@@ -80,19 +80,9 @@ class GameController:
                 winners.append(player)
         return winners
 	
-    def maximumTurns(self):
-        # if self._maxTurns > 71:
-        while self._maxTurns > 71:
-            self._maxTurnsPP -= 1
-            self._maxTurns = self.setMaximumTurns()
-       
-    def setMaximumTurns(self):
-        return self._maxTurnsPP*len(self._players)
-	
     def joinGame(self,player):
         if len(self._players) < 4:
             self._players.append(player)
-            self.maximumTurns()
 	
     def isLandmarkComplete(self, landmark):
         """Returns True if the landmark 'landmark' is complete."""
