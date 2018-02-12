@@ -2,9 +2,81 @@
     padding: 0;
     margin: auto;
     display: block;
-    width: 700px;
-    height: 700px;
+    width: 1000px;
+    height: 800px;
     border: 1px solid black;
+}
+
+#sideboard{
+    float: right;
+    overflow-x: hidden;
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    width: 25%;
+    height: 100%;
+    border: 1px solid black;
+}
+
+#deckTile{
+    top: -90px auto 0;
+    background-color: green;
+    border: 1px solid black;
+    width: 100%;
+    height: 50%; /* Full height */
+    position: relative; /* Make it stick, even on scroll */
+
+}
+
+#leaderboard{
+    background-color: pink;
+    border: 1px solid black;
+    width: 100%;
+    height: 50%; /* Full height */
+    position: relative; /* Make it stick, even on scroll */
+}
+
+#outside{
+    padding: 0;
+    width: 100%;
+    border: 1px solid blue;
+    background-color: white;
+    list-style-type: none;
+    position: relative; /* Make it stick, even on scroll */
+} 
+
+.outer{
+    display: block;
+    color: #000;
+    width: 100%;
+    height: 25%;
+    text-decoration: none;
+    border: 1px solid black;
+}
+
+.inside{
+    list-style-type: none;
+    position: relative;
+    background-color: orange;
+}
+
+.inside li{
+    float: left;
+}
+
+.inside li p{
+    display: inline-block;
+    background-color: aquamarine;
+    padding: 6px 4px;
+    margin: 2.5px;
+}
+
+.inside li p:first-child{
+    margin-left: 0px;
+}
+
+.active {
+    background-color: #4CAF50;
+    color: white;
 }
 
 .available {
