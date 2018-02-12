@@ -37,7 +37,7 @@ class GameController:
 
 
     def startGame(self):
-	"""Begin the game. Returns tiles and valid locations for first go."""
+        """Begin the game. Returns tiles and valid locations for first go."""
         self._playing = 0
         tile = self._deck.drawTile()
         available_tiles = self._grid.returnValidLocations(tile)
@@ -264,6 +264,8 @@ def main():
     gc2.placeMeeple(diag, diag._bottom)
 
     cap1 = CityCapTile()
+    cap1.rotateTile()
+    cap1.rotateTile()
     cap1.rotateTile()
     gc2.placeTile(cap1, 1, -1)
     print("\ncap1.leftneighbour=", gc2.getNeighbour(cap1, "left"))
