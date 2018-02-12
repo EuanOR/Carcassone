@@ -73,9 +73,9 @@ class Grid:
             placedTileY = placedTile[1]
 
             # Calculating the top, right, bottom, left tile co-ordinates
-            top = [placedTileX, placedTileY + 1]
+            top = [placedTileX, placedTileY - 1]
             right = [placedTileX + 1, placedTileY]
-            bottom = [placedTileX, placedTileY - 1]
+            bottom = [placedTileX, placedTileY + 1]
             left = [placedTileX - 1, placedTileY]
 
             # Checking if it is free tile, if it is free tile then add it to resultArray.
@@ -100,9 +100,9 @@ class Grid:
         y = XYList[1]
 
         # Calculating the x, y coordiantes of the surrounding new tile.
-        topTile = [x, y + 1]
+        topTile = [x, y - 1]
         rightTile = [x + 1, y]
-        bottomTile = [x, y - 1]
+        bottomTile = [x, y + 1]
         leftTile = [x - 1, y]
 
         for placedTile in self._grid:
