@@ -20,6 +20,7 @@ class Tile:
         self._left = left #Landmark object
         self._xPos = None #x-position on grid
         self._yPos = None #y-position on grid
+        self._degreeRotated = 0 #to show how the image should be displayed
        
     def setPosition(self, x, y):
         #Sets the x and y position of the tile on the grid
@@ -28,6 +29,7 @@ class Tile:
 
     def rotateTile(self):
         #Rotates tile clockwise as user desires it
+        self._degreeRotated = (self._degreeRotated + 90) % 360
         l = self._left
         self._left = self._bottom
         self._bottom = self._right
