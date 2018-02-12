@@ -29,11 +29,11 @@ class Tile:
     def rotateTile(self):
         #Rotates tile clockwise as user desires it
         l = self._left
-        self._left = self._top
-        self._top = self._right
-        self._right = self._bottom
-        self._bottom = l 
-        print("Tile rotation: T:%s, R:%s, B:%s, L:%s" % (self._top, self._right, self._bottom, self._left))
+        self._left = self._bottom
+        self._bottom = self._right
+        self._right = self._top
+        self._top = l 
+        #print("Tile rotation: T:%s, R:%s, B:%s, L:%s" % (self._top, self._right, self._bottom, self._left))
 
     def getTile(self):
         return self
