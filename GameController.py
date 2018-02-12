@@ -37,10 +37,11 @@ class GameController:
 
 
     def startGame(self):
-        self._playing = self._players[0]
-        while not self._gameOver:
-            self.turn()
-            self.gameFinished()
+	"""Begin the game. Returns tiles and valid locations for first go."""
+        self._playing = 0
+        tile = self._deck.drawTile()
+        available_tiles = self._grid.returnValidLocations(tile)
+        return tile, available_tiles
    
     def gameFinished(self):
         if self._deck.is_empty:
@@ -50,8 +51,7 @@ class GameController:
     def nextGo(self):
         """Move on to next player's go
         Returns the tile for their go and a list of valid locations to place that tile."""
-        self._playing = (self._playing+1)%len(self._players)
-        self._turns += 1
+        self._playing = (self._playing + 1) % len(self._players)
         tile = self._deck.drawTile()
         available_tiles = self._grid.returnValidLocations(tile)
         return tile, available_tiles
@@ -81,6 +81,8 @@ class GameController:
         return winners
 	
     def joinGame(self,player):
+	"""Allow another player should join the game.
+	Player should already have created meeples!"""
         if len(self._players) < 4:
             self._players.append(player)
 	
