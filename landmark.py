@@ -4,12 +4,12 @@ class Landmark:
     Mulitple sides can point to the same landmark
     e.g. a diagonal city tile has the top and right both point to the same city"""
     
-    def __init__(self, score, tiles=[], meeples=[]):
+    def __init__(self, score, tiles=[]):
         """Score represent how many points this landmark is worth.
         meeple is a list of meeples placed on the landmark.
         tiles is a list of tiles the landmark is on."""
         self._score = score
-        self._meeples = meeples
+        self._meeples = []
         self._tiles = tiles
 
     def getScore(self):
