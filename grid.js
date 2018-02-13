@@ -171,7 +171,7 @@
                         cellImage.className = "available";
 
                         // Add event listeners to valid empty cells
-                        cellImage.addEventListener("click", function() { insertTile(this.parentNode.id);});
+                        cellImage.addEventListener("click", function() { placeTile(this.parentNode.id);});
                     }
                 }
             }
