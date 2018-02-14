@@ -18,7 +18,7 @@ def makePlayerSession(playerID, gameID, index):
     so that the player can get their gameID easily
     + get which position they are in gc._players (to check if it's their go) etc
     """
-    player_session = open("players_sessions/session_" + playerID, writeback=True)
+    player_session = open("players_sessions/sess_" + playerID, writeback=True)
     player_session["gameID"] = gameID
     player_session["index"] = index
     player_session.close()
@@ -94,6 +94,7 @@ cookie = SimpleCookie()
 cookie["playerID"] = playerID
 print(cookie)
 
+#values here to be changed. Not sure what to print
 print("Content-Type:text/plain")
 print()
 print("........")
