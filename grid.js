@@ -107,7 +107,7 @@
     // Get current Player name and meeples etc.
     function getPlayer(){
 	console.log("getting player");
-        var url = "getPlayer.py";
+        var url = "cgi-bin/getPlayer.py";
         request = new XMLHttpRequest();
         request.addEventListener("readystatechange", playerReceived, false);
         request.open("GET", url, true);
@@ -139,7 +139,7 @@
 
     //GET PLAYER THEIR TILE FOR THIS TURN
     function getPlayerTile(){
-        var url = "getTile.py";
+        var url = "cgi-bin/getTile.py";
         request = new XMLHttpRequest();
         request.addEventListener("readystatechange", tileReceived, false);
         request.open("GET", url, true);
@@ -169,7 +169,7 @@
     //SHOW AVAILABLE VALID CELLS
     function getValidPlaces(rotation){
         // Get array of available, valid cells
-        var url = "getValidPlaces.py?rotation=" + rotation;
+        var url = "cgi-bin/getValidPlaces.py?rotation=" + rotation;
         request = new XMLHttpRequest();
         request.addEventListener("readystatechange", validPlacesReceived, false);
         request.open("GET", url, true);
@@ -266,7 +266,7 @@
     // Called in 'placeTile()'
     function updateScore(){
         //TODO: GET SCORE FROM GAME CONTROLLER
-        var url = "getScore.py" + rotation;
+        var url = "cgi-bin/getScore.py";
         request = new XMLHttpRequest();
         request.addEventListener("readystatechange", scoreReceived, false);
         request.open("GET", url, true);
