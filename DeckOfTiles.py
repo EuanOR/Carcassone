@@ -96,11 +96,11 @@ class DeckOfTiles():
             tsc = ThreeSidedCap()
             self._tileList += [tsc]
         for i in range(4):
-            m = MonasteryTile()
-            self._tileList += [m]
             ttj = TownTJunction()
             self._tileList += [ttj]
         for i in range(5):
+            m = MonasteryTile()
+            self._tileList += [m]
             cct = CityCapTile()
             self._tileList += [cct]
         for i in range(8):
