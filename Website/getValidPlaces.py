@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/env python3
 
 # Get available and valid places according to tile rotation
 from cgitb import enable 
@@ -13,3 +13,4 @@ rotation = form_data.getfirst('rotation')
 for i in range(int(rotation)):
     validPlaces = gC.rotateTile()
 print(validPlaces)
+setGameController(gC)
