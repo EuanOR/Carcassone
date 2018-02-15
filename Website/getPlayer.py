@@ -1,6 +1,4 @@
-# Get index of next player
-
-#!/usr/local/bin/python3
+#!/usr/bin/env python3
 
 # Return current player
 from cgitb import enable 
@@ -12,3 +10,4 @@ print()
 
 gc = getGameController()
 print(gC._playing)
+setGameController(gC)
