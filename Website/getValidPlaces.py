@@ -9,7 +9,7 @@ print('Content-Type: text/plain')
 print()
 gC = getGamecontroller()
 form_data = FieldStorage()
-rotation = form_data.getfirst('rotation')
+rotation = form_data.getfirst('rotation').escape()
 for i in range(int(rotation)):
     validPlaces = gC.rotateTile()
 print(validPlaces)
