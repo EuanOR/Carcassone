@@ -3,7 +3,7 @@
 # Get available and valid places according to tile rotation
 from cgitb import enable 
 enable()
-
+from cgi import FieldStorage, escape
 from getGameController import *
 print('Content-Type: text/plain')
 print()
