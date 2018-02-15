@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/env python3
 
 # Get updated scores of all players
 from cgitb import enable 
@@ -13,3 +13,4 @@ scores = []
 for i in range(3):
     scores += [gC._players[i]._score]
 print(scores)
+setGameController(gC)
