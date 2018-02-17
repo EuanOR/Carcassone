@@ -8,7 +8,7 @@ from getGameController import *
 print('Content-Type: text/plain')
 print()
 
-gC = getGamecontroller()
+gC = getGameController()
 scores = []
 for i in range(3):
     scores += [gC._players[i]._score]
