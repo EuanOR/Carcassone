@@ -8,7 +8,7 @@ from getGameController import *
 print('Content-Type: text/plain')
 print()
 
-gC = getGamecontroller()
+gC = getGameController()
 tile = gC.getTile()
 print(tile._image)
 setGameController(gC)
