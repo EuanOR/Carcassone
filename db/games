@@ -1,7 +1,0 @@
-DROP TABLE games;
-
-CREATE TABLE games
-(
-    gameid INT PRIMARY KEY,
-    full BOOLEAN NOT NULL
-);
