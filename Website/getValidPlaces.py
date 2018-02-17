@@ -7,7 +7,7 @@ from cgi import FieldStorage, escape
 from getGameController import *
 print('Content-Type: text/plain')
 print()
-gC = getGamecontroller()
+gC = getGameController()
 form_data = FieldStorage()
 rotation = form_data.getfirst('rotation').escape()
 for i in range(int(rotation)):
