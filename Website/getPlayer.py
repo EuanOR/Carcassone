@@ -8,6 +8,6 @@ from getGameController import *
 print('Content-Type: text/plain')
 print()
 
-gc = getGameController()
+gC = getGameController()
 print(gC._playing)
 setGameController(gC)
