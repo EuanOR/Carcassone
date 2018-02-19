@@ -11,7 +11,8 @@ class InitialTile(Tile):
         self._road1 = Road([self])
         self._grass1 = Grass()
         self._id = "00"
-        Tile.__init__(self, self._id, self._city1, self._road1, self._road1, self._grass1)
+        self._image = "Start.png"
+        Tile.__init__(self, self._id, self._city1, self._road1, self._road1, self._grass1, self._image)
 
         
     def getTile(self):
@@ -25,8 +26,9 @@ class InitialTile(Tile):
 class CityTile(Tile):
     def __init__(self):
         self._city1 = City([self], 1)
-        self._id = "9T.PNG"
-        Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._city1)
+        self._id = "03"
+        self._image = "9T.png"
+        Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._city1, self._image)
 
         
     def getTile(self):
@@ -40,8 +42,9 @@ class CityCapTile(Tile):
     def __init__(self):
         self._city1 = City([self])
         self._grass1 = Grass()
-        self._id = "1T8G.PNG"
-        Tile.__init__(self, self._id, self._city1, self._grass1, self._grass1, self._grass1)
+        self._id = "21"
+        self._image = "1T8G.png"
+        Tile.__init__(self, self._id, self._city1, self._grass1, self._grass1, self._grass1, self._image)
 
         
     def getTile(self):
@@ -57,8 +60,9 @@ class CapLeftBend(Tile):
         self._city1 = City([self])
         self._road1 = Road([self])
         self._grass1 = Grass()
-        self._id = "3T3R3G.PNG"
-        Tile.__init__(self, self._id, self._city1, self._road1, self._grass1, self._road1)
+        self._image = "3T3R3G.png"
+        self._id = "19"
+        Tile.__init__(self, self._id, self._city1, self._road1, self._grass1, self._road1, self._image)
 
         
     def getTile(self):
@@ -74,8 +78,9 @@ class CapRightBend(Tile):
         self._city1 = City([self])
         self._road1 = Road([self])
         self._grass1 = Grass()
-        self._id = "3R3G3T.PNG"
-        Tile.__init__(self, self._id, self._city1, self._grass1, self._road1, self._road1)
+        self._image = "3R3G3T.png"
+        self._id = "23"
+        Tile.__init__(self, self._id, self._city1, self._grass1, self._road1, self._road1, self._image)
 
         
     def getTile(self):
@@ -91,7 +96,8 @@ class CapStraightRoad(Tile):
         self._road1 = Road([self])
         self._grass1 = Grass()
         self._id = "00"
-        Tile.__init__(self, self._id, self._city1, self._road1, self._road1, self._grass1)
+        self._image = "Start.png"
+        Tile.__init__(self, self._id, self._city1, self._road1, self._road1, self._grass1, self._image)
 
         
     def getTile(self):
@@ -105,8 +111,9 @@ class CapTJunction(Tile):
     def __init__(self):
         self._city1 = City([self])
         self._road1 = Road([self])
-        self._id = "3T4R2G.PNG"
-        Tile.__init__(self, self._id, self._city1, self._road1, self._road1, self._road1)
+        self._image = "3T4R2G.png"
+        self._id = "20"
+        Tile.__init__(self, self._id, self._city1, self._road1, self._road1, self._road1, self._image)
 
         
     def getTile(self):
@@ -121,8 +128,9 @@ class OppositeCaps(Tile):
         self._city1 = City([self])
         self._city2 = City([self])
         self._grass1 = Grass()
-        self._id = "7G2R.PNG"
-        Tile.__init__(self, self._id, self._grass1, self._city1, self._city2, self._grass1)
+        self._image = "7G2R.png"
+        self._id = "22"
+        Tile.__init__(self, self._id, self._grass1, self._city1, self._city2, self._grass1, self._image)
 
         
     def getTile(self):
@@ -137,8 +145,9 @@ class AdjacentCaps(Tile):
         self._city1 = City([self])
         self._city2 = City([self])
         self._grass1 = Grass()
-        self._id = "2R7G.PNG"
-        Tile.__init__(self, id, self._city1, self._grass1, self._city2, self._grass1)
+        self._image = "2R7G.png"
+        self._id = "03"
+        Tile.__init__(self, id, self._city1, self._grass1, self._city2, self._grass1, self._image)
 
         
     def getTile(self):
@@ -152,8 +161,9 @@ class DiagonalCap(Tile):
     def __init__(self):
         self._city1 = City([self])
         self._grass1 = Grass()
-        self._id = "5T4G.PNG"
-        Tile.__init__(self, self._id, self._city1, self._city1, self._grass1, self._grass1)
+        self._image = "5T4G.png"
+        self._id = "13"
+        Tile.__init__(self, self._id, self._city1, self._city1, self._grass1, self._grass1, self._image)
 
         
     def getTile(self):
@@ -166,8 +176,9 @@ class DiagonalCapCrest(Tile):
     def __init__(self):
         self._city1 = City([self], 1)
         self._grass1 = Grass()
-        self._id = "5T4GShield.PNG"
-        Tile.__init__(self, self._id, self._city1, self._city1, self._grass1, self._grass1)
+        self._image = "5T4GShield.png"
+        self._id = "14"
+        Tile.__init__(self, self._id, self._city1, self._city1, self._grass1, self._grass1, self._image)
 
         
     def getTile(self):
@@ -181,8 +192,9 @@ class DiagonalRoad(Tile):
     def __init__(self):
         self._city1 = City([self])
         self._road1 = Road([self])
-        self._id = "5T3R1G.PNG"
-        Tile.__init__(self, self._id, self._city1, self._city1, self._road1, self._road1)
+        self.image = "5T3R1G.png"
+        self._id = "12"
+        Tile.__init__(self, self._id, self._city1, self._city1, self._road1, self._road1, self._image)
 
         
     def getTile(self):
@@ -195,8 +207,9 @@ class DiagonalRoadCrest(Tile):
     def __init__(self):
         self._city1 = City([self], 1)
         self._road1 = Road([self])
-        self._id = "5R4RShield.PNG"
-        Tile.__init__(self, self._id, self._city1, self._city1, self._road1, self._road1)
+        self._image = "5R4RShield.png"
+        self._id = "17"
+        Tile.__init__(self, self._id, self._city1, self._city1, self._road1, self._road1, self._image)
     
     def getTile(self):
         Tile.getTile(self)
@@ -209,8 +222,9 @@ class ThreeSidedCap(Tile):
     def __init__(self):
         self._city1 = City([self])
         self._grass1 = Grass()
-        self._id = "8T1G.PNG"
-        Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._grass1)
+        self._image = "8T1G.png"
+        self._id = "07"
+        Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._grass1, self._image)
 
         
     def getTile(self):
@@ -223,8 +237,9 @@ class ThreeSidedCapCrest(Tile):
     def __init__(self):
         self._city1 = City([self], 1)
         self._grass1 = Grass()
-        self._id = "8T1GShield.PNG"
-        Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._grass1)
+        self._image = "8T1GShield.png"
+        self._id = "08"
+        Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._grass1, self._image)
 
         
     def getTile(self):
@@ -237,8 +252,9 @@ class ThreeSidedCapRoad(Tile):
     def __init__(self):
         self._city1 = City([self])
         self._road1 = Road([self], 1)
-        self._id = "8T1R.PNG"
-        Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._road1)
+        self._image = "8T1R.png"
+        self._id = "05"
+        Tile.__init__(self, self._id, self._city1, self._city1, self._city1, self._road1, self._image)
 
         
     def getTile(self):
@@ -251,8 +267,9 @@ class ThreeSidedCapRoadCrest(Tile):
     def __init__(self):
         self._city1 = City([self], 1)
         self._road1 = Road([self], 1)
-        self._id = "8T1Rshield.PNG"
-        Tile.__init__(self, id, self._city1, self._city1, self._city1, self._city1)
+        self._image = "8T1Rshield.png"
+        self._id = "04"
+        Tile.__init__(self, id, self._city1, self._city1, self._city1, self._city1, self._image)
                            
 
         
@@ -269,8 +286,9 @@ class MonasteryTile(Tile):
     def __init__(self):
         self._grass1 = Grass()
         self._monastery = Monastery()
-        self._id = "Cathedral.PNG"
-        Tile.__init__(self, self._id, self._grass1, self._grass1, self._grass1, self._grass1)
+        self._image = "Cathedral.png"
+        self._id = "01"
+        Tile.__init__(self, self._id, self._grass1, self._grass1, self._grass1, self._grass1, self._image)
         
         
     def getTile(self):
@@ -284,8 +302,9 @@ class MonasteryRoad(Tile):
         self._road1 = Road([self], 1)
         self._grass1 = Grass()
         self._monastery = Monastery()
-        self._id = "CathedralRoad.PNG"
-        Tile.__init__(self, self._id, self._grass1, self._grass1, self._grass1, self._road1)
+        self._image = "CathedralRoad.png"
+        self._id = "02"
+        Tile.__init__(self, self._id, self._grass1, self._grass1, self._grass1, self._road1, self._image)
         
         
     def getTile(self):
@@ -301,8 +320,9 @@ class FourWayCrossroad(Tile):
         self._road2 = Road([self], 1)
         self._road3 = Road([self], 1)
         self._road4 = Road([self], 1)
-        self._id = "4G5R.PNG"
-        Tile.__init__(self, self._id, self._road1, self._road2, self._road3, self._road4)
+        self._image = "4G5R.png"
+        self._id = "15"
+        Tile.__init__(self, self._id, self._road1, self._road2, self._road3, self._road4, self._image)
 
         
     def getTile(self):
@@ -317,8 +337,9 @@ class TownTJunction(Tile):
         self._road2 = Road([self], 1)
         self._road3 = Road([self], 1)
         self._road4 = Road([self], 1)
-        self._id = "4R5G.PNG"
-        Tile.__init__(self, self._id, self._grass1, self._road2, self._road3, self._road4)
+        self._image = "4R5G.png"
+        self._id = "16"
+        Tile.__init__(self, self._id, self._grass1, self._road2, self._road3, self._road4, self._image)
 
         
     def getTile(self):
@@ -333,8 +354,9 @@ class StraightRoad(Tile):
         self._road1 = Road([self])
         self._grass1 = Grass()
         self._grass2 = Grass()
-        self._id = "3R6G.PNG"
-        Tile.__init__(self, self._id, self._road1, self._grass1, self._grass2, self._road1)
+        self._image = "3R6G.png"
+        self._id = "18"
+        Tile.__init__(self, self._id, self._road1, self._grass1, self._grass2, self._road1, self._image)
 
         
     def getTile(self):
@@ -348,8 +370,9 @@ class LRoad(Tile):
     def __init__(self):
         self._road1 = Road([self])
         self._grass1 = Grass()
-        self._id = "6G3R.PNG"
-        Tile.__init__(self, self._id, self._grass1, self._road1, self._grass1, self._road1)
+        self._image = "6G3R.png"
+        self._id = "09"
+        Tile.__init__(self, self._id, self._grass1, self._road1, self._grass1, self._road1, self._image)
 
         
     def getTile(self):
@@ -364,8 +387,9 @@ class CityCone(Tile):
         self._city1 = City([self])
         self._grass1 = Grass()
         self._grass2 = Grass()
-        self._id = "7T2G.PNG"
-        Tile.__init__(self, self._id, self._grass1, self._city1, self._city1, self._grass1)
+        self._image = "7T2G.png"
+        self._id = "11"
+        Tile.__init__(self, self._id, self._grass1, self._city1, self._city1, self._grass1, self._image)
 
         
     def getTile(self):
@@ -379,8 +403,9 @@ class CityConeCrest(Tile):
         self._city1 = City([self], 1)
         self._grass1 = Grass()
         self._grass2 = Grass()
-        self._id = "7T2GShield.PNG"
-        Tile.__init__(self, self._id, self._grass1, self._city1, self._city1, self._grass2)
+        self._image = "7T2GShield.png"
+        self._id = "06"
+        Tile.__init__(self, self._id, self._grass1, self._city1, self._city1, self._grass2, self._image)
 
         
     def getTile(self):
@@ -389,8 +414,9 @@ class CityConeCrest(Tile):
 
 class FreeTile(Tile):
     def __init__(self):
-        self._id = "FreeTile.png"
-        Tile.__init__(self, self._id, None, None, None, None)
+        self._image = "FreeTile.png"
+        self._id = "24"
+        Tile.__init__(self, self._id, None, None, None, None, self._image)
 
 class TemplateTile(Tile):
     def __init__(self):
@@ -398,7 +424,8 @@ class TemplateTile(Tile):
         self._city1 = City()
         self._road1 = Road()
         self._id = ""
-        Tile.__init__(self, self._id, self._grass1, self._city1, self._road1, self._grass1)
+        self._image = ""
+        Tile.__init__(self, self._id, self._grass1, self._city1, self._road1, self._grass1, self._image)
 
         
     def getTile(self):
