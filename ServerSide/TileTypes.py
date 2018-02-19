@@ -192,7 +192,7 @@ class DiagonalRoad(Tile):
     def __init__(self):
         self._city1 = City([self])
         self._road1 = Road([self])
-        self.image = "5T3R1G.png"
+        self._image = "5T3R1G.png"
         self._id = "12"
         Tile.__init__(self, self._id, self._city1, self._city1, self._road1, self._road1, self._image)
 
