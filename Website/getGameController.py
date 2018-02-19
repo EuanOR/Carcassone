@@ -1,3 +1,7 @@
+from http.cookies import SimpleCookie
+from os import environ
+from shelve import open
+
 # Get game controller instance from session
 def getGameController():
     cookie = SimpleCookie()
