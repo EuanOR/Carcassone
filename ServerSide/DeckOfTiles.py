@@ -40,6 +40,8 @@ class DeckOfTiles():
     # ATTENTION: Brendan/Eimear/Cathy, the subclasses of the tile 
     # need to be generated here and ID's are needed to allow randomisation
     # Sorry, didn't know what I was doing and feel free to change this to make it work better
+    #
+    # It's fine, Claire. Was planning on going home this weekend but that's OK.
 
     def buildDeck(self):
         for i in range(len(self._tileList)):
@@ -50,7 +52,9 @@ class DeckOfTiles():
                 del self._tileList[point]
                 rand -= 1
         self._nextTile = self._deck.top()
-            
+    
+    def moveToBottom(self, tile):
+        self._deck.alist = [tile] + self._deck.alist
 
     def generateTiles(self):
         
