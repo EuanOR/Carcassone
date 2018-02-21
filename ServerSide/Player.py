@@ -3,8 +3,9 @@ class Player(object):
 
     #initialises the player object, only name can be set via this method
     #all other attributes will have default values across all players.
-    def __init__(self, name):
-        self._name = name
+    def __init__(self, playerID):
+        self._id = playerID
+        self._name = ""
         self._colour = None
         self._avatar = None
         self._score = 0
@@ -17,6 +18,10 @@ class Player(object):
     #Returns the players colour
     def getColour(self):
         return self._colour
+
+    #Sets the player's name
+    def setName(self, name):
+        self._name = name
 
     #returns the players name
     def getName(self):
