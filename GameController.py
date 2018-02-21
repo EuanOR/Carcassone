@@ -48,7 +48,7 @@ class GameController:
 	    if len(self._grid.returnValidLocations(self._tile)) > 0:
 	        valid_tile = True
 	    else:
-		self._deck.alist = [self._tile] + self._deck.alist
+		self._deck.moveToBottom(self._tile)
 		self._tile = self._deck.drawTile()
 		count += 1
 		if count == size:
