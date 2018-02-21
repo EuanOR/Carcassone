@@ -39,7 +39,23 @@ class GameController:
         """Begin a new player's go. Also used to begin game. 
         Returns the tile for their go and a list of valid locations to place that tile."""
         self._playing = (self._playing + 1) % len(self._players)
+	valid_tile = False
+	runThrough = False
+	count = 0
+	size = self._deck.length()
         self._tile = self._deck.drawTile()
+	while not valid_tile:
+	    if len(self._grid.returnValidLocations(self._tile)) > 0:
+	        valid_tile = True
+	    else:
+		self._deck.alist = [self._tile] + self._deck.alist
+		self._tile = self._deck.drawTile()
+		count += 1
+		if count == size:
+		    runThrough = True#
+	        """Functionality for end game needed here.
+		If there are no more tiles that can be placed, the game must end at this point.
+		Game-ending functions should appear here."""
         self._validPlacements = self._grid.returnValidLocations(self._tile)
         return self._tile, self._validPlacements
 
