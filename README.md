@@ -1,4 +1,4 @@
-# [Carcassonne Website](http://cs1dev.ucc.ie/~ecf1/Carcassone.html)
+# [Carcassonne Website](http://cs1dev.ucc.ie/~ecf1/Carcassonne.html)
 
 ### Some Simple Rules:
 
