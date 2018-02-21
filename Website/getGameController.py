@@ -14,10 +14,10 @@ def getGameController():
         print("Error! Player ID not in cookie")
         exit()
     playerID = cookie['playerID'].value
-    player_session = open('player_sessions/sess_' + playerID, writeback=False)
+    player_session = open('../player_sessions/sess_' + playerID, writeback=False)
     gameID = player_session['gameID']
     player_session.close()
-    game = open("game_sessions/sess_" + gameID, writeback=True)
+    game = open("../game_sessions/sess_" + gameID, writeback=True)
     gC = game["GameController"]
     game.close()
     return gC
@@ -33,9 +33,9 @@ def setGameController(gC):
         print("Error! Player ID not in cookie")
         exit()
     playerID = cookie['playerID'].value
-    player_session = open('player_sessions/sess_' + playerID, writeback=False)
+    player_session = open('../player_sessions/sess_' + playerID, writeback=False)
     gameID = player_session['gameID']
     player_session.close()
-    game = open("game_sessions/sess_" + gameID, writeback=True)
+    game = open("../game_sessions/sess_" + gameID, writeback=True)
     game["GameController"] = gC
     game.close()
