@@ -9,9 +9,7 @@
     var rotation = 0;
     // Player index e.g. 0, 1, 2, 3
     var player;
-    // ID of table cell that player is placing their tile in
-	var tableCellID;
-	
+    
     var startArray = [];
     
     document.addEventListener("DOMContentLoaded", init, false);
@@ -27,7 +25,10 @@
         console.log("GameBoard");
         //Create gameboard
         createGameBoard();
-        //Place initial tile in grid cell [0,0]
+	//Create initial leaderboard;
+	console.log("get leaderboard");
+	getLeaderBoard();
+	//Place initial tile in grid cell [0,0]
         console.log("PLACE START TILE");
         placeStartTile(0,0);
         //Get player name
@@ -225,93 +226,26 @@
         var image = document.getElementById(cellID).childNodes;
         image[0].src = currentTile;
         image[0].className = "placed";
+	console.log(image[0]);
         console.log("placed tile");
         hideValidPlaces();
         //TODO: Update table to show new tile placement
         //TODO: Send cell information to GameController
-        tableCellID = cellID;
-        checkMeeplePlacements();
+        //placeMeeple();
+        getLeaderBoard();
+        nextTurn();
     }
 
-    function checkMeeplePlacements(){
-        // Check if a meeple can be placed
-        var url = "cgi-bin/getMeeplePlacements.py";
-        request = new XMLHttpRequest();
-        request.addEventListener("readystatechange", canMeepleBePlaced, false);
-        request.open("GET", url, true);
-        request.send(null);
-    }
-    function canMeepleBePlaced(){
-        if (request.readyState === 4) {
-            if (request.status === 200) {
-                if (request.responseText.trim() != "problem") {
-                    // If no
-                    if (request.responseText.trim() == 0){
-                        endTurn();
-                    }
-                    // else return places
-                    else {
-                        var placements = request.responseText.trim()
-                        placeMeeple(placements);    
-                    } 
-                }
-            }
-        }
-    }
-
-    function placeMeeple(placements){
+    function placeMeeple(){
+        //TODO: ask GameController if meeple can be placed
+        //if meeple placement possible
         //  ask user do you want to place meeple?
         //  if True
-        document.getElementById("meepleQuestion");
-        var text = document.createTextNode("Would you like to place a meeple");
-        meepleQuestion.appendChild(text);
-        for (i = 0; i < placements.length; i++) {
-            newButton = document.createElement('button');
-            newButton.innerHTML = meeplePlacements[i];
-            meepleQuestion.appendChild(newButton);
-            newButton.onclick = function () {
-                meeplePlacementPressed(placements[i]);
-                endTurn();
-            }
-        var endGo = document.createElement("button");
-        endGo.innerHTML = "I don't want to place a meeple";
-        endGo.onclick = function () {
-            endTurn();
-        }
-    }
-
-    function meeplePlacementPressed(side) {
-        // put the meeple on this side of the grid cell
-        var url = "cgi-bin/getMeepleImage.py";
-        request = new XMLHttpRequest();
-        request.addEventListener("readystatechange", placeMeepleImage(side), false);
-        request.open("GET", url, true);
-        request.send(null);
-    }
-		
-
-    placeMeepleImage(side){
-        // TODO: Needs to place image to correct side of cell
-		
-        if (request.readyState === 4) {
-            if (request.status === 200) {
-                if (request.responseText.trim() != "problem") {
-                    cell = document.getElementById(tableCellID);
-                    var meepleImage = document.createElement("img");
-                    meepleImage.src = request.responseText.trim();
-                    cell.appendChild(meepleImage);
-                    //cell.childNode.style.
-                }
-            }
-        }
-    }
-
-    function endTurn(){
-        // Delete any meeple buttons
-        meepleQuestion.innerHTML = "";
-        tableCellID = null;
-        updateScore();
-        nextTurn();
+        //      place meeple
+        //      update display
+        //      send info back to game controller
+        //  else:
+        //      return
     }
 
     function nextTurn(){
@@ -323,7 +257,8 @@
 
     function rotateTile(){
         //TODO: update user of tile rotation display
-        // Can do with CSS or JQUERY 
+        // Can do with CSS or JQUERY //Place initial tile in grid cell [0,0]
+        console.log("PLACE START TILE");
         // ASK CATHY
         if (rotation >= 3){
             rotation = 0;
@@ -334,27 +269,37 @@
     }
 
     // Called in 'placeTile()'
-    function updateScore(){
+    function getLeaderBoard(){
+	console.log("getting leaderboard");
         //TODO: GET SCORE FROM GAME CONTROLLER
-        var url = "cgi-bin/getScore.py";
+        var url = "cgi-bin/Scoreboard.py";
         request = new XMLHttpRequest();
-        request.addEventListener("readystatechange", scoreReceived, false);
+        request.addEventListener("readystatechange", leaderboardReceived, false);
         request.open("GET", url, true);
         request.send(null);
     }
 
     // Handles 'updateScore()'
-    function scoreReceived(){
+    function leaderboardReceived(){
+	console.log("LEADERBOARD recieve function");
         if (request.readyState === 4) {
+	    console.log(request.readyState);
+	    console.log(request.responseText.trim());
             if (request.status === 200) {
+		console.log(request.status);
                 if (request.responseText.trim() != "problem") {
-                    // scores = [21, 34, 12, 24]
-                    // scores[0] = Player 1's score
-                    var scores = request.responseText.trim().split(" ");
+		    console.log("no problem");
+		    updateLeaderboard(request.responseText.trim());
                     //TODO: UPDATE LEADERBOARD
                 }
             }
         }
+      console.log("END LEADERBOARD");
+    }
+    
+    function updateLeaderboard(newLeaderboard){
+	scoreboard = document.getElementById("scoreboard");
+	scoreboard.innerHTML = newLeaderboard;
     }
 
 })();
