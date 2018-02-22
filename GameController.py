@@ -46,29 +46,29 @@ class GameController:
         """Begin a new player's go. Also used to begin game. 
         Returns the tile for their go and a list of valid locations to place that tile."""
         self._playing = (self._playing + 1) % len(self._players)
-	valid_tile = False
-	runThrough = False
-	count = 0
-	size = self._deck.length()
+        valid_tile = False
+        runThrough = False
+        count = 0
+        size = self._deck._deck.length()
         self._tile = self._deck.drawTile()
-	while not valid_tile:
-	    if len(self._grid.returnValidLocations(self._tile)) > 0:
-	        valid_tile = True
-	    elif len(self._grid.returnValidLocations(self._tile)) == 0:
-		for i in range(4):
-		    self._tile.rotateTile()
-		    if len(self._grid.returnValidLocations(self._tile)) > 0:
-			valid_tile = True
-		
-	    	else:
-		    self._deck.moveToBottom(self._tile)
-		    self._tile = self._deck.drawTile()
-		    count += 1
-		    if count == size:
-		        runThrough = True#
-	            """Functionality for end game needed here.
-		    If there are no more tiles that can be placed, the game must end at this point.
-		    Game-ending functions should appear here."""
+        while not valid_tile:
+            if len(self._grid.returnValidLocations(self._tile)) > 0:
+                valid_tile = True
+            elif len(self._grid.returnValidLocations(self._tile)) == 0:
+                for i in range(4):
+                    self._tile.rotateTile()
+                    if len(self._grid.returnValidLocations(self._tile)) > 0:
+                        valid_tile = True
+
+            if not valid_tile:
+                self._deck.moveToBottom(self._tile)
+                self._tile = self._deck.drawTile()
+                count += 1
+            if count == size:
+                runThrough = True#
+                """Functionality for end game needed here.
+                If there are no more tiles that can be placed, the game must end at this point.
+                Game-ending functions should appear here."""
         self._validPlacements = self._grid.returnValidLocations(self._tile)
         return self._tile, self._validPlacements
 
@@ -114,7 +114,28 @@ class GameController:
 
     def isRoadComplete(self, road):
         """Returns True if the road 'road' is complete."""
-        return road.getEndCount() == 2
+        if road.getEndCount() == 2:
+            return True
+        else:
+            tiles = road.getTiles()
+            for tile in tiles:
+                if tile._left == road:
+                    neighbour = self._grid.getTile(tile._xPos-1, tile._yPos)
+                    if neighbour not in tiles:
+                        return False
+                if tile._right == road:
+                    neighbour = self._grid.getTile(tile._xPos+1, tile._yPos)
+                    if neighbour not in tiles:
+                        return False
+                if tile._top == road:
+                    neighbour = self._grid.getTile(tile._xPos, tile._yPos-1)
+                    if neighbour not in tiles:
+                        return False
+                if tile._bottom == road:
+                    neighbour = self._grid.getTile(tile._xPos, tile._yPos+1)
+                    if neighbour not in tiles:
+                        return False
+            return True
 
     def isCityComplete(self, city):
         """Returns True if the city 'city' is complete."""
@@ -297,11 +318,52 @@ def main():
     gc.placeTile(2, 0)
     print(A._score)
     
+def main2():
+    from unittest.mock import MagicMock
+    from TileTypes import StraightRoad, LRoad
+    gc = GameController()
+    A = Player("A")
+    B = Player("B")
+    A.createMeeples()
+    B.createMeeples()
+    gc.joinGame(A)
+    gc.joinGame(B)
     
+    gc._deck.drawTile = MagicMock(return_value=StraightRoad())
+    gc.nextGo()
+    gc.rotateTile()
+    gc.placeTile(0, 1)
+    gc.placeMeeple(gc._tile._left)
+
+    gc._deck.drawTile = MagicMock(return_value=LRoad())
+    gc.nextGo()
+    gc.placeTile(1, 0)
+    gc.placeMeeple(gc._tile._left)
+
+    gc._deck.drawTile = MagicMock(return_value=LRoad())
+    gc.nextGo()
+    gc.rotateTile()
+    gc.placeTile(1, 1)
+
+    gc._deck.drawTile = MagicMock(return_value=LRoad())
+    gc.nextGo()
+    gc.rotateTile()
+    gc.rotateTile()
+    gc.placeTile(-1, 1)
+
+    gc._deck.drawTile = MagicMock(return_value=LRoad())
+    gc.nextGo()
+    gc.rotateTile()
+    gc.rotateTile()
+    gc.rotateTile()
+    gc.placeTile(-1, 0)
+
+    print(A._score)
+       
     
     
 if __name__ == "__main__":
-    main()
+    main2()
     
 
     
