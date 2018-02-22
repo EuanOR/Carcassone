@@ -64,9 +64,6 @@ class Road(Landmark):
         self._endCount = endCount
         Landmark.__init__(self, score, tiles)
 
-    def __str__(self):
-        ret_str = "Score=%i, EndCount=%i, Tiles=%s" %(self._score, self._endCount, self._tiles)
-        return ret_str
 
     def getEndCount(self):
         """Returns how many ends the road has."""
