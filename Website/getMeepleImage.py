@@ -9,6 +9,6 @@ print('Content-Type: text/plain')
 print()
 
 gC = getGameController()
-imageSrc = gC._playing._img
+imageSrc = gC._players[gC._playing]._img
 print(imageSrc)
 setGameController(gC)
