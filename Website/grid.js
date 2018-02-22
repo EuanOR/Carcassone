@@ -228,7 +228,7 @@
         var image = document.getElementById(cellID).childNodes;
         image[0].src = currentTile;
         image[0].className = "placed";
-	console.log(image[0]);
+		console.log(image[0]);
         console.log("placed tile");
         //TODO: Update table to show new tile placement
         //TODO: Send cell information to GameController
