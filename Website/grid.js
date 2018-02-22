@@ -230,7 +230,6 @@
         image[0].className = "placed";
 	console.log(image[0]);
         console.log("placed tile");
-        hideValidPlaces();
         //TODO: Update table to show new tile placement
         //TODO: Send cell information to GameController
         //placeMeeple();
@@ -316,6 +315,7 @@
         // Delete any meeple buttons
         meepleQuestion.innerHTML = "";
         tableCellID = null;
+		hideValidPlaces();
         updateLeaderBoard();
         nextTurn();
     }
