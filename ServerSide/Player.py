@@ -5,6 +5,7 @@ class Player(object):
     #all other attributes will have default values across all players.
     def __init__(self, playerID):
         self._id = playerID
+        self._meepleImage = None
         self._name = ""
         self._colour = None
         self._avatar = None
@@ -26,6 +27,14 @@ class Player(object):
     #returns the players name
     def getName(self):
         return self._name
+
+    # Return the player's meeple image source
+    def getMeepleImage(self):
+        return self._meepleImage
+        
+    # Set image source of the player's meeple
+    def setMeepleImage(self, src):
+        self._meepleImage = src
 
     #This method will calculate the score of a finished set of tiles and
     #increment the players score accordingly
