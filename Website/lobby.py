@@ -46,9 +46,9 @@ player = gc.getPlayer(playerID)
 
 #Sets the name, avatar and meeple colour attributes based on the values
 #sent by the previous page
-player.setName = name
-player.setMeepleImage = colour
-player.setAvatar = avatar
+player.setName(name)
+player.setMeepleImage(colour)
+player.setAvatar(avatar)
 #closes the GameController
 setGameController(gc)
 
