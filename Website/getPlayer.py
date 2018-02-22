@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/python3
 
 # Return current player
 from cgitb import enable 
@@ -9,5 +9,6 @@ print('Content-Type: text/plain')
 print()
 
 gC = getGameController()
-print(gC._playing)
+player = gC._players[gC._playing]
+print(player)
 setGameController(gC)
