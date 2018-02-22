@@ -141,7 +141,7 @@ def main():
     initialTile = InitialTile()
     fourWayRoad = FourWayCrossroad()
 
-    grid = Grid(initialTile)
+    grid = Grid()
 
     print(grid.insertTile(1,0,fourWayRoad)) #Adding four way road to the right of initial tile, should return True -> valid location and inside openLocation
 
