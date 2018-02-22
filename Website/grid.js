@@ -288,6 +288,7 @@
         request.open("GET", url, true);
         request.send(null);
     }
+		
 
     placeMeepleImage(side){
         // TODO: Needs to place image to correct side of cell
