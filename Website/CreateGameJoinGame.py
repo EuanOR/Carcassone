@@ -132,7 +132,7 @@ print("""
    <input type = "radio" name = "colour" value = "green">Green<br>
    <input type = "radio" name = "colour" value = "yellow">Yellow<br>
    <br>
-   <a href "lobby.py"><input type="submit" value="Submit"></a>
+   <input type="submit" value="Submit">
  </form>
  </body>
 </html>""")
