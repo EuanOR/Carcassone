@@ -291,6 +291,7 @@
 
     placeMeepleImage(side){
         // TODO: Needs to place image to correct side of cell
+		
         if (request.readyState === 4) {
             if (request.status === 200) {
                 if (request.responseText.trim() != "problem") {
