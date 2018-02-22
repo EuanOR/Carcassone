@@ -44,6 +44,14 @@ class Player(object):
     #returns the players current score
     def getScore(self):
         return self._score
+ 
+    #returns the players source of the players avatar image
+    def getAvatar(self):
+        return self._avatar
+    
+    #sets the source of the players avatar image
+    def setAvatar(self,src):
+        self._avatar = src
 
     #Prompts user to enter colour of their meeples and spawns 9 meeples
     #of that colour and places them in the inactive meeple list
