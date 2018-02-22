@@ -60,7 +60,6 @@ class DeckOfTiles():
     def generateTiles(self):
         
         ct = CityTile()
-        print(ct._top)
         self._tileList += [ct]
         tscc = ThreeSidedCapCrest()
         self._tileList += [tscc]
