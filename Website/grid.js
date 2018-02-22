@@ -13,15 +13,6 @@
     var startArray = [];
     
     document.addEventListener("DOMContentLoaded", init, false);
-	
-    var background = new Audio("cgi-bin/background_music.mp3");
-    background.addEventListener("ended", restartMusic(background), false);
-    background.play();
-	
-    function restartMusic(Audio audio) {
-    	this.currentTime = 0;
-	this.play();
-    }
 
     function init(){
         console.log("GAME STARTING");
@@ -170,11 +161,9 @@
     function showPlayerTile(tilePath){
         var div = document.getElementById("deckTile");
         var image = document.createElement("img");
-	var aud = new Audio("cgi-bin/draw_tile.mp3");
         image.src = tilePath;
         currentTile = tilePath;
         div.appendChild(image);
-	aud.play();
     }
 
     //SHOW AVAILABLE VALID CELLS
@@ -232,15 +221,13 @@
     function placeTile(cellID){
         // ASK HENRY WHAT EXACTLY THIS LINE DOES
         var image = document.getElementById(cellID).childNodes;
-	var aud = new Audio("cgi-bin/place_tile.mp3");
         image[0].src = currentTile;
         image[0].className = "placed";
-	aud.play()
         console.log("placed tile");
         hideValidPlaces();
         //TODO: Update table to show new tile placement
         //TODO: Send cell information to GameController
-        placeMeeple();
+        //placeMeeple();
         updateScore();
         nextTurn();
     }
@@ -268,13 +255,11 @@
         //TODO: update user of tile rotation display
         // Can do with CSS or JQUERY 
         // ASK CATHY
-	var aud = new Audio("cgi-bin/rotate_tile.mp3");
         if (rotation >= 3){
             rotation = 0;
         } else {
             rotation ++;
         }
-	aud.play();
         getValidPlaces(rotation);
     }
 
@@ -282,7 +267,6 @@
     function updateScore(){
         //TODO: GET SCORE FROM GAME CONTROLLER
         var url = "cgi-bin/getScore.py";
-	var aud = new Audio("cgi-bin/point_gain.mp3");
         request = new XMLHttpRequest();
         request.addEventListener("readystatechange", scoreReceived, false);
         request.open("GET", url, true);
