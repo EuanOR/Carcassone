@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html>
 <head>
+  <meta charset="UTF-8"> 
+  <title> Carcassonne</title>
   <link rel="stylesheet" type="text/css" href="Carcassonne.css">
-  <title>Carcassonne</title>
+  <script type="text/javascript" src="grid.js"></script>
 </head>
 <body>
-
-<ul>
-  <li><a class="active" href="#">Game</a></li>
-  <li><a href="#">Rules</a></li>
-  <li><a href="#">Leaderboard</a></li>
-</ul>
-
-</body>
-</html>
-
+  <div id="header"><a href=""><img src="TileAssets/carcassonne-logo.png" alt="Carcassonne Logo" id="logoImage">
+    <section class="container">
+      <div id="grid">
+	<div id="sideboard">
+	  <div id="leaderboard">
+	    <table id="scoreboard">
+	    </table>
+	</div>
+	<div id="deckTile">
+	  <p>Here is your tile:</p>
+	</div>
+      </div>
+    </div>
+  </section>
 </body>
 </html>
