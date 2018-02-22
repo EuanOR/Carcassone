@@ -112,4 +112,27 @@ print(cookie)
 #values here to be changed. Not sure what to print
 print("Content-Type:text/plain")
 print()
-print(result)
+print("""
+<!DOCTYPE HTML>
+<html>
+<head></head>
+<body>
+ <form action="lobby.py">
+   Name:
+   <input type = "text" name = "player_name">
+   <br>
+   <br>
+   <input type = "radio" name = "avatar" value = "avatar1" > <img src = "" alt = ""><br>
+   <input type = "radio" name = "avatar" value = "avatar2"> <img src = "" alt = ""><br>
+   <input type = "radio" name = "avatar" value = "avatar3"> <img src = "" alt = ""><br>
+   <input type = "radio" name = "avatar" value = "avatar4"> <img src = "" alt = ""><br>
+   <br>
+   <input type = "radio" name = "colour" value = "red">Red<br>
+   <input type = "radio" name = "colour" value = "blue">Blue<br>
+   <input type = "radio" name = "colour" value = "green">Green<br>
+   <input type = "radio" name = "colour" value = "yellow">Yellow<br>
+   <br>
+   <a href "lobby.py"><input type="submit" value="Submit"></a>
+ </form>
+ </body>
+</html>""")
