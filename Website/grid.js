@@ -9,7 +9,9 @@
     var rotation = 0;
     // Player index e.g. 0, 1, 2, 3
     var player;
-    
+    // ID of table cell that player is placing their tile in
+	var tableCellID;
+	
     var startArray = [];
     
     document.addEventListener("DOMContentLoaded", init, false);
@@ -227,21 +229,87 @@
         hideValidPlaces();
         //TODO: Update table to show new tile placement
         //TODO: Send cell information to GameController
-        //placeMeeple();
-        updateScore();
-        nextTurn();
+        tableCellID = cellID;
+        checkMeeplePlacements();
     }
 
-    function placeMeeple(){
-        //TODO: ask GameController if meeple can be placed
-        //if meeple placement possible
+    function checkMeeplePlacements(){
+        // Check if a meeple can be placed
+        var url = "cgi-bin/getMeeplePlacements.py";
+        request = new XMLHttpRequest();
+        request.addEventListener("readystatechange", canMeepleBePlaced, false);
+        request.open("GET", url, true);
+        request.send(null);
+    }
+    function canMeepleBePlaced(){
+        if (request.readyState === 4) {
+            if (request.status === 200) {
+                if (request.responseText.trim() != "problem") {
+                    // If no
+                    if (request.responseText.trim() == 0){
+                        endTurn();
+                    }
+                    // else return places
+                    else {
+                        var placements = request.responseText.trim()
+                        placeMeeple(placements);    
+                    } 
+                }
+            }
+        }
+    }
+
+    function placeMeeple(placements){
         //  ask user do you want to place meeple?
         //  if True
-        //      place meeple
-        //      update display
-        //      send info back to game controller
-        //  else:
-        //      return
+        document.getElementById("meepleQuestion");
+        var text = document.createTextNode("Would you like to place a meeple");
+        meepleQuestion.appendChild(text);
+        for (i = 0; i < placements.length; i++) {
+            newButton = document.createElement('button');
+            newButton.innerHTML = meeplePlacements[i];
+            meepleQuestion.appendChild(newButton);
+            newButton.onclick = function () {
+                meeplePlacementPressed(placements[i]);
+                endTurn();
+            }
+        var endGo = document.createElement("button");
+        endGo.innerHTML = "I don't want to place a meeple";
+        endGo.onclick = function () {
+            endTurn();
+        }
+    }
+
+    function meeplePlacementPressed(side) {
+        // put the meeple on this side of the grid cell
+        var url = "cgi-bin/getMeepleImage.py";
+        request = new XMLHttpRequest();
+        request.addEventListener("readystatechange", placeMeepleImage(side), false);
+        request.open("GET", url, true);
+        request.send(null);
+    }
+
+    placeMeepleImage(side){
+        // TODO: Needs to place image to correct side of cell
+        if (request.readyState === 4) {
+            if (request.status === 200) {
+                if (request.responseText.trim() != "problem") {
+                    cell = document.getElementById(tableCellID);
+                    var meepleImage = document.createElement("img");
+                    meepleImage.src = request.responseText.trim();
+                    cell.appendChild(meepleImage);
+                    //cell.childNode.style.
+                }
+            }
+        }
+    }
+
+    function endTurn(){
+        // Delete any meeple buttons
+        meepleQuestion.innerHTML = "";
+        tableCellID = null;
+        updateScore();
+        nextTurn();
     }
 
     function nextTurn(){
