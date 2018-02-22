@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/python3
 
 # Get available and valid places according to tile rotation
 from cgitb import enable 
