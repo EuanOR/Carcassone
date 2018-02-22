@@ -17,6 +17,13 @@ class GameController:
         self._validPlacements = [] # list of places you can place tile
         self._validMeeplePlacements = [] # list of places you can place meeple
 
+        
+    def getPlayer(self, playerID):
+        """Returns the player with the id playerID"""
+        for player in self._players:
+            if player._id == playerID:
+                return player
+        return None
 
     def getTile(self):
         """Get the tile currently being placed."""
