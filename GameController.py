@@ -55,7 +55,7 @@ class GameController:
 	    if len(self._grid.returnValidLocations(self._tile)) > 0:
 	        valid_tile = True
 	    elif len(self._grid.returnValidLocations(self._tile)) == 0:
-		for i in range(3):
+		for i in range(4):
 		    self._tile.rotateTile()
 		    if len(self._grid.returnValidLocations(self._tile)) > 0:
 			valid_tile = True
