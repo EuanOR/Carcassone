@@ -1,4 +1,4 @@
-#!usr/local/python3
+#!/usr/bin/python3
 
 from cgitb import enable 
 enable()
