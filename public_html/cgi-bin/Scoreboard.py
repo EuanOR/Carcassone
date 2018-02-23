@@ -1,14 +1,13 @@
-#!/usr/local/bin/python3
+#!/usr/bin/python3
 
 from getGameController import *
-from ctigb import enable
+from cgitb import enable
 enable()
 print("Content-Type: text/plain")
 print()
 
 
 def tableCreator(GameController):
-    gamecontroller=getGameController()
     Players=GameController._players
     Players.sort(key=lambda x: x._score,reverse=True)
     outstr=""
