@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 from cgitb import enable
 enable()
 
