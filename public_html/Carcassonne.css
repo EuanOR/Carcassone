@@ -70,12 +70,14 @@ li a:hover:not(.active) {
 }
 
 /* Button CSS */
+#button{
+	text-align: center;
+}
 
 #playButton {
 	width: 10%;
 	height: 10%;
 	position: absolute;
-	bottom: 5%;
 	border-radius: 4px;
 	background-color: #f4511e;
 	border: none;
