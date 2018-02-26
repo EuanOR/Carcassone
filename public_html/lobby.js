@@ -13,7 +13,7 @@
 
     // Get current Player name and meeples etc.
     function getPlayerCount(){
-        var url = "cgi-bin/getPlayerCount.py";
+        var url = "getPlayerCount.py";
         request = new XMLHttpRequest();
         request.addEventListener("readystatechange", playerCountReceived, false);
         request.open("GET", url, true);
@@ -49,3 +49,4 @@
 
 
 })();
+ 
