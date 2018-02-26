@@ -1,6 +1,8 @@
 (function() {
 
     var request;
+    var leaderboardRequest;
+    var playerRequest;
     // Gameboard & sidebar container
     var div;
     // Relative path of image src
@@ -9,9 +11,7 @@
     var rotation = 0;
     // Player index e.g. 0, 1, 2, 3
     var player;
-    
-	var tableCellID;
-
+    var tableCellID;
     var startArray = [];
     
     document.addEventListener("DOMContentLoaded", init, false);
@@ -37,8 +37,7 @@
 	console.log("made it out");
         getPlayer();
         //Get tile for player's turn
-        getPlayerTile();
-        //Get valid places where player can place tile
+        //getPlayerTile();
     }
 
     //CREATE TABLE FOR GAMEBOARD
@@ -49,19 +48,16 @@
         table.cellSpacing = "0";
         var tableBody = document.createElement('tbody');
         console.log("table made");
-        // y-coordinate for cell
-        var yStart = -1;
-
-        for (var i = 0; i < 3; i++){
+	
+        // increment y-coordinate for cell
+        for (var yStart = -1; yStart < 2; yStart++){
             // Create row
             var row = document.createElement("tr");
 
-            // x-coordinate for cell
-            var xStart = -1;
-            for (var j = 0; j < 3; j++){
+            // increment x-coordinate for cell
+            for (var xStart = -1; xStart < 2; xStart++){
                 // Create column
                 var cell = document.createElement("td");
-
                 // Adds an ID for each cell of table
 		cell.id = ((xStart.toString()).concat(",")).concat((yStart.toString()));
                 // Add blank image for each cell
@@ -73,10 +69,8 @@
 		row.appendChild(cell);
 
                 // Increment cell position
-                xStart ++;
             }
             // Increment cell position
-            yStart ++;
             tableBody.appendChild(row);
         }
         // Add table to container div and set a border
@@ -113,26 +107,29 @@
     function getPlayer(){
 	console.log("getting player");
         var url = "cgi-bin/getPlayer.py";
-        request = new XMLHttpRequest();
-        request.addEventListener("readystatechange", playerReceived, false);
-        request.open("GET", url, true);
-        request.send(null);
+        playerRequest = new XMLHttpRequest();
+        playerRequest.addEventListener("readystatechange", playerReceived, false);
+        playerRequest.open("GET", url, true);
+        playerRequest.send(null);
     }
 
     // Handler for 'getPlayer()'
     function playerReceived(){
         console.log("player received");
-        if (request.readyState === 4) {
+	console.log("readyState = " + playerRequest.readyState);
+        if (playerRequest.readyState === 4) {
 	    console.log("ready");
-            if (request.status === 200) {
+	    console.log("playerRequest.status = " + playerRequest.status);
+            if (playerRequest.status === 200) {
 		console.log("OK");
-                if (request.responseText.trim() != "problem") {
+		console.log("playerresponse = " + playerRequest.responseText.trim());
+                if (playerRequest.responseText.trim() != "problem") {
 		    console.log("success");
                     //TODO: update display to show who's turn it is
                     // request.responseText.trim() = player index in GameController players array
                     // e.g. 0, 1, 2, 3
 
-                    var player = document.getElementById(request.responseText.trim());
+                    var player = document.getElementById(playerRequest.responseText.trim());
                     player.className = "active";
 
                     //TODO: Lock controls to this player
@@ -164,10 +161,14 @@
     }
 
     function showPlayerTile(tilePath){
+	console.log("SHOWING A PLAYER TILE");
         var div = document.getElementById("deckTile");
         var image = document.createElement("img");
         image.src = tilePath;
+	console.log(tilePath);
         currentTile = tilePath;
+	console.log(currentTile);
+	
         div.appendChild(image);
     }
 
@@ -222,22 +223,21 @@
         }
     }
 
-        //PLAYER PLACES TILE ON TURN
+    //PLAYER PLACES TILE ON TURN
     function placeTile(cellID){
         // ASK HENRY WHAT EXACTLY THIS LINE DOES
         var image = document.getElementById(cellID).childNodes;
+	console.log(currentTile);
         image[0].src = currentTile;
         image[0].className = "placed";
-		console.log(image[0]);
+	console.log(image[0]);
         console.log("placed tile");
-        //TODO: Update table to show new tile placement
-        //TODO: Send cell information to GameController
-        //placeMeeple();
-		tableCellID = cellID;
+	tableCellID = cellID;
         checkMeeplePlacements();
     }
-
+    
     function checkMeeplePlacements(){
+	console.log("meeples pls");
         // Check if a meeple can be placed
         var url = "cgi-bin/getMeeplePlacements.py";
         request = new XMLHttpRequest();
@@ -245,7 +245,9 @@
         request.open("GET", url, true);
         request.send(null);
     }
+    
     function canMeepleBePlaced(){
+	console.log("can meeples be placed");
         if (request.readyState === 4) {
             if (request.status === 200) {
                 if (request.responseText.trim() != "problem") {
@@ -264,9 +266,10 @@
     }
 
     function placeMeeple(placements){
+	console.log("meeple is placed");
         //  ask user do you want to place meeple?
         //  if True
-        document.getElementById("meepleQuestion");
+        meepleQuestion = document.getElementById("meepleQuestion");
         var text = document.createTextNode("Would you like to place a meeple");
         meepleQuestion.appendChild(text);
         for (i = 0; i < placements.length; i++) {
@@ -284,7 +287,7 @@
             endTurn();
         }
     }
-
+    
     function meeplePlacementPressed(side) {
         // put the meeple on this side of the grid cell
         var url = "cgi-bin/getMeepleImage.py";
@@ -310,12 +313,13 @@
             }
         }
     }
-
+    
     function endTurn(){
+	console.log("end turn");
         // Delete any meeple buttons
         meepleQuestion.innerHTML = "";
         tableCellID = null;
-		hideValidPlaces();
+	hideValidPlaces();
         updateLeaderBoard();
         nextTurn();
     }
@@ -329,7 +333,7 @@
 
     function rotateTile(){
         //TODO: update user of tile rotation display
-        // Can do with CSS or JQUERY //Place initial tile in grid cell [0,0]
+        // Can do with CSS or JQUERY 
         console.log("PLACE START TILE");
         // ASK CATHY
         if (rotation >= 3){
@@ -343,25 +347,24 @@
     // Called in 'placeTile()'
     function getLeaderBoard(){
 	console.log("getting leaderboard");
-        //TODO: GET SCORE FROM GAME CONTROLLER
         var url = "cgi-bin/Scoreboard.py";
-        request = new XMLHttpRequest();
-        request.addEventListener("readystatechange", leaderboardReceived, false);
-        request.open("GET", url, true);
-        request.send(null);
+        leaderboardRequest = new XMLHttpRequest();
+        leaderboardRequest.addEventListener("readystatechange", leaderboardReceived, false);
+        leaderboardRequest.open("GET", url, true);
+        leaderboardRequest.send(null);
     }
 
     // Handles 'updateScore()'
     function leaderboardReceived(){
 	console.log("LEADERBOARD recieve function");
-        if (request.readyState === 4) {
-	    console.log(request.readyState);
-	    console.log(request.responseText.trim());
-            if (request.status === 200) {
-		console.log(request.status);
-                if (request.responseText.trim() != "problem") {
+	console.log("readyState= " +leaderboardRequest.readyState);
+        if (leaderboardRequest.readyState === 4) {
+	    console.log("resonse = " +leaderboardRequest.responseText.trim());
+            if (leaderboardRequest.status === 200) {
+		console.log("status= " + leaderboardRequest.status);
+                if (leaderboardRequest.responseText.trim() != "problem") {
 		    console.log("no problem");
-		    updateLeaderboard(request.responseText.trim());
+		    updateLeaderboard(leaderboardRequest.responseText.trim());
                     //TODO: UPDATE LEADERBOARD
                 }
             }
@@ -370,7 +373,9 @@
     }
     
     function updateLeaderboard(newLeaderboard){
+	console.log("updating leaderboard");
 	scoreboard = document.getElementById("scoreboard");
+	console.log("newLeaderboard = " +newLeaderboard);
 	scoreboard.innerHTML = newLeaderboard;
     }
 
