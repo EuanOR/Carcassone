@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="Carcassonne.css">
+  <title>Carcassonne</title>
+</head>
+<body>
+	<div id="header"> <a href="home.html"><img src="TileAssets/carcassonne-logo.png" alt="Carcasonne Logo" id="logoImage"> </a> </div>
+	<div id="button">
+	    <a href="cgi-bin/CreateGameJoinGame.py?mode=join">
+	    <button type="button" id="playButton"> <span> Play </span></button></a>
+	</div>
+
+	<section id="container">
+	<div id="rules">
+		<h2 id=rulesHeading> Rules </h2>
+		<h3> Objectives </h3>
+		<p> Players place land tiles turn by turn. As they do roads and cities are built and grow.
+		  	When a player places a tile they have the option to deploy one of their 8 meeples (followers) to occupy
+		  	the landmark on the tile they've placed to earn points.The player with the most points at the end of the game is the
+		  	winner.
+		</p>
+
+		<h3> Scoring </h3>
+			<p> Road tiles are worth one point. Roads are completed when they have two end points. Players who control a road get one point
+	  		per tile the road runs through.</p>
+			<p>City tiles are worth two points. Cities are completed when they are completely walled. If a city tile is fortified (has a crest)
+			  it is worth four points.</p>
+
+		<h3>Contested Landmarks</h3>
+			<p>If a landmark is completed and is occupied by more than one player the player with the most meeples on the landmark takes all the points.
+			  If the number of meeples are equal all players with equal meeples on the landmark get full points
+			</p>
+
+		<h3>Uncompleted Landmarks</h3>
+		<p>If at the end of the game there exists landmarks which are not completed these landmarks are worth half points.
+		  i.e half a point for a road or one point for an unfortified city
+		</p>
+	</div>
+
+	<div id="videoDemonstration">
+		<iframe width="50%" height="400px" src="https://www.youtube.com/embed/zL2PwlOh5bw?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+		</iframe>
+	</div>
+</section>
+</body>
+</html>
+
+</body>
+</html>
