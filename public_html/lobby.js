@@ -33,7 +33,7 @@
                     var waitingOn = 4 - playerCount;
                     if (waitingOn == 0){
                         // all players have joined. Redirects you to game page
-                        window.location.href = "Carcassone.html";
+                        window.location.href = "../Carcassonne.html";
                     } else if (waitingOn == 1){
                         // print number of players left to join
                         playerCountParagraph.innerHTML = "Waiting on " + waitingOn + " player";
