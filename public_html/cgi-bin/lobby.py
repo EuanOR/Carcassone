@@ -60,7 +60,7 @@ print("""<!DOCTYPE html>
 <html>
     <head>
         <title>Carcassonne Lobby</title>
-        <script src="lobby.js"></script>
+        <script src="../lobby.js"></script>
         <style>
             #loader {
                 margin-left: auto;
@@ -106,7 +106,7 @@ print("""<!DOCTYPE html>
 
     <body>
         <main>
-            <img src="loader.png" id="loader">
+            <img src="../TileAssets/loader.png" id="loader">
             <p id="playerCount"></p>
         </main>
     </body>
