@@ -14,6 +14,7 @@ from getGameController import *
 name = ""
 avatar = ""
 colour = ""
+form_data = FieldStorage()
 if len(form_data) != 0:
     name = escape(form_data.getfirst("name","").strip())
     avatar = escape(form_data.getfirst("avatar", "").strip())
