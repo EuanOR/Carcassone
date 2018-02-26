@@ -7,10 +7,15 @@ from getGameController import *
 print("Content-Type: text/plain")
 print()
 
+playersWithNames = 0
 try:
     gc = getGameController()
 except Exception as e:
     print("problem")
     exit()
-print(len(gc._players))
+
+for player in gc._players:
+    if player._name != "":
+        playersWithNames += 1 
+print(playersWithNames)
 
