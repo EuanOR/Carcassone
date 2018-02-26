@@ -4,7 +4,7 @@ enable()
 
 from os import environ
 from http.cookies import SimpleCookie
-
+from cgi import FieldStorage, escape
 from Player import *
 from GameController import *
 from getGameController import *
