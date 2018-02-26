@@ -3,6 +3,9 @@
     var request;
     var leaderboardRequest;
     var playerRequest;
+    var validPlacesRequest;
+    var checkMeeplesRequest;
+    var placeMeepleRequest;
     // Gameboard & sidebar container
     var div;
     // Relative path of image src
@@ -176,19 +179,19 @@
     function getValidPlaces(rotation){
         // Get array of available, valid cells
         var url = "cgi-bin/getValidPlaces.py?rotation=" + rotation;
-        request = new XMLHttpRequest();
-        request.addEventListener("readystatechange", validPlacesReceived, false);
-        request.open("GET", url, true);
-        request.send(null);
+        validPlacesRequest = new XMLHttpRequest();
+        validPlacesRequest.addEventListener("readystatechange", validPlacesReceived, false);
+        validPlacesRequest.open("GET", url, true);
+        validPlacesRequest.send(null);
     }
 
     // Handles 'getValidPlaces()'
     function validPlacesReceived(){
-        if (request.readyState === 4) {
-            if (request.status === 200) {
-                if (request.responseText.trim() != "problem") {
+        if (validPlacesRequest.readyState === 4) {
+            if (validPlacesRequest.status === 200) {
+                if (validPlacesRequest.responseText.trim() != "problem") {
                     // If successful get list of valid cell locations
-                    startArray = request.responseText.trim().split(" ");
+                    startArray = validPlacesRequest.responseText.trim().split(" ");
                     showValidPlaces(startArray);
                     
                 }
@@ -240,24 +243,24 @@
 	console.log("meeples pls");
         // Check if a meeple can be placed
         var url = "cgi-bin/getMeeplePlacements.py";
-        request = new XMLHttpRequest();
-        request.addEventListener("readystatechange", canMeepleBePlaced, false);
-        request.open("GET", url, true);
-        request.send(null);
+        checkMeeplesRequest = new XMLHttpRequest();
+        checkMeeplesRequest.addEventListener("readystatechange", canMeepleBePlaced, false);
+        checkMeeplesRequest.open("GET", url, true);
+        checkMeeplesRequest.send(null);
     }
     
     function canMeepleBePlaced(){
 	console.log("can meeples be placed");
-        if (request.readyState === 4) {
-            if (request.status === 200) {
-                if (request.responseText.trim() != "problem") {
+        if (checkMeeplesRequest.readyState === 4) {
+            if (checkMeeplesRequest.status === 200) {
+                if (checkMeeplesRequest.responseText.trim() != "problem") {
                     // If no
-                    if (request.responseText.trim() == 0){
+                    if (checkMeeplesRequest.responseText.trim() == 0){
                         endTurn();
                     }
                     // else return places
                     else {
-                        var placements = request.responseText.trim()
+                        var placements = checkMeeplesRequest.responseText.trim();
                         placeMeeple(placements);    
                     } 
                 }
@@ -269,7 +272,7 @@
 	console.log("meeple is placed");
         //  ask user do you want to place meeple?
         //  if True
-        meepleQuestion = document.getElementById("meepleQuestion");
+        var meepleQuestion = document.getElementById("meepleQuestion");
         var text = document.createTextNode("Would you like to place a meeple");
         meepleQuestion.appendChild(text);
         for (i = 0; i < placements.length; i++) {
@@ -291,22 +294,21 @@
     function meeplePlacementPressed(side) {
         // put the meeple on this side of the grid cell
         var url = "cgi-bin/getMeepleImage.py";
-        request = new XMLHttpRequest();
-        request.addEventListener("readystatechange", placeMeepleImage(side), false);
-        request.open("GET", url, true);
-        request.send(null);
+        placeMeepleRequest = new XMLHttpRequest();
+        placeMeepleRequest.addEventListener("readystatechange", placeMeepleImage(side), false);
+        placeMeepleRequest.open("GET", url, true);
+        placeMeepleRequest.send(null);
     }
 		
 
     function placeMeepleImage(side){
         // TODO: Needs to place image to correct side of cell
-		
-        if (request.readyState === 4) {
-            if (request.status === 200) {
-                if (request.responseText.trim() != "problem") {
+        if (placeMeepleRequest.readyState === 4) {
+            if (placeMeepleRequest.status === 200) {
+                if (placeMeepleRequest.responseText.trim() != "problem") {
                     cell = document.getElementById(tableCellID);
                     var meepleImage = document.createElement("img");
-                    meepleImage.src = request.responseText.trim();
+                    meepleImage.src = placeMeepleRequest.responseText.trim();
                     cell.appendChild(meepleImage);
                     //cell.childNode.style.
                 }
