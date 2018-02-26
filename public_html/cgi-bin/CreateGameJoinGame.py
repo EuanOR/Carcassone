@@ -1,17 +1,28 @@
 #!/usr/bin/python3
 
 from cgitb import enable
-enable()
-
 from cgi import FieldStorage, escape
 from hashlib import sha256
 from http.cookies import SimpleCookie
-from os import environ
-from shelve import open
-from time import time
-
-from Player import *
-from GameController import *
+from os import environ                                                                                                                                                                          
+from shelve import open                                                                                                                                                                         
+from time import time                                                                                                                                                                           
+                                                                                                                                                                                                
+from Player import *                                                                                                                                                                            
+from GameController import *                                                                                                                                                                    
+enable()                                                                                                                                                                                        
+                                                                                                                                                                                                
+playerID = sha256(repr(time()).encode()).hexdigest()                                                                                                                                            
+player = Player(playerID)                                                                                                                                                                       
+player.createMeeples()                                                                                                                                                                          
+                                                                                                                                                                                                
+cookie = SimpleCookie()                                                                                                                                                                         
+cookie["playerID"] = playerID                                                                                                                                                                   
+print(cookie)                                                                                                                                                                                   
+                                                                                                                                                                                                                                                                                                                                                                                              
+#values here to be changed. Not sure what to print                                                                                                                                              
+print("Content-Type:text/html")                                                                                                                                                                 
+print()                                                                                                                                                                                         
 
 def makePlayerSession(playerID, gameID, index):
     """Makes a player_session for the player.
@@ -23,53 +34,45 @@ def makePlayerSession(playerID, gameID, index):
     player_session["index"] = index
     player_session.close()
 
-
 def newGame(playerID, player):
     """Makes a new game for the player."""
-    try:
-        game_sessions = open("../game_sessions/sessionlist", writeback=True)
-        # create a new entry in game_sessions
-        gameID = sha256(repr(time()).encode()).hexdigest()
-        game_sessions[gameID] = [player]
-        player_list = game_sessions[gameID]
-        index = 0
-        game_sessions.close()
-        #print(list(game_sessions.keys()))
-        # create a game, create a GameController for it and add the player
-        game = open("../game_sessions/sess_" + gameID, writeback=True)
-        gc = GameController()
-        gc.joinGame(player)
-        game["GameController"] = gc
-        game.close()
-        # make player session
-        makePlayerSession(playerID, gameID, index)
-        return str([pl._id for pl in player_list])
-    except IOError:
-        return "IOError"
-
+    game_sessions = open("../game_sessions/sessionlist", writeback=True)
+    # create a new entry in game_sessions
+    gameID = sha256(repr(time()).encode()).hexdigest()
+    game_sessions[gameID] = [player]
+    index = 0
+    player_list = game_sessions[gameID]
+    game_sessions.close()
+    #print(list(game_sessions.keys()))
+    # create a game, create a GameController for it and add the player
+    game = open("../game_sessions/sess_" + gameID, writeback=True)
+    gc = GameController()
+    gc.joinGame(player)
+    game["GameController"] = gc
+    game.close()
+    # make player session
+    makePlayerSession(playerID, gameID, index)
+    return str([pl._name for pl in player_list])
 
 def joinGame(gameID, playerID, player):
     """Adds player to an already existing game."""
-    try:
-        game_sessions = open("../game_sessions/sessionlist", writeback=True)
-        # add to entry in game_sessions
-        player_list = game_sessions[gameID]
-        index = len(player_list)
-        player_list += [player]
-        game_sessions[gameID] = player_list
-        game_sessions.close()
-        # add player to GameController
-        game = open("../game_sessions/sess_" + gameID, writeback=True)
-        gc = game["GameController"]
-        gc.joinGame(player)
-        game["GameController"] = gc
-        game.close()
-        # make player session
-        makePlayerSession(playerID, gameID, index)
-        return str([pl._id for pl in player_list])
-    except IOError:
-        return "IOError"
-
+    game_sessions = open("../game_sessions/sessionlist", writeback=True)
+    # add to entry in game_sessions
+    player_list = game_sessions[gameID]
+    index = len(player_list)
+    player_list += [player]
+    game_sessions[gameID] = player_list
+    game_sessions.close()
+    # add player to GameController
+    game = open("../game_sessions/sess_" + gameID, writeback=True)
+    gc = game["GameController"]
+    gc.joinGame(player)
+    game["GameController"] = gc
+    game.close()
+    # make player session
+    makePlayerSession(playerID, gameID, index)
+    return str([pl._name for pl in player_list])
+    return ""
 
 result = ""
 mode = ""
@@ -82,15 +85,12 @@ if len(form_data) != 0:
 # and make it easier to set player._name and player._colour at the same time
 # by changing Player's constructor to take playerID as player._id and then use
 # setters for colour and name
-playerID = sha256(repr(time()).encode()).hexdigest()
-player = Player(playerID)
-player.createMeeples()
 
 if mode == "start":
     result = newGame(playerID, player)
 else:
     gameFound = None
-    game_sessions = open("../game_sessions/sessionlist", writeback=True)
+    game_sessions = open("../game_sessions/sessionlist", writeback=False)
     for gameID in game_sessions:
         player_list = game_sessions[gameID]
         if player_list != None and len(player_list) < 4:
@@ -101,37 +101,4 @@ else:
         result = joinGame(gameFound, playerID, player)
     else:
         result = newGame(playerID, player)
-
-
-cookie = SimpleCookie()
-cookie["playerID"] = playerID
-print(cookie)
-
-
-#values here to be changed. Not sure what to print
-print("Content-Type:text/html")
-print()
-print("""
-<!DOCTYPE HTML>
-<html>
-<head></head>
-<body>
- <form action="lobby.py">
-   Name:
-   <input type = "text" name = "player_name">
-   <br>
-   <br>
-   <input type = "radio" name = "avatar" value = "avatar1" > <img src = "../TileAssets/avatar1.jpg" alt = "avatar1"><br>
-   <input type = "radio" name = "avatar" value = "avatar2"> <img src = "../TileAssets/avatar2.jpg" alt = "avatar2"><br>
-   <input type = "radio" name = "avatar" value = "avatar3"> <img src = "../TileAssets/avatar3.jpg" alt = "avatar3"><br>
-   <input type = "radio" name = "avatar" value = "avatar4"> <img src = "../TileAssets/avatar4.jpg" alt = "avatar4"><br>
-   <br>
-   <input type = "radio" name = "colour" value = "red">Red<br>
-   <input type = "radio" name = "colour" value = "blue">Blue<br>
-   <input type = "radio" name = "colour" value = "green">Green<br>
-   <input type = "radio" name = "colour" value = "yellow">Yellow<br>
-   <br>
-   <input type="submit" value="Submit">
- </form>
- </body>
-</html>""")
+print(result)
