@@ -121,10 +121,10 @@ print("""
    <input type = "text" name = "player_name">
    <br>
    <br>
-   <input type = "radio" name = "avatar" value = "avatar1" > <img src = "" alt = ""><br>
-   <input type = "radio" name = "avatar" value = "avatar2"> <img src = "" alt = ""><br>
-   <input type = "radio" name = "avatar" value = "avatar3"> <img src = "" alt = ""><br>
-   <input type = "radio" name = "avatar" value = "avatar4"> <img src = "" alt = ""><br>
+   <input type = "radio" name = "avatar" value = "avatar1" > <img src = "../TileAssets/avatar1.jpg" alt = "avatar1"><br>
+   <input type = "radio" name = "avatar" value = "avatar2"> <img src = "../TileAssets/avatar2.jpg" alt = "avatar2"><br>
+   <input type = "radio" name = "avatar" value = "avatar3"> <img src = "../TileAssets/avatar3.jpg" alt = "avatar3"><br>
+   <input type = "radio" name = "avatar" value = "avatar4"> <img src = "../TileAssets/avatar4.jpg" alt = "avatar4"><br>
    <br>
    <input type = "radio" name = "colour" value = "red">Red<br>
    <input type = "radio" name = "colour" value = "blue">Blue<br>
