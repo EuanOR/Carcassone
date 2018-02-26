@@ -18,11 +18,7 @@ player.createMeeples()
                                                                                                                                                                                                 
 cookie = SimpleCookie()                                                                                                                                                                         
 cookie["playerID"] = playerID                                                                                                                                                                   
-print(cookie)                                                                                                                                                                                   
-                                                                                                                                                                                                                                                                                                                                                                                              
-#values here to be changed. Not sure what to print                                                                                                                                              
-print("Content-Type:text/html")                                                                                                                                                                 
-print()                                                                                                                                                                                         
+print(cookie)                                                                                                                                                                                                                                                                                                                                                                          
 
 def makePlayerSession(playerID, gameID, index):
     """Makes a player_session for the player.
@@ -101,4 +97,37 @@ else:
         result = joinGame(gameFound, playerID, player)
     else:
         result = newGame(playerID, player)
-print(result)
+
+  print("Content-Type:text/html")                                                                                                                                                                 
+print()     
+
+print("""
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8"> 
+    <title> Carcassonne</title>
+    <link rel="stylesheet" type="text/css" href="Carcassonne.css">
+</head>
+<body>
+     <section class="container">
+     <form action="lobby.py" method="GET">
+	Name:
+	<input type = "text" name = "player_name">
+	<br>
+	<br>
+	 <input type = "radio" name = "avatar" value = "avatar1" > <img src = "" alt = ""><br>
+	<input type = "radio" name = "avatar" value = "avatar2"> <img src = "" alt = ""><br>
+	<input type = "radio" name = "avatar" value = "avatar3"> <img src = "" alt = ""><br>
+	<input type = "radio" name = "avatar" value = "avatar4"> <img src = "" alt = ""><br>
+	<br>
+	<input type = "radio" name = "colour" value = "red">Red<br>
+	<input type = "radio" name = "colour" value = "blue">Blue<br>
+	<input type = "radio" name = "colour" value = "green">Green<br>
+	<input type = "radio" name = "colour" value = "yellow">Yellow<br>
+	<br>
+	<input type="submit" value="Submit">
+     </form>
+     </section>
+</body>
+</html>
+  """)
