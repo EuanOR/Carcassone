@@ -4,22 +4,21 @@ from cgitb import enable
 from cgi import FieldStorage, escape
 from hashlib import sha256
 from http.cookies import SimpleCookie
-from os import environ                                                                                                                                                                          
-from shelve import open                                                                                                                                                                         
-from time import time                                                                                                                                                                           
-                                                                                                                                                                                                
-from Player import *                                                                                                                                                                            
-from GameController import *                                                                                                                                                                    
-enable()                                                                                                                                                                                        
-                                                                                                                                                                                                
-playerID = sha256(repr(time()).encode()).hexdigest()                                                                                                                                            
-player = Player(playerID)                                                                                                                                                                       
-player.createMeeples()                                                                                                                                                                          
-                                                                                                                                                                                                
-cookie = SimpleCookie()                                                                                                                                                                         
-cookie["playerID"] = playerID                                                                                                                                                                   
-print(cookie)                                                                                                                                                                                                                                                                                                                                                                          
+from os import environ
+from shelve import open
+from time import time
 
+from Player import *
+from GameController import *
+enable()
+
+playerID = sha256(repr(time()).encode()).hexdigest()
+player = Player(playerID)
+player.createMeeples()
+
+cookie = SimpleCookie()
+cookie["playerID"] = playerID
+print(cookie)
 def makePlayerSession(playerID, gameID, index):
     """Makes a player_session for the player.
     so that the player can get their gameID easily
@@ -98,13 +97,37 @@ else:
     else:
         result = newGame(playerID, player)
 
-  print("Content-Type:text/html")                                                                                                                                                                 
-print()     
+taken_avatars = []
+taken_colours = []
+
+gc = getGameController()
+if gc._players != []:
+    for p in gc._players:
+        taken_avatars.append(p.getAvatar())
+        taken_colours.append(p.getColour())
+
+#closes the GameController
+setGameController(gc)
+
+avatars = {"avatar1":'<input type = "radio" name = "avatar" value = "avatar1" > <img src = "../TileAssets/avatar1.jpg" alt = "avatar1"><br>',\
+"avatar2":'<input type = "radio" name = "avatar" value = "avatar2"> <img src = "../TileAssets/avatar2.jpg" alt = "avatar2"><br>',\
+"avatar3":'<input type = "radio" name = "avatar" value = "avatar3"> <img src = "../TileAssets/avatar3.jpg" alt = "avatar3"><br>',\
+"avatar4":'<input type = "radio" name = "avatar" value = "avatar4"> <img src = "../TileAssets/avatar4.jpg" alt = "avatar4"><br>',\
+"avatar5":'<input type = "radio" name = "avatar" value = "avatar5"> <img src = "../TileAssets/avatar5.jpg" alt = "avatar5"><br>',\
+"avatar6":'<input type = "radio" name = "avatar" value = "avatar6"> <img src = "../TileAssets/avatar6.jpg" alt = "avatar6"><br>'}
+
+colours = {"red":'<input type = "radio" name = "colour" value = "red">Red<br>',\
+"blue":'<input type = "radio" name = "colour" value = "blue">Blue<br>',\
+"green":'<input type = "radio" name = "colour" value = "green">Green<br>',\
+"yellow":'<input type = "radio" name = "colour" value = "yellow">Yellow<br>'}
+
+print("Content-Type:text/html")
+print()
 
 print("""
 <!DOCTYPE html>
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <title> Carcassonne</title>
     <link rel="stylesheet" type="text/css" href="Carcassonne.css">
 </head>
@@ -114,20 +137,21 @@ print("""
 	Name:
 	<input type = "text" name = "player_name">
 	<br>
+	<br>""")
+
+for a in avatars:
+    if a not in taken_avatars:
+        print(avatars[v])
+
+for c in colours:
+    if c not in taken_colours:
+        print(colours[c])
+print("""
 	<br>
-	 <input type = "radio" name = "avatar" value = "avatar1" > <img src = "" alt = ""><br>
-	<input type = "radio" name = "avatar" value = "avatar2"> <img src = "" alt = ""><br>
-	<input type = "radio" name = "avatar" value = "avatar3"> <img src = "" alt = ""><br>
-	<input type = "radio" name = "avatar" value = "avatar4"> <img src = "" alt = ""><br>
-	<br>
-	<input type = "radio" name = "colour" value = "red">Red<br>
-	<input type = "radio" name = "colour" value = "blue">Blue<br>
-	<input type = "radio" name = "colour" value = "green">Green<br>
-	<input type = "radio" name = "colour" value = "yellow">Yellow<br>
 	<br>
 	<input type="submit" value="Submit">
-     </form>
-     </section>
+    </form>
+    </section>
 </body>
 </html>
   """)
