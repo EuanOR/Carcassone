@@ -35,14 +35,6 @@ class DeckOfTiles():
         self._nextTile = None
         self.generateTiles()
         self.buildDeck()
-    # Adds starting tile and other remaining tiles to the list
-    # Needs to start by adding an initial tile which has not been done here
-    # ATTENTION: Brendan/Eimear/Cathy, the subclasses of the tile 
-    # need to be generated here and ID's are needed to allow randomisation
-    # Sorry, didn't know what I was doing and feel free to change this to make it work better
-    #
-    # It's fine, Claire. Was planning on going home this weekend but that's OK. I'm sure my family doesn't want to see
-    # me for the first time in ages anyway.
 
     def buildDeck(self):
         for i in range(len(self._tileList)):
