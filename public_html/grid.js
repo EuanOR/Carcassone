@@ -10,6 +10,7 @@
     var cookieRequest;
     var nextTurnRequest;
     var boardRequest;
+    var placeTileRequest;
     // Gameboard & sidebar container
     var grid;
     // Relative path of image src
@@ -29,23 +30,25 @@
     var deckTileDiv;
     // Game grid
     var table;
+    // Meeple query for user
+    var meepleQuestion;
     
     document.addEventListener("DOMContentLoaded", init, false);
 
     function init(){
         console.log("GAME STARTING");
         grid = document.getElementById("grid");
-	rotateButton = document.getElementById("rotateButton");
-	console.log("geting cookie ID");
-	getCookieID();
+	    rotateButton = document.getElementById("rotateButton");
+	    console.log("geting cookie ID");
+	    getCookieID();
         startGame();
-	console.log("playerCookie=" + playerCookie);
-	playerPoll = setInterval(pollTurn, 2000);
+	    console.log("playerCookie=" + playerCookie);
+	    playerPoll = setInterval(pollTurn, 2000);
     }
     
     // Get players cookie
     function getCookieID(){
-	console.log("getting player");
+	    console.log("getting player");
         var url = "cgi-bin/getCookie.py";
         cookieRequest = new XMLHttpRequest();
         cookieRequest.addEventListener("readystatechange", cookieReceived, false);
@@ -54,24 +57,24 @@
     }
     
     function cookieReceived(){
-	console.log("cookie received");
-	console.log("readyState = " + cookieRequest.readyState);
+	    console.log("cookie received");
+	    console.log("readyState = " + cookieRequest.readyState);
         if (cookieRequest.readyState === 4) {
-	    console.log("ready");
-	    console.log("cookieRequest.status = " + cookieRequest.status);
+	        console.log("ready");
+	        console.log("cookieRequest.status = " + cookieRequest.status);
             if (cookieRequest.status === 200) {
-		console.log("OK");
-		console.log("cookieRequest = " + cookieRequest.responseText.trim());
+		        console.log("OK");
+		        console.log("cookieRequest = " + cookieRequest.responseText.trim());
                 if (cookieRequest.responseText.trim() != "problem") {
-		    playerCookie = cookieRequest.responseText.trim();
-		    console.log("playerCookie =" + playerCookie);
-		}
+		            playerCookie = cookieRequest.responseText.trim();
+		            console.log("playerCookie =" + playerCookie);
+		        }
+	        }
 	    }
-	}
     }
     
     function pollTurn(){
-	console.log("getting player");
+	    console.log("getting player");
         var url = "cgi-bin/getPlayer.py";
         playerRequest = new XMLHttpRequest();
         playerRequest.addEventListener("readystatechange", playerReceived, false);
@@ -80,7 +83,7 @@
     }
     
     function pollBoard(){
-	console.log("getting board");
+	    console.log("getting board");
         var url = "cgi-bin/getBoard.py";
         boardRequest = new XMLHttpRequest();
         boardRequest.addEventListener("readystatechange", boardReceived, false);
@@ -89,17 +92,21 @@
     }
     
     function boardReceived(){
-	console.log("board received");
-	if (boardRequest.readyState === 4){
-	    console.log("ready");
-	    if (boardRequest.status === 200){
-		console.log("OK");
-		if (boardRequest.responseText.trim() != "problem"){
-		    table.innerHTML = boardRequest.responseText.trim();
+	    console.log("board received");
+	    if (boardRequest.readyState === 4){
+	        console.log("ready");
+	        console.log("board = " + boardRequest.responseText.trim());
+	        if (boardRequest.status === 200){
+		        console.log("OK");
+		        console.log("board = " + boardRequest.responseText.trim());
+		        if (boardRequest.responseText.trim() != "problem"){
+		            console.log("board = " + boardRequest.responseText.trim());
+		            table.innerHTML = boardRequest.responseText.trim();
+		            getValidPlaces("False");
 	      
-		}
+		        }
+	        }
 	    }
-	}
     }
 
     //STARTS GAME
@@ -107,16 +114,16 @@
         console.log("GameBoard");
         //Create gameboard
         createGameBoard();
-	//Create initial leaderboard;
-	console.log("get leaderboard");
-	getLeaderBoard();
-	//Place initial tile in grid cell [0,0]
+	    //Create initial leaderboard;
+	    console.log("get leaderboard");
+	    getLeaderBoard();
+	    //Place initial tile in grid cell [0,0]
         console.log("PLACE START TILE");
         placeStartTile(0,0);
         //Get player name
-	console.log("made it out");
-	//Get player turn
-	pollTurn();
+	    console.log("made it out");
+	    //Get player turn
+	    pollTurn();
     }
 
     //CREATE TABLE FOR GAMEBOARD
@@ -138,14 +145,14 @@
                 // Create column
                 var cell = document.createElement("td");
                 // Adds an ID for each cell of table
-		cell.id = ((xStart.toString()).concat(",")).concat((yStart.toString()));
+		        cell.id = ((xStart.toString()).concat(",")).concat((yStart.toString()));
                 // Add blank image for each cell
                 var emptyCell = document.createElement('img');
                 emptyCell.src = "TileAssets/FreeTile.png";
                 emptyCell.className = "unplaced";
                 emptyCell.style.visibility = "hidden";
                 cell.appendChild(emptyCell);
-		row.appendChild(cell);
+		        row.appendChild(cell);
 
                 // Increment cell position
             }
@@ -163,9 +170,9 @@
         console.log("Placing start tile");
         // Cell to place start tile
 	
-	var ID = (x.toString()).concat(",").concat((y.toString()));
-	var cell = document.getElementById(ID);
-	console.log(cell);
+	    var ID = (x.toString()).concat(",").concat((y.toString()));
+	    var cell = document.getElementById(ID);
+	    console.log(cell);
 
         var image = document.createElement('img');
         image.src = "TileAssets/Start.png";
@@ -179,39 +186,39 @@
     // Handler for 'getPlayer()'
     function playerReceived(){
         console.log("player received");
-	console.log("readyState = " + playerRequest.readyState);
+	    console.log("readyState = " + playerRequest.readyState);
         if (playerRequest.readyState === 4) {
-	    console.log("ready");
-	    console.log("playerRequest.status = " + playerRequest.status);
+	        console.log("ready");
+	        console.log("playerRequest.status = " + playerRequest.status);
             if (playerRequest.status === 200) {
-		console.log("OK");
-		console.log("playerresponse = " + playerRequest.responseText.trim());
+		        console.log("OK");
+		        console.log("playerresponse = " + playerRequest.responseText.trim());
                 if (playerRequest.responseText.trim() != "problem") {
-		    console.log("success");
-		    var responseList = playerRequest.responseText.trim().split(",");
-		    var player_id = responseList[0];
-                    //TODO: update display to show who's turn it is
-                    // request.responseText.trim() = player id + name
-		    console.log("!!!player_id= " + player_id);
-		    
-		    console.log("player=" + player);
-		    if (player != null){
-		      player.style.backgroundColor = "orange";
-		    }
-		    player = document.getElementById(player_id);
-		    player.style.backgroundColor = "blue";
-		    if (player_id == playerCookie){
-			//it's your go, get yo tile etc
-		        clearInterval(playerPoll);
-		        getPlayerTile();
-		        getValidPlaces("False");
-			rotateButton.addEventListener("click", rotateTile, false);
-		    }
+		            console.log("success");
+		            var responseList = playerRequest.responseText.trim().split(",");
+		            var player_id = responseList[0];
+		            console.log("!!!player_id= " + player_id);
+		            console.log("player=" + player);
+		            if (player !== null){
+		                player.style.backgroundColor = "orange";
+		            }
+		            var oldPlayer = player;
+		            player = document.getElementById(player_id);
+		            player.style.backgroundColor = "blue";
+		            if (player_id == playerCookie){
+			            //it's your go, get yo tile etc
+		                clearInterval(playerPoll);
+		                getPlayerTile();
+		                getValidPlaces("False");
+			            rotateButton.addEventListener("click", rotateTile, false);
+		            }
+		            if (oldPlayer != player){
+		                pollBoard();
+		            }
                     //TODO: Lock controls to this player
                 } 
             }
         }
-
     }
 
     //GET PLAYER THEIR TILE FOR THIS TURN
@@ -229,7 +236,7 @@
                 if (request.responseText.trim() != "problem") {
                     // request.responseText.trim() = "TileAssets/tile.png"
                     // If successful update user display to new player tile
-		    console.log("tilepath=" + request.responseText.trim());
+		            console.log("tilepath=" + request.responseText.trim());
                     showPlayerTile(request.responseText.trim());    
                 }
             }
@@ -237,22 +244,21 @@
     }
 
     function showPlayerTile(tilePath){
-	console.log("SHOWING A PLAYER TILE");
+	    console.log("SHOWING A PLAYER TILE");
         deckTileDiv = document.getElementById("deckTile");
         var image = document.createElement("img");
-	tilePath = "TileAssets/" + tilePath;
+	    tilePath = "TileAssets/" + tilePath;
         image.src = tilePath;
-	console.log(tilePath);
+	    console.log(tilePath);
         currentTile = tilePath;
-	console.log(currentTile);
-	
+	    console.log(currentTile);
         deckTileDiv.appendChild(image);
     }
 
     //SHOW AVAILABLE VALID CELLS
     function getValidPlaces(rotate){
         // Get array of available, valid cells
-	console.log("getting valid places");
+	    console.log("getting valid places");
         var url = "cgi-bin/getValidPlaces.py?rotate=" + rotate;
         validPlacesRequest = new XMLHttpRequest();
         validPlacesRequest.addEventListener("readystatechange", validPlacesReceived, false);
@@ -262,23 +268,23 @@
 
     // Handles 'getValidPlaces()'
     function validPlacesReceived(){
-	console.log("receiving valid responses");
+	    console.log("receiving valid responses");
         if (validPlacesRequest.readyState === 4) {
             if (validPlacesRequest.status === 200) {
+	            console.log("VALIDPLACESRECEIVED response= " + validPlacesRequest.responseText.trim());
                 if (validPlacesRequest.responseText.trim() != "problem") {
                     // If successful get list of valid cell locations
                     var startArray = validPlacesRequest.responseText.trim().split(" ");
-		    console.log("valid array=" + startArray);
-                    showValidPlaces(startArray);
-                    
+		            console.log("valid array=" + startArray);
+                    showValidPlaces(startArray);  
                 }
             }
         }
     }
 
     function showValidPlaces(startArray){
+	    console.log("SHOWVALIDPLACES startArray= " + startArray);
         for (var i=0; i < startArray.length; i++) {
-
             var cellImage = document.getElementById(startArray[i]).firstChild;
             cellImage.style.visibility = "visible";
             // AVAILABLE VS VALID MUST ASK HENRY
@@ -307,14 +313,29 @@
     function placeTile(cellID){
         // ASK HENRY WHAT EXACTLY THIS LINE DOES
         var image = document.getElementById(cellID).childNodes;
-	console.log(currentTile);
+	    console.log(currentTile);
         image[0].src = currentTile;
         image[0].className = "placed";
-	image[0].style.transform = "rotate(" + rotation + "deg)";
-	console.log(image[0]);
+	    image[0].style.transform = "rotate(" + rotation + "deg)";
+	    console.log(image[0]);
         console.log("placed tile");
-	tableCellID = cellID;
-        checkMeeplePlacements();
+	    tableCellID = cellID;
+	    var url = "cgi-bin/placeTile.py?cellID=" + cellID;
+        placeTileRequest = new XMLHttpRequest();
+        placeTileRequest.addEventListener("readystatechange", tilePlaced, false);
+        placeTileRequest.open("GET", url, true);
+        placeTileRequest.send(null);
+    }
+    
+    function tilePlaced(){
+        if (placeTileRequest.readyState === 4) {
+            if (placeTileRequest.status === 200) {
+                if (placeTileRequest.responseText.trim() === "placed") {
+                    console.log("checking meeple placements");
+		            checkMeeplePlacements();
+		        }
+	        }
+	    }
     }
     
     function checkMeeplePlacements(){
@@ -328,51 +349,54 @@
     }
     
     function canMeepleBePlaced(){
-	console.log("can meeples be placed");
+	    console.log("can meeples be placed");
         if (checkMeeplesRequest.readyState === 4) {
             if (checkMeeplesRequest.status === 200) {
                 if (checkMeeplesRequest.responseText.trim() != "problem") {
                     console.log("Response = " + checkMeeplesRequest.responseText.trim());
                     if (checkMeeplesRequest.responseText.trim() == '[]'){
-			console.log("No meeples");
+			            console.log("No meeples");
                         endTurn();
                     }
                     // else return places
                     else {
-                        var placements = checkMeeplesRequest.responseText.trim();
-                        placeMeeple(placements);    
+                        var sides = checkMeeplesRequest.responseText.trim().split(",");
+                        placeMeeple(sides);    
                     } 
                 }
             }
         }
     }
 
-    function placeMeeple(placements){
-	console.log("meeple is placed");
+    function placeMeeple(sides){
         //  ask user do you want to place meeple?
         //  if True
-        var meepleQuestion = document.getElementById("meepleQuestion");
+        meepleQuestion = document.getElementById("meepleQuestion");
         var text = document.createTextNode("Would you like to place a meeple");
         meepleQuestion.appendChild(text);
-        for (i = 0; i < placements.length; i++) {
-            newButton = document.createElement('button');
-            newButton.innerHTML = meeplePlacements[i];
+        for (var i = 0; i < sides.length; i++) {
+            var newButton = document.createElement('button');
+	        newButton.style.className = "playButton";
+            newButton.innerHTML = sides[i];
             meepleQuestion.appendChild(newButton);
-            newButton.onclick = function () {
-                meeplePlacementPressed(placements[i]);
+            newButton.addEventListener("click", function() { 
+                meeplePlacementPressed(sides[i]);
                 endTurn();
-            }
-	}
+            });
+	    }
         var endGo = document.createElement("button");
         endGo.innerHTML = "I don't want to place a meeple";
-        endGo.onclick = function () {
+	    meepleQuestion.appendChild(endGo);
+	    endGo.style.className = "playButton";
+        endGo.addEventListener("click", function() { 
             endTurn();
-        }
+        });
     }
     
     function meeplePlacementPressed(side) {
+        console.log("meeple side been pressed")
         // put the meeple on this side of the grid cell
-        var url = "cgi-bin/getMeepleImage.py";
+        var url = "cgi-bin/getMeepleImage.py?side=" + side;
         placeMeepleRequest = new XMLHttpRequest();
         placeMeepleRequest.addEventListener("readystatechange", placeMeepleImage(side), false);
         placeMeepleRequest.open("GET", url, true);
@@ -382,11 +406,11 @@
 
     function placeMeepleImage(side){
         // TODO: Needs to place image to correct side of cell
-		
+		console.log("place meeple image");
         if (placeMeepleRequest.readyState === 4) {
             if (placeMeepleRequest.status === 200) {
                 if (placeMeepleRequest.responseText.trim() != "problem") {
-                    cell = document.getElementById(tableCellID);
+                    var cell = document.getElementById(tableCellID);
                     var meepleImage = document.createElement("img");
                     meepleImage.src = placeMeepleRequest.responseText.trim();
                     cell.appendChild(meepleImage);
@@ -396,21 +420,21 @@
     }
     
     function endTurn(){
-	console.log("end turn");
+	    console.log("end turn");
         // Delete any meeple buttons
         meepleQuestion.innerHTML = "";
         tableCellID = null;
-	//player.style.backgroundColor = "orange";
-	var curdeckTile = deckTileDiv.querySelector("img");
-	deckTileDiv.removeChild(curdeckTile);
-	hideValidPlaces();
+	    //player.style.backgroundColor = "orange";
+	    var curdeckTile = deckTileDiv.querySelector("img");
+	    deckTileDiv.removeChild(curdeckTile);
+	    hideValidPlaces();
         getLeaderBoard();
         getNextTurn();
     }
 
     function getNextTurn(){
         rotation = 0;
-	var url = "cgi-bin/getNextTurn.py";
+	    var url = "cgi-bin/getNextTurn.py";
         nextTurnRequest = new XMLHttpRequest();
         nextTurnRequest.addEventListener("readystatechange", nextTurnReceived, false);
         nextTurnRequest.open("GET", url, true);
@@ -418,35 +442,34 @@
     }
     
     function nextTurnReceived(){
-      console.log("getting next turn");
-      if (nextTurnRequest.readyState === 4) {
+        console.log("getting next turn");
+        if (nextTurnRequest.readyState === 4) {
             if (nextTurnRequest.status === 200) {
-		console.log("status= " + nextTurnRequest.status);
+		        console.log("status= " + nextTurnRequest.status);
                 if (nextTurnRequest.responseText.trim() == "success") {
-		    console.log("no problem");
-		    pollTurn();
-		    playerPoll = setInterval(pollTurn, 2000);
-		}
-	    }
-      }
+		            console.log("no problem");
+		            pollTurn();
+		            playerPoll = setInterval(pollTurn, 2000);
+		        }
+	        }
+        }
     }
 
     function rotateTile(){
-	var div = document.getElementById("deckTile");
-	var tile = div.querySelector("img");
+	    var tile = deckTileDiv.querySelector("img");
         if (rotation >= 270){
             rotation = 0;
         } else {
-            rotation += 90;;
+            rotation += 90;
         }
         tile.style.transform = "rotate(" + rotation + "deg)";
-	hideValidPlaces();
+	    hideValidPlaces();
         getValidPlaces("True");
     }
 
     // Called in 'placeTile()'
     function getLeaderBoard(){
-	console.log("getting leaderboard");
+	    console.log("getting leaderboard");
         var url = "cgi-bin/Scoreboard.py";
         leaderboardRequest = new XMLHttpRequest();
         leaderboardRequest.addEventListener("readystatechange", leaderboardReceived, false);
@@ -456,27 +479,20 @@
 
     // Handles 'updateScore()'
     function leaderboardReceived(){
-	console.log("LEADERBOARD recieve function");
-	console.log("readyState= " +leaderboardRequest.readyState);
+	    console.log("LEADERBOARD recieve function");
         if (leaderboardRequest.readyState === 4) {
-	    console.log("resonse = " +leaderboardRequest.responseText.trim());
             if (leaderboardRequest.status === 200) {
-		console.log("status= " + leaderboardRequest.status);
                 if (leaderboardRequest.responseText.trim() != "problem") {
-		    console.log("no problem");
-		    updateLeaderboard(leaderboardRequest.responseText.trim());
-                    //TODO: UPDATE LEADERBOARD
+		            updateLeaderboard(leaderboardRequest.responseText.trim());
                 }
             }
         }
-      console.log("END LEADERBOARD");
     }
     
     function updateLeaderboard(newLeaderboard){
-	console.log("updating leaderboard");
-	scoreboard = document.getElementById("scoreboard");
-	console.log("newLeaderboard = " + newLeaderboard);
-	scoreboard.innerHTML = newLeaderboard;
+        console.log("updating leaderboard");
+        var scoreboard = document.getElementById("scoreboard");
+        scoreboard.innerHTML = newLeaderboard;
     }
 
 })();
