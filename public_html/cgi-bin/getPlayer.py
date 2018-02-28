@@ -10,5 +10,4 @@ print()
 
 gC = getGameController()
 player = gC._players[gC._playing]
-print(player)
-setGameController(gC)
+print(player._id + "," + player._name)
