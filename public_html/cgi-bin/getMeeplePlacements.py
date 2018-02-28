@@ -10,7 +10,6 @@ print()
 gC = getGameController()
 # Get all landmark objects on tile that a meeple can be placed on
 meeplePlacements = gC.getValidMeeplePlacements()
-print(meeplePlacements)
 setGameController(gC)
 sides = []
 
