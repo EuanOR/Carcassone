@@ -4,21 +4,24 @@ from cgitb import enable
 from cgi import FieldStorage, escape
 from hashlib import sha256
 from http.cookies import SimpleCookie
-from os import environ
-from shelve import open
-from time import time
+from os import environ                                                                                                                                                                          
+from shelve import open                                                                                                                                                                         
+from time import time                                                                                                                                                                           
+                                                                                                                                                                                                
+from Player import *                                                                                                                                                                            
+from GameController import *                                                                                                                                                                    
+enable()                                                                                                                                                                                        
+                                                                                                                                                                                                
+playerID = sha256(repr(time()).encode()).hexdigest()                                                                                                                                            
+player = Player(playerID)                                                                                                                                                                       
+player.createMeeples()                                                                                                                                                                          
+                                                                                                                                                                                                
+cookie = SimpleCookie()                                                                                                                                                                         
+cookie["playerID"] = playerID                                                                                                                                                                   
+print(cookie)                                                                                                                                                                                   
 
-from Player import *
-from GameController import *
-enable()
-
-playerID = sha256(repr(time()).encode()).hexdigest()
-player = Player(playerID)
-player.createMeeples()
-
-cookie = SimpleCookie()
-cookie["playerID"] = playerID
-print(cookie)
+print("Content-Type:text/html")                                                                                                                                                                 
+print()   
 def makePlayerSession(playerID, gameID, index):
     """Makes a player_session for the player.
     so that the player can get their gameID easily
@@ -28,6 +31,7 @@ def makePlayerSession(playerID, gameID, index):
     player_session["gameID"] = gameID
     player_session["index"] = index
     player_session.close()
+
 
 def newGame(playerID, player):
     """Makes a new game for the player."""
@@ -62,12 +66,13 @@ def joinGame(gameID, playerID, player):
     game = open("../game_sessions/sess_" + gameID, writeback=True)
     gc = game["GameController"]
     gc.joinGame(player)
+    if len(player_list) == 4:
+      gc.nextGo()
     game["GameController"] = gc
     game.close()
     # make player session
     makePlayerSession(playerID, gameID, index)
     return str([pl._name for pl in player_list])
-    return ""
 
 result = ""
 mode = ""
@@ -76,82 +81,61 @@ if len(form_data) != 0:
     # mode should be start or join
     mode = escape(form_data.getfirst("mode","").strip())
 
-# we might be able to get rid of the index variable in the player session
-# and make it easier to set player._name and player._colour at the same time
-# by changing Player's constructor to take playerID as player._id and then use
-# setters for colour and name
-
-if mode == "start":
-    result = newGame(playerID, player)
-else:
-    gameFound = None
-    game_sessions = open("../game_sessions/sessionlist", writeback=False)
-    for gameID in game_sessions:
-        player_list = game_sessions[gameID]
-        if player_list != None and len(player_list) < 4:
-            gameFound = gameID
-            break
-    game_sessions.close()
-    if gameFound != None:
-        result = joinGame(gameFound, playerID, player)
-    else:
-        result = newGame(playerID, player)
-
-taken_avatars = []
-taken_colours = []
-
-gc = getGameController()
-if gc._players != []:
-    for p in gc._players:
-        taken_avatars.append(p.getAvatar())
-        taken_colours.append(p.getColour())
-
-#closes the GameController
-setGameController(gc)
-
-avatars = {"avatar1":'<input type = "radio" name = "avatar" value = "avatar1" > <img src = "../TileAssets/avatar1.jpg" alt = "avatar1"><br>',\
-"avatar2":'<input type = "radio" name = "avatar" value = "avatar2"> <img src = "../TileAssets/avatar2.jpg" alt = "avatar2"><br>',\
-"avatar3":'<input type = "radio" name = "avatar" value = "avatar3"> <img src = "../TileAssets/avatar3.jpg" alt = "avatar3"><br>',\
-"avatar4":'<input type = "radio" name = "avatar" value = "avatar4"> <img src = "../TileAssets/avatar4.jpg" alt = "avatar4"><br>',\
-"avatar5":'<input type = "radio" name = "avatar" value = "avatar5"> <img src = "../TileAssets/avatar5.jpg" alt = "avatar5"><br>',\
-"avatar6":'<input type = "radio" name = "avatar" value = "avatar6"> <img src = "../TileAssets/avatar6.jpg" alt = "avatar6"><br>'}
-
-colours = {"red":'<input type = "radio" name = "colour" value = "red">Red<br>',\
-"blue":'<input type = "radio" name = "colour" value = "blue">Blue<br>',\
-"green":'<input type = "radio" name = "colour" value = "green">Green<br>',\
-"yellow":'<input type = "radio" name = "colour" value = "yellow">Yellow<br>'}
-
-print("Content-Type:text/html")
-print()
+loop_again = True
+while loop_again:
+    loop_again = False
+    try:
+        if mode == "start":
+            result = newGame(playerID, player)
+        else:
+            gameFound = None
+            game_sessions = open("../game_sessions/sessionlist", writeback=False)
+            for gameID in game_sessions:
+                player_list = game_sessions[gameID]
+                if player_list != None and len(player_list) < 4:
+                    gameFound = gameID
+                    break
+            game_sessions.close()
+        if gameFound != None:
+            result = joinGame(gameFound, playerID, player)
+        else:
+            result = newGame(playerID, player)
+    except Exception as e:
+        print(e)
+        if e.errno == 11:
+            time.sleep(0.5)
+            loop_again = True             
 
 print("""
 <!DOCTYPE html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
     <title> Carcassonne</title>
-    <link rel="stylesheet" type="text/css" href="Carcassonne.css">
+    <link rel="stylesheet" type="text/css" href="../Carcassonne.css">
 </head>
 <body>
+     <div id="header"><img src="../TileAssets/carcassonne-logo.png" alt="Carcassonne Logo" id="logoImage"></div>	
      <section class="container">
-     <form action="lobby.py" method="GET">
-	Name:
-	<input type = "text" name = "player_name">
-	<br>
-	<br>""")
-
-for a in avatars:
-    if a not in taken_avatars:
-        print(avatars[v])
-
-for c in colours:
-    if c not in taken_colours:
-        print(colours[c])
-print("""
-	<br>
-	<br>
-	<input type="submit" value="Submit">
-    </form>
-    </section>
+     <div style="width: 50%; margin: 0 auto; border: 1px solid black; padding: 10px;">
+	     <form action="lobby.py" method="GET">
+		    Name:
+		    <input type = "text" name = "name">
+		    <br>
+		    <br>
+		    <input type = "radio" name = "avatar" value = "avatar1" > <img src = "" alt = ""><br>
+		    <input type = "radio" name = "avatar" value = "avatar2"> <img src = "" alt = ""><br>
+		    <input type = "radio" name = "avatar" value = "avatar3"> <img src = "" alt = ""><br>
+		    <input type = "radio" name = "avatar" value = "avatar4"> <img src = "" alt = ""><br>
+		    <br>
+		    <input type = "radio" name = "colour" value = "red">Red<br>
+		    <input type = "radio" name = "colour" value = "blue">Blue<br>
+		    <input type = "radio" name = "colour" value = "green">Green<br>
+		    <input type = "radio" name = "colour" value = "yellow">Yellow<br>
+		    <br>
+		    <input type="submit" value="Submit">
+		    </form>
+     </div>
+     </section>
 </body>
 </html>
   """)
