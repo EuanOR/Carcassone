@@ -58,10 +58,11 @@ setGameController(gc)
 print("Content-Type:text/html")
 print()
 print("""<!DOCTYPE html>
-<html>
     <head>
+        <meta charset="UTF-8">
         <title>Carcassonne Lobby</title>
         <script src="../lobby.js"></script>
+        <link rel="stylesheet" type="text/css" href="../Carcassonne.css">
         <style>
             #loader {
                 margin-left: auto;
@@ -70,6 +71,10 @@ print("""<!DOCTYPE html>
                 -webkit-animation: spin 4s linear infinite;
                 animation: spin 3s 1s linear infinite;
             }
+            
+            #loading {
+	            text-align: center;
+	        }
 
             @-webkit-keyframes spin {
                 0% { -webkit-transform: rotate(0deg); }
@@ -91,25 +96,18 @@ print("""<!DOCTYPE html>
 
                 95% { transform: rotate(360deg); }
                 100% { transform: rotate(360deg); }
-            }
-
-            main {
-                width: 10%;
-                height: 10%;
-                padding: 5%;
-                margin: auto;
-                /*margin-right: auto;*/
-            }
-            
-
+            }    
         </style>
     </head>
 
     <body>
-        <main>
-            <img src="../TileAssets/loader.png" id="loader">
-            <p id="playerCount"></p>
-        </main>
+        <div id="header"><img src="../TileAssets/carcassonne-logo.png" alt="Carcassonne Logo" id="logoImage"></div>
+	    <section class="container">
+		<div id="loading">
+		<img src="../TileAssets/loader.png" id="loader">
+		<p id="playerCount"></p>
+		</div>
+	    </section>
     </body>
 
 </html>""")
