@@ -12,10 +12,10 @@ gC = getGameController()
 meeplePlacements = gC.getValidMeeplePlacements()
 setGameController(gC)
 sides = []
-
 if meeplePlacements != []:
-	for side in meeplePlacements:
+	for side in ["left", "top", "right", "bottom"]:
 		# Get all the sides that have a landmark object on tile that a meeple can be placed on
 		if gC.getTileSide(gC._tile, side) in meeplePlacements:
 			sides.append(side)
-print(sides)
+print(",".join(sides))
+
