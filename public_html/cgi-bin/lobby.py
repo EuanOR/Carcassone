@@ -49,7 +49,8 @@ player = gc.getPlayer(playerID)
 #Sets the name, avatar and meeple colour attributes based on the values
 #sent by the previous page
 player.setName(name)
-player.setMeepleImage(colour)
+meepleImage = "MeepleAssets/" + colour + "Meeple.png"
+player.setMeepleImage(meepleImage)
 player.setAvatar(avatar)
 #closes the GameController
 setGameController(gc)
@@ -59,10 +60,10 @@ print("Content-Type:text/html")
 print()
 print("""<!DOCTYPE html>
     <head>
-        <meta charset="UTF-8">
-        <title>Carcassonne Lobby</title>
+        <meta charset="UTF-8"> 
+	<title>Carcassonne</title>
+	<link rel="stylesheet" type="text/css" href="../Carcassonne.css">
         <script src="../lobby.js"></script>
-        <link rel="stylesheet" type="text/css" href="../Carcassonne.css">
         <style>
             #loader {
                 margin-left: auto;
@@ -73,8 +74,8 @@ print("""<!DOCTYPE html>
             }
             
             #loading {
-	            text-align: center;
-	        }
+	      text-align: center;
+	    }
 
             @-webkit-keyframes spin {
                 0% { -webkit-transform: rotate(0deg); }
@@ -96,18 +97,19 @@ print("""<!DOCTYPE html>
 
                 95% { transform: rotate(360deg); }
                 100% { transform: rotate(360deg); }
-            }    
+            }            
+
         </style>
     </head>
 
     <body>
-        <div id="header"><img src="../TileAssets/carcassonne-logo.png" alt="Carcassonne Logo" id="logoImage"></div>
+	    <div id="header"><img src="../TileAssets/carcassonne-logo.png" alt="Carcassonne Logo" id="logoImage"></div>
 	    <section class="container">
 		<div id="loading">
 		<img src="../TileAssets/loader.png" id="loader">
 		<p id="playerCount"></p>
 		</div>
 	    </section>
-    </body>
 
+    </body>
 </html>""")
