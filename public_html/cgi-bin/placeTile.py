@@ -15,6 +15,7 @@ if len(form_data) != 0:
     cell = form_data.getfirst("cellID")
     x, y = cell.split(",")
     gC.placeTile(int(x),int(y))
+    print("placed")
 else:
     print("problem")
 
