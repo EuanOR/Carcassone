@@ -13,6 +13,7 @@
     var placeTileRequest;
     // Gameboard & sidebar container
     var grid;
+	var board;
     // Relative path of image src
     var currentTile;
     // Current rotation of currentTile
@@ -36,13 +37,16 @@
     var side;
 	// Count of remaining tiles
     var tileCount = 72;
+	var pTagTile;
     
     document.addEventListener("DOMContentLoaded", init, false);
 
     function init(){
         console.log("GAME STARTING");
         grid = document.getElementById("grid");
+		board = document.getElementById("board");
 		rotateButton = document.getElementById("rotateButton");
+		deckTileDiv = document.getElementById("deckTile");
 		console.log("geting cookie ID");
 		getCookieID();
         startGame();
@@ -163,7 +167,7 @@
         }
         // Add table to container div and set a border
         table.appendChild(tableBody);
-        grid.appendChild(table);
+        board.appendChild(table);
         table.setAttribute("border", "1");
     }
 
@@ -179,7 +183,8 @@
         image.className = "placed";
         cell.innerHTML = "";
 		tileCount -= 1;
-		deckTileDiv.getElementById("tileCount").innerHTML = "Remaining tiles: " + tileCount;
+		pTagTile = deckTileDiv.querySelector("#tileCount");
+		pTagTile.innerHTML = "Remaining tiles: " + tileCount;
 
         // Place tile in central grid cell [0,0]
         cell.appendChild(image);
@@ -439,7 +444,7 @@
 		var curdeckTile = deckTileDiv.querySelector("img");
 		deckTileDiv.removeChild(curdeckTile);
 		tileCount -= 1;
-		deckTileDiv.getElementById("tileCount").innerHTML = "Remaining tiles: " + tileCount;
+		pTagTile.innerHTML = "Remaining tiles: " + tileCount;
 		hideValidPlaces();
         getLeaderBoard();
         getNextTurn();
