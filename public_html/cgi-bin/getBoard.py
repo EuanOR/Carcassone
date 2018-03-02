@@ -41,7 +41,7 @@ def buildTable(tableList):
         elif cell[1] > yVal:
             yVal = cell[1]
             htmlTable += "</tr><tr>"
-        htmlTable += "<td id='%i%i'>" %(cell[0], cell[1])
+        htmlTable += "<td id='%i,%i'>" %(cell[0], cell[1])
         if cell[2] != None:
             htmlTable += "<img src='TileAssets/%s' style='transform: rotate(%sdeg);'>" %(cell[2]._image, cell[2]._degreeRotated)
         elif cell[2] == None:
