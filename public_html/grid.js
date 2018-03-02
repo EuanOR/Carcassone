@@ -322,6 +322,7 @@
 	console.log(image[0]);
         console.log("placed tile");
 	tableCellID = cellID;
+	hideValidPlaces();
 	var url = "cgi-bin/placeTile.py?cellID=" + cellID;
         placeTileRequest = new XMLHttpRequest();
         placeTileRequest.addEventListener("readystatechange", tilePlaced, false);
