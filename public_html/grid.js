@@ -336,6 +336,8 @@
                 if (placeTileRequest.responseText.trim() === "placed") {
                     console.log("checking meeple placements");
 		    checkMeeplePlacements();
+		} else if (placeTileRequest.responseText.trim() !== "problem"){
+			endTurn();
 		}
 	     }
 	 }
