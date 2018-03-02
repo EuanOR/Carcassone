@@ -44,6 +44,10 @@ def buildTable(tableList):
         htmlTable += "<td id='%i,%i'>" %(cell[0], cell[1])
         if cell[2] != None:
             htmlTable += "<img src='TileAssets/%s' style='transform: rotate(%sdeg);'>" %(cell[2]._image, cell[2]._degreeRotated)
+            if cell[2]._meeple != None:
+                m = cell[2]._meeple
+                imageSrc = m._player._meepleImage
+                htmlTable += "<img src='%s' style='z-index: -1;'>" %(imageSrc)
         elif cell[2] == None:
             htmlTable += "<img src='TileAssets/FreeTile.png' style='visibility: hidden;'>"
         htmlTable += "</td>"
