@@ -93,15 +93,23 @@
 }
 
 #board{
+	position: absolute;
+	left: 0;
+	top: 0;
+	float: left;
+	width: 75%;
+	height: 100%;
 	overflow: scroll;
 }
 
 /* Side bar for Gameboard */
 #sideboard{
+    position: absolute;
     float: right;
-    overflow-x: hidden;
+    overflow: auto;
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
+    left: 75%;
     width: 25%;
     height: 100%;
     border: 1px solid black;
