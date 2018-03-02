@@ -44,6 +44,8 @@ def buildTable(tableList):
         htmlTable += "<td id='%i%i'>" %(cell[0], cell[1])
         if cell[2] != None:
             htmlTable += "<img src='TileAssets/%s' style='transform: rotate(%sdeg);'>" %(cell[2]._image, cell[2]._degreeRotated)
+        elif cell[2] == None:
+            htmlTable += "<img src'TileAssets/FreeTile.png'>"
         htmlTable += "</td>"
     return htmlTable + "</tbody>"
 
