@@ -7,7 +7,8 @@ enable()
 
 def getSizeOfGrid(gameController):
     minX, maxX, minY, maxY = (None, None, None, None)
-    for x, y, tile in gameController._grid:
+    for coords, tile in gameController._grid._grid:
+        x, y = coords
         if minX == None or x < minX:
             minX = x
         if maxX == None or x > maxX:
@@ -23,15 +24,15 @@ def getCompleteTableList(minX, maxX, minY, maxY, gameController):
     for y in range(minY, maxY+1):
         for x in range(minX, maxX+1):
             item = None
-            for l in lst:
-                if l[0] == x and l[1] == y:
-                    item = l[2]
+            for l in gameController._grid._grid:
+                if l[0][0] == x and l[0][1] == y:
+                    item = l[1]
             tableList.append([x, y, item])
     return tableList
 
 def buildTable(tableList):
     #TODO meeple placements on tiles!!!!!!!!!!!
-    htmlTable = "<table>"
+    htmlTable = "<tbody>"
     yVal = None
     for cell in tableList:
         if yVal == None:
@@ -44,7 +45,7 @@ def buildTable(tableList):
         if cell[2] != None:
             htmlTable += "<img src='%s' style='transform: rotate(%sdeg);'>" %(cell[2]._image, cell[2]._degreeRotated)
         htmlTable += "</td>"
-    return htmlTable + "</table>"
+    return htmlTable + "</tbody>"
 
 print("Content-Type: text/plain")
 print()
