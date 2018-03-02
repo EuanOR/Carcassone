@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <head>
-  <meta charset="UTF-8"> 
-  <title> Carcassonne</title>
-  <link rel="stylesheet" type="text/css" href="Carcassonne.css">
-  <script type="text/javascript" src="grid.js"></script>
+	<meta charset="UTF-8"> 
+	<title> Carcassonne</title>
+	<link rel="stylesheet" type="text/css" href="Carcassonne.css">
+	<script type="text/javascript" src="grid.js"></script>
 </head>
 <body>
-  <div id="header"><img src="TileAssets/carcassonne-logo.png" alt="Carcassonne Logo" id="logoImage"></div>
-    <section class="container">
-      <div id="grid">
-	<table id="game"></table>
-	<div id="meepleQuestion"> </div>
-	<div id="sideboard">
-	  <div id="leaderboard">
-	    <table id="scoreboard">
-	    </table>
-	</div>
-	<div id="deckTile">
-	  <!--Create CSS-->
-	  <div id="button">
-	  <button type="button" id="rotateButton" class="playButton"> <span> Rotate </span></button></a>
-	  </div>
-	  <p>Here is your tile:</p>
-	</div>
-      </div>
-    </div>
-  </section>
+	<div id="header"><img src="TileAssets/carcassonne-logo.png" alt="Carcassonne Logo" id="logoImage"></div>
+	<section class="container">
+		<div id="grid">
+			<div id="board">
+				<table id="game"></table>
+			</div>
+			<div id="sideboard">
+				<div id="leaderboard">
+					<table id="scoreboard"></table>
+				</div>
+				<div id="deckTile">
+					<div id="meepleQuestion"> </div>
+					<div id="button">
+						<button type="button" id="rotateButton" class="playButton"> <span> Rotate </span></button></a>
+					</div>
+					<p id="tileCount"></p>
+					<p>Here is your tile:</p>
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
 </html>
