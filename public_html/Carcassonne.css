@@ -92,6 +92,10 @@
     border: 1px solid black;
 }
 
+#board{
+	overflow: scroll;
+}
+
 /* Side bar for Gameboard */
 #sideboard{
     float: right;
