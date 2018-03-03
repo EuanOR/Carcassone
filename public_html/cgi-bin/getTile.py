@@ -10,5 +10,6 @@ print()
 
 gC = getGameController()
 tile = gC.getTile()
-print(tile._image)
+
+print(tile._image + "," + gC._deck._deck.length())
 setGameController(gC)
