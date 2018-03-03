@@ -38,6 +38,8 @@
 	// Count of remaining tiles
     var tileCount = 72;
 	var pTagTile;
+	// Player score display
+	var scoreboard;
     
     document.addEventListener("DOMContentLoaded", init, false);
 
@@ -45,7 +47,7 @@
         console.log("GAME STARTING");
         grid = document.getElementById("grid");
 		board = document.getElementById("board");
-		rotateButton = document.getElementById("rotateButton");
+		rotateButton = document.getElementById("rotateImage");
 		deckTileDiv = document.getElementById("deckTile");
 		console.log("geting cookie ID");
 		getCookieID();
@@ -389,7 +391,7 @@
         meepleQuestion.appendChild(text);
         for (var i = 0; i < sides.length; i++) {
             var newButton = document.createElement('button');
-	    	newButton.style.className = "playButton";
+	    	newButton.className = "playButton";
 	    	console.log("button made for side: " + sides[i]);
             newButton.innerHTML = sides[i];
             meepleQuestion.appendChild(newButton);
@@ -445,6 +447,12 @@
 		deckTileDiv.removeChild(curdeckTile);
 		tileCount -= 1;
 		pTagTile.innerHTML = "Remaining tiles: " + tileCount;
+		if (tileCount < 0){
+			var winner = scoreboard.childNodes[0]; //First table row
+	    	winner = winner.childNodes[0]; //First td of row which is player name
+	    	console.log(winner);
+	    	window.alert("Game Over!! Winner is " + winner);
+	}
 		hideValidPlaces();
         getLeaderBoard();
         getNextTurn();
@@ -509,7 +517,7 @@
     
     function updateLeaderboard(newLeaderboard){
         console.log("updating leaderboard");
-        var scoreboard = document.getElementById("scoreboard");
+        scoreboard = document.getElementById("scoreboard");
         scoreboard.innerHTML = newLeaderboard;
     }
 
