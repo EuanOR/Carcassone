@@ -108,34 +108,71 @@ while loop_again:
 
 print("""
 <!DOCTYPE html>
+<html class="createGamePage">
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <title> Carcassonne</title>
     <link rel="stylesheet" type="text/css" href="../Carcassonne.css">
 </head>
 <body>
-     <div id="header"><img src="../TileAssets/carcassonne-logo.png" alt="Carcassonne Logo" id="logoImage"></div>	
-     <section class="container">
-     <div style="width: 50%; margin: 0 auto; border: 1px solid black; padding: 10px;">
-	     <form action="lobby.py" method="GET">
-		    Name:
-		    <input type = "text" name = "name">
-		    <br>
-		    <br>
-		    <input type = "radio" name = "avatar" value = "avatar1" > <img src = "" alt = ""><br>
-		    <input type = "radio" name = "avatar" value = "avatar2"> <img src = "" alt = ""><br>
-		    <input type = "radio" name = "avatar" value = "avatar3"> <img src = "" alt = ""><br>
-		    <input type = "radio" name = "avatar" value = "avatar4"> <img src = "" alt = ""><br>
-		    <br>
-		    <input type = "radio" name = "colour" value = "red">Red<br>
-		    <input type = "radio" name = "colour" value = "blue">Blue<br>
-		    <input type = "radio" name = "colour" value = "green">Green<br>
-		    <input type = "radio" name = "colour" value = "yellow">Yellow<br>
-		    <br>
-		    <input type="submit" value="Submit">
-		    </form>
-     </div>
-     </section>
+<div id="createGamePageHeader"><img src="../TileAssets/carcassonneLogoCut.jpg" alt="Carcassonne Logo" id="logoImage"></div>
+    <section class="container">
+        <div id="createPlayerDiv">
+            <form action="lobby.py" method="GET">
+                Name:
+                <input type = "text" name = "name" placeholder="Enter name..">
+                <br>
+                <br>
+                
+                <p id="selectAvatarHeading"> Select an avatar </p>
+                
+                <div>
+                    <label class="labelForImage">
+                    <input type = "radio" name = "avatar" value = "avatar1" id="avatar1"> <img src = "../TileAssets/avatar1.png" alt = "Gandalf (Lord of the Ring) Avatar" class="avatars">
+                    </label>
+                    <label class="labelForImage">
+                    <input type = "radio" name = "avatar" value = "avatar2" id="avatar2"> <img src = "../TileAssets/avatar2.png" alt = "Knight Avatar" class="avatars">
+                    </label>
+                    <label class="labelForImage">
+                    <input type = "radio" name = "avatar" value = "avatar3" id="avatar3"> <img src = "../TileAssets/avatar3.png" alt = "Sword Guy Avatar" class="avatars">
+                    </label>
+                    <br>
+                    <label class="labelForImage">
+                    <input type = "radio" name = "avatar" value = "avatar4" id="avatar4"> <img src = "../TileAssets/avatar4.png" alt = "Krog (Thor) Avatar" class="avatars">
+                    </label>
+                    <label class="labelForImage">
+                    <input type = "radio" name = "avatar" value = "avatar5" id="avatar5"> <img src = "../TileAssets/avatar5.png" alt = "Assasin Avatar" class="avatars">
+                    </label>
+                    <label class="labelForImage">
+                    <input type = "radio" name = "avatar" value = "avatar6" id="avatar6"> <img src = "../TileAssets/avatar6.png" alt = "Legolas (Lord of the Ring) Avatar" class="avatars">
+                    </label>
+                    <br>
+                </div>
+                <p id="selectColorHeading"> Select an meeple colour <p>
+                
+                <div>
+                    <label class="labelForImage">
+                    <input type = "radio" name = "colour" value = "red">
+                    <img src="../MeepleAssets/redMeeple.png" alt="Red Meeple" class="meepleColor">
+                    </label>
+                    <label class="labelForImage">
+                    <input type = "radio" name = "colour" value = "blue">
+                    <img src="../MeepleAssets/blueMeeple.png" alt="Blue Meeple" class="meepleColor">
+                    </label>
+                    <label class="labelForImage">
+                    <input type = "radio" name = "colour" value = "green">
+                    <img src="../MeepleAssets/greenMeeple.png" alt="Green Meeple" class="meepleColor">
+                    </label>
+                    <label id="yellowMeepleImage">
+                    <input type = "radio" name = "colour" value = "yellow">
+                    <img src="../MeepleAssets/yellowMeeple.png" alt="Yellow Meeple" class="meepleColor">
+                    </label>
+                </div>
+                <br>
+                <input type="submit" value="Submit" id="submitFormButton">
+            </form>
+        </div>
+    </section>
 </body>
 </html>
-  """)
+    """)

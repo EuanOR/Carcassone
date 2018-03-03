@@ -10,6 +10,5 @@ print()
 
 gC = getGameController()
 tile = gC.getTile()
-
 print(tile._image)
 setGameController(gC)

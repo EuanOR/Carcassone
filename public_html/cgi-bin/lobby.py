@@ -59,57 +59,22 @@ setGameController(gc)
 print("Content-Type:text/html")
 print()
 print("""<!DOCTYPE html>
+    <html class="lobbyPage">
     <head>
-        <meta charset="UTF-8"> 
-	<title>Carcassonne</title>
-	<link rel="stylesheet" type="text/css" href="../Carcassonne.css">
-        <script src="../lobby.js"></script>
-        <style>
-            #loader {
-                margin-left: auto;
-                margin-right: auto;
-                border-radius: 5%;
-                -webkit-animation: spin 4s linear infinite;
-                animation: spin 3s 1s linear infinite;
-            }
-            
-            #loading {
-	      text-align: center;
-	    }
-
-            @-webkit-keyframes spin {
-                0% { -webkit-transform: rotate(0deg); }
-                100% { -webkit-transform: rotate(360deg); }
-            }
-
-            /* little spinny animation */
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-
-                20% { transform: rotate(90deg); }
-                25% { transform: rotate(90deg); }
-
-                45% { transform: rotate(180deg); }
-                50% { transform: rotate(180deg); }
-
-                70% { transform: rotate(270deg); }
-                75% { transform: rotate(270deg); }
-
-                95% { transform: rotate(360deg); }
-                100% { transform: rotate(360deg); }
-            }            
-
-        </style>
+    <meta charset="UTF-8">
+    <title>Carcassonne</title>
+    <link rel="stylesheet" type="text/css" href="../Carcassonne.css">
+    <script src="../lobby.js"></script>
     </head>
-
     <body>
-	    <div id="header"><img src="../TileAssets/carcassonne-logo.png" alt="Carcassonne Logo" id="logoImage"></div>
-	    <section class="container">
-		<div id="loading">
-		<img src="../TileAssets/loader.png" id="loader">
-		<p id="playerCount"></p>
-		</div>
-	    </section>
-
+    <div id="lobbyPageHeader">
+    <img src="../TileAssets/carcassonneLogoCut.jpg" alt="Carcassonne Logo" id="logoImage">
+    </div>
+    <section class="container">
+    <div id="loading">
+    <img src="../TileAssets/loader.png" id="loader">
+    <p id="playerCount"></p>
+    </div>
+    </section>
     </body>
-</html>""")
+    </html>""")
