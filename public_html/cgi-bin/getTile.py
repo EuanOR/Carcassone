@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Get current tile in play + number of tiles left in game
+# Get current tile in play
 from cgitb import enable 
 enable()
 
@@ -11,5 +11,5 @@ print()
 gC = getGameController()
 tile = gC.getTile()
 
-print(tile._image + "," + gC._deck._deck.length())
+print(tile._image)
 setGameController(gC)
