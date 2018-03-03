@@ -1,7 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:700');
 
-.gamePage {
+
+.lobbyPage, .createGamePage {
+	background: linear-gradient(to bottom, #1d111b 18%, #512021 100%);
+	width: 100%;
+	height: 100%;
+}
+
+.gamePage, .createGamePage {
 	margin: 0;
 	background: linear-gradient(to bottom, #1d111b 18%, #512021 100%);
 }
@@ -120,8 +127,7 @@
 /* Logo */
 
 #logoImage{
-    width: 500px;
-    height: 100px;
+    width: 100%;
     margin: 5px;
 }
 /* End of Logo */
@@ -235,11 +241,12 @@
 
 /* Gameboard */
 #grid {
-    padding: 0;
+    background-color: white;
+    padding: 2.5%;
     margin: auto;
     display: block;
-    width: 1000px;
-    height: 800px;
+    width: 100%;
+    height: 600px;
     border: 1px solid black;
     position: absolute;
     text-align: center;
@@ -270,37 +277,51 @@
 #deckTile{
     border-left: 1px solid black;
     width: 100%;
-    height: 50%; /* Full height */
-    position: relative; /* Make it stick, even on scroll */
-
+    height: 70%; /* Full height */
+    padding-top: 5%;
+    text-align: center;
 }
+
+#curTile {
+  padding: 5px;
+}
+
+#rotateDiv {
+  padding: 5px;
+}
+
 
 /* Leaderboard CSS */
 #leaderboard{    
     border-left: 1px solid black;
     width: 100%;
-    height: 50%; 
+    height: 30%; 
     position: relative; 
 }
 
 
 /* leaderboard table CSS */
 #scoreboard{
+  width: 90%;
+  height: 100%;
   z-index: 1;
-  background-color: orange;
-  border: 1px solid black;
+  margin: 2px;
+  background-color: white;
+  border-bottom: 1px solid black;
 }
 
 #scoreboard th {
     font-family: "Montserrat";
 }
+
+
   
 #scoreboard td{
     font-family: "Poppins";
 }
 
 #scoreboard tr{
-  border: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 .active {
@@ -360,6 +381,181 @@
     margin-top: 0;
   }
   
-  #gamePageHeader {
-      margin-bottom: 20px;
+  #gamePageHeader, #lobbyPageHeader, #createGamePageHeader {
+	margin-bottom: 20px;
+}
+
+
+/* --------- END OF GAMEPAGE CSS ------*/
+
+/* --------- START OF LOBBY CSS -------*/
+
+#loader {
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 5%;
+	-webkit-animation: spin 4s linear infinite;
+	animation: spin 3s 1s linear infinite;
+}
+
+#loading {
+	text-align: center;
+	font-family: Poppins;
+	color: white;
+}
+
+@-webkit-keyframes spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+
+	/* little spinny animation */
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	20% { transform: rotate(90deg); }
+	25% { transform: rotate(90deg); }
+	45% { transform: rotate(180deg); }
+	50% { transform: rotate(180deg); }
+	70% { transform: rotate(270deg); }
+	75% { transform: rotate(270deg); }
+	95% { transform: rotate(360deg); }
+	100% { transform: rotate(360deg); }
+}
+
+/* ------------ END OF LOBBY CSS ------ */
+
+/* ------------ START OF CREATE GAME JOIN GAME CSS ------- */
+
+#createPlayerDiv {
+	width: 50%; 
+	margin: 0 auto;
+	padding: 10px;
+	background-color: #f2f2f2;
+	font-family: Poppins;
+}
+
+.avatars {
+	width: 150px;
+	height: 150px;
+}
+
+.avatars:hover{
+    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+            filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+
+
+.labelForImage > input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+
+.labelForImage > input + img{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:2px solid transparent;
+  -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+       -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+            filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+
+.labelForImage > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
+	-webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+            filter: brightness(1.2) grayscale(.5) opacity(.9);
+            border:2px solid #f00;
+}
+
+
+/* Had to duplicate code for Yellow Meeple due to the greyscale making the picture not visible. Fixed by lowering the brightness */
+
+#yellowMeepleImage > input{ /* HIDE RADIO */
+	visibility: hidden; /* Makes input not-clickable */
+	position: absolute; /* Remove input from document flow */
+  }
+  
+  #yellowMeepleImage > input + img{ /* IMAGE STYLES */
+	cursor:pointer;
+	border:2px solid transparent;
+	-webkit-filter: brightness(0.7) grayscale(1) opacity(.9);
+		 -moz-filter: brightness(0.7) grayscale(1) opacity(.9);
+			  filter: brightness(0.7) grayscale(1) opacity(.9);
+  }
+  
+  #yellowMeepleImage > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
+	  -webkit-filter: brightness(1.2) grayscale(.5) opacity(1);
+		 -moz-filter: brightness(1.2) grayscale(.5) opacity(1);
+			  filter: brightness(1.2) grayscale(.5) opacity(1);
+			  border:2px solid #f00;
+  }
+  
+  
+  
+  .meepleColor {
+	  padding-left: 10px;
+	  padding-right: 10px;
+	  width: 80px;
+	  height: 80px;
+  }
+
+  .meepleColor:hover{
+    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+            filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+  
+  
+  #selectAvatarHeading {
+	  margin-left: 170px;
+  }
+  
+  #selectAvatarHeading:after {
+	  content: "";
+	  width: 200px;
+	  height: 3px;
+	  display: block;
+	  margin-top: 10px;
+	  margin-left: -30px;
+  
+	  background: #f00;
+  }
+  
+  #selectColorHeading {
+	  margin-left: 160px;
+  }
+  
+  #selectColorHeading:after {
+	  content: "";
+	  width: 250px;
+	  height: 3px;
+	  display: block;
+	  margin-top: 10px;
+	  margin-left: -30px;
+  
+	  background: #f00;
+  }
+  
+  #nameLabel {
+	  margin-left:20px;
+  }
+  
+  #nameTextbox {
+	  margin-top: 20px;
+	  margin-left: 10px;
+	  padding: 5px;
+  }
+  
+  #submitFormButton {
+	  margin-left: 170px;
+	  margin-top: 20px;
+	  background-color: #4CAF50;
+	  color: white;
+	  padding: 12px 20px;
+	  border: none;
+	  border-radius: 4px;
+	  cursor: pointer;
+  }
+  
+  #submitFormButton:hover {
+	  background-color: #45a049;
   }

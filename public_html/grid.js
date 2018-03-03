@@ -38,8 +38,8 @@
     // Landmark side meeple is placed on
     var side;
     // Count of remaining tiles
-    var tileCount = 72;
-    var pTagTile;
+    var tileCount;
+    var pTagTile = 71;
     // Player score display
     var scoreboard;
     
@@ -165,7 +165,6 @@
                 var emptyCell = document.createElement('img');
                 emptyCell.src = "TileAssets/FreeTile.png";
                 emptyCell.className = "unplaced";
-		emptyCell.style.position = "relative";
 		emptyCell.style.zIndex= "1";
                 emptyCell.style.visibility = "hidden";
                 cell.appendChild(emptyCell);
@@ -193,7 +192,6 @@
         image.src = "TileAssets/Start.png";
         image.className = "placed";
         cell.innerHTML = "";
-	tileCount -= 1;
 	pTagTile.innerHTML = "Remaining tiles: " + tileCount;
 
         // Place tile in central grid cell [0,0]
@@ -214,6 +212,7 @@
 		    console.log("success");
 		    var responseList = playerRequest.responseText.trim().split(",");
 		    var player_id = responseList[0];
+		    tileCount = responseList[2];
 		    console.log("!!!player_id= " + player_id);
 		    console.log("player=" + player);
 		    var oldPlayer = null;
@@ -228,11 +227,11 @@
 			//it's your go, get yo tile etc
 		        clearInterval(playerPoll);
 		        getPlayerTile();
+			pTagTile.innerHTML = "Remaining Tiles: " + tileCount;
 		        getValidPlaces("False");
 			rotateButton.addEventListener("click", rotateTile, false);
 		    }
 		    if (oldPlayer != player){
-			tileCount -= 1;
 			pTagTile.innerHTML = "Remaining Tiles: " + tileCount;
 		        pollBoard();
 		    }
@@ -254,10 +253,10 @@
     function tileReceived(){
         if (request.readyState === 4) {
             if (request.status === 200) {
+		console.log(request.responseText.trim());
                 if (request.responseText.trim() != "problem") {
                     // request.responseText.trim() = "TileAssets/tile.png"
                     // If successful update user display to new player tile
-		            console.log("tilepath=" + request.responseText.trim());
                     showPlayerTile(request.responseText.trim());    
                 }
             }
@@ -443,8 +442,6 @@
 		    console.log("PLACE MEEPLE IMAGE RESPONSE= " + placeMeepleRequest.responseText.trim());
                     var cell = document.getElementById(tableCellID);
                     var meepleImage = document.createElement("img");
-		    meepleImage.style.top= "2px";
-		    meepleImage.style.left= "4px";
 		    meepleImage.style.zIndex = "2";
 		    meepleImage.style.position = "absolute";
                     meepleImage.src = placeMeepleRequest.responseText.trim();
