@@ -1,7 +1,123 @@
-/* Logo */
-#header{
-    text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700');
+
+.gamePage {
+	margin: 0;
+	background: linear-gradient(to bottom, #1d111b 18%, #512021 100%);
 }
+
+.homePage {
+	
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	background-color: #502021;
+}
+
+.homePageSection {
+	background: linear-gradient(to bottom, #1d111b 18%, #512021 100%);
+	width: 100%;
+	height: 100%;
+}
+
+/* End of gradient */
+#background {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+}
+
+/* Scroll down to learn more CSS */
+
+.containerArrow {
+	position: relative;
+	top: 85%;
+	left: 50%;
+	width: 24px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+}
+
+.chevron {
+	position: absolute;
+	width: 28px;
+	height: 8px;
+	opacity: 0;
+	transform: scale3d(0.5, 0.5, 0.5);
+	animation: move 3s ease-out infinite;
+}
+
+.chevron:first-child {
+	animation: move 3s ease-out 1s infinite;
+}
+
+.chevron:nth-child(2) {
+	animation: move 3s ease-out 2s infinite;
+}
+
+.chevron:before,
+.chevron:after {
+	content: ' ';
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 51%;
+	background: #fff;
+}
+
+.chevron:before {
+	left: 0;
+	transform: skew(0deg, 30deg);
+}
+
+.chevron:after {
+	right: 0;
+	width: 50%;
+	transform: skew(0deg, -30deg);
+}
+
+@keyframes move {
+	25% {
+		opacity: 1;
+  	}
+  	33% {
+    	opacity: 1;
+    	transform: translateY(30px);
+  	}
+  	67% {
+    	opacity: 1;
+    	transform: translateY(40px);
+  	}
+  	100% {
+    	opacity: 0;
+    	transform: translateY(55px) scale3d(0.5, 0.5, 0.5);
+  	}
+}
+
+.text {
+	display: block;
+	margin-top: 140px;
+	margin-left: -75px;
+	font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+	font-size: 12px;
+	color: #fff;
+	text-transform: uppercase;
+	white-space: nowrap;
+	opacity: .25;
+	animation: pulse 2s linear alternate infinite;
+}
+
+@keyframes pulse {
+	to {
+		opacity: 1;
+  	}
+}
+
+/* End of Scroll CSS */
+
+/* Logo */
 
 #logoImage{
     width: 500px;
@@ -10,7 +126,42 @@
 }
 /* End of Logo */
 
-/* Rules */
+/* Infomation page CSS */
+
+.information {
+	color: white;
+	font-family: "Poppins";
+	font-size: 16px;
+	margin: 0;
+}
+
+#ruleHeading {
+	font-family: "Montserrat";
+	font-weight: 700;
+	text-align: center;
+	font-size: 35px;
+	color: white;
+}
+
+#ruleHeading:after {
+	content: "";
+    width: 300px;
+    height: 4px;
+    display: block;
+    margin: 25px auto 40px auto;
+    background: #FFF113;
+}
+
+.headings {
+	font-family: 'Montserrat';
+	text-align: center;
+	color: white;
+}
+
+#header {
+	text-align: center;
+}
+
 #rulesHeading {
 	text-align: center;
 }
@@ -90,36 +241,34 @@
     width: 1000px;
     height: 800px;
     border: 1px solid black;
+    position: absolute;
+    text-align: center;
 }
 
-#board{
-	position: absolute;
-	left: 0;
-	top: 0;
-	float: left;
-	width: 75%;
-	height: 100%;
-	overflow: scroll;
+#board{   
+    top: 0;
+    position: absolute;
+    left: 0;
+    overflow: scroll;
+    width: 70%;
+    height: 100%;
 }
 
 /* Side bar for Gameboard */
 #sideboard{
     position: absolute;
+    left: 70%;
     float: right;
     overflow: auto;
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
-    left: 75%;
-    width: 25%;
+    width: 30%;
     height: 100%;
-    border: 1px solid black;
 }
 
 /* Current tile display */
 #deckTile{
-    top: -90px auto 0;
-    background-color: green;
-    border: 1px solid black;
+    border-left: 1px solid black;
     width: 100%;
     height: 50%; /* Full height */
     position: relative; /* Make it stick, even on scroll */
@@ -127,9 +276,8 @@
 }
 
 /* Leaderboard CSS */
-#leaderboard{
-    background-color: pink;
-    border: 1px solid black;
+#leaderboard{    
+    border-left: 1px solid black;
     width: 100%;
     height: 50%; 
     position: relative; 
@@ -142,6 +290,15 @@
   background-color: orange;
   border: 1px solid black;
 }
+
+#scoreboard th {
+    font-family: "Montserrat";
+}
+  
+#scoreboard td{
+    font-family: "Poppins";
+}
+
 #scoreboard tr{
   border: 1px solid black;
 }
@@ -157,3 +314,52 @@
 /* End of Leaderboard */
 
 /* End of Gameboard */
+
+/* ROTATE BUTTON */
+#rotateImage{
+    cursor: pointer;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius:50%;
+    width: 100px;
+    height: 100px; 
+    -webkit-transition: -webkit-transform .5s ease-in-out;
+    -ms-transition: -ms-transform .5s ease-in-out;
+    transition: transform .5s ease-in-out; 
+  }
+  #rotateImage:hover{
+    
+    transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    -webkit-transform:rotate(90deg);
+  }
+  
+  #rotateHeading {
+    margin: 0;
+    padding-top: 10px;
+    text-align: center;
+  }
+  
+  #tileHeading {
+    padding-top: 20px;
+    text-align: center;
+  }
+  
+  #playerTile {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .sideboardHeadings {
+    font-family: "Montserrat";
+    text-align: center;
+    margin-top: 0;
+  }
+  
+  #gamePageHeader {
+      margin-bottom: 20px;
+  }

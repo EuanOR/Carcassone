@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <head>
-	<meta charset="UTF-8"> 
-	<title> Carcassonne</title>
-	<link rel="stylesheet" type="text/css" href="Carcassonne.css">
-	<script type="text/javascript" src="grid.js"></script>
+  <meta charset="UTF-8"> 
+  <title> Carcassonne</title>
+  <link rel="stylesheet" type="text/css" href="Carcassonne.css">
+  <script type="text/javascript" src="grid.js"></script>
 </head>
-<body>
-	<div id="header"><img src="TileAssets/carcassonne-logo.png" alt="Carcassonne Logo" id="logoImage"></div>
+<body class="gamePage">
+  <div id="gamePageHeader"><img src="TileAssets/carcassonneLogoCut.jpg" alt="Carcassonne Logo" id="logoImage"></div>
 	<section class="container">
 		<div id="grid">
 			<div id="board">
@@ -17,12 +17,13 @@
 					<table id="scoreboard"></table>
 				</div>
 				<div id="deckTile">
-					<div id="meepleQuestion"> </div>
-					<div id="button">
-						<button type="button" id="rotateButton" class="playButton"> <span> Rotate </span></button></a>
+					<div id="meepleQuestion"></div>
+					<div id="rotateDiv">
+						<p class="sideboardHeadings"> Rotate </p>
+						<img src="TileAssets/rotate.png" id="rotateImage" title="Click to rotate tile">
 					</div>
-					<p id="tileCount"></p>
-					<p>Here is your tile:</p>
+					<p class="sideboardHeadings">Your Tile</p>
+					<p id="tileCount" class="sideboardHeadings"></p>
 				</div>
 			</div>
 		</div>
