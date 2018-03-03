@@ -47,7 +47,7 @@ class DeckOfTiles():
         self._nextTile = self._deck.top()
     
     def moveToBottom(self, tile):
-        self._deck.alist = [tile] + self._deck.alist
+        self._deck.alist = [tile] + self._deck._alist
 
     def generateTiles(self):
         
