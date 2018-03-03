@@ -110,10 +110,12 @@ class CapStraightRoad(Tile):
 class CapTJunction(Tile):
     def __init__(self):
         self._city1 = City([self])
-        self._road1 = Road([self])
+        self._road1 = Road([self], 1)
+        self._road2 = Road([self], 1)
+        self._road3 = Road([self],1)
         self._image = "3T4R2G.png"
         self._id = "20"
-        Tile.__init__(self, self._id, self._city1, self._road1, self._road1, self._road1, self._image)
+        Tile.__init__(self, self._id, self._city1, self._road1, self._road2, self._road3, self._image)
 
         
     def getTile(self):
