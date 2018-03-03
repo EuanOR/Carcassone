@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Return current player
+# Return current player and tiles left in deck
 from cgitb import enable 
 enable()
 
@@ -10,4 +10,4 @@ print()
 
 gC = getGameController()
 player = gC._players[gC._playing]
-print(player._id + "," + player._name)
+print("%s,%s,%i" %(player._id, player._name, gC._deck._deck.length()))
