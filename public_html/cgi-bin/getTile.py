@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Get current tile in play
+# Get current tile in play + number of tiles left in game
 from cgitb import enable 
 enable()
 
