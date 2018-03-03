@@ -269,7 +269,7 @@ class ThreeSidedCapRoadCrest(Tile):
         self._road1 = Road([self], 1)
         self._image = "8T1Rshield.png"
         self._id = "04"
-        Tile.__init__(self, id, self._city1, self._city1, self._city1, self._city1, self._image)
+        Tile.__init__(self, id, self._city1, self._city1, self._city1, self._road1, self._image)
                            
 
         
