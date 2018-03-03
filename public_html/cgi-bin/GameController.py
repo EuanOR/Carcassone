@@ -36,11 +36,6 @@ class GameController:
     def getValidMeeplePlacements(self):
         """Gets list of places to place meeple on current tile."""
         return self._validMeeplePlacements
-   
-    def gameFinished(self):
-        if self._deck.is_empty:
-            self._gameOver = True
-            self.finishGame()
 
     def nextGo(self):
         """Begin a new player's go. Also used to begin game. 
@@ -51,6 +46,11 @@ class GameController:
         count = 0
         size = self._deck._deck.length()
         self._tile = self._deck.drawTile()
+        if self._tile == None:
+            # No more tiles were in the deck
+            # Finish the Game
+            self.finishGame()
+            return
         while not valid_tile:
             if len(self._grid.returnValidLocations(self._tile)) > 0:
                 valid_tile = True
@@ -65,10 +65,12 @@ class GameController:
                 self._tile = self._deck.drawTile()
                 count += 1
             if count == size:
-                runThrough = True#
+                runThrough = True
                 """Functionality for end game needed here.
                 If there are no more tiles that can be placed, the game must end at this point.
                 Game-ending functions should appear here."""
+                self.finishGame()
+                return
         self._validPlacements = self._grid.returnValidLocations(self._tile)
         return self._tile, self._validPlacements
 
@@ -80,6 +82,7 @@ class GameController:
 
     def finishGame(self):
         """Finshes the game, allocates points for unfinished landmarks, returns winner."""
+        self._gameOver = True
         # give points for unfinished landmarks
         for pos, tile in self._grid._grid:
             for side in ["left", "right", "top", "bottom"]:
