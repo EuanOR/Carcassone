@@ -89,6 +89,9 @@ class GameController:
                 landmark = self.getTileSide(tile, side)
                 if landmark._meeples != []:
                     self.finishLandmark(landmark, endgame=True)
+            if hasattr(tile, '_monastery'):
+                if tile._monastery._meeples != []:
+                    self.finishLandmark(tile._monastery, endgame=True)
         # get winner(s) of the game        
         winners = []
         max_score = 0
@@ -114,6 +117,12 @@ class GameController:
             return self.isRoadComplete(landmark)
         elif isinstance(landmark, Grass):
             return True
+        elif isinstance(landmark, Monastery):
+            return self.isMonasteryComplete(landmark)
+
+    def isMonasteryComplete(self, monastery):
+        """Returns True if the monastery 'monastery' is complete."""
+        return monastery.getNeighbourCount() == 8
 
     def isRoadComplete(self, road):
         """Returns True if the road 'road' is complete."""
@@ -174,14 +183,25 @@ class GameController:
             return self._grid.getTile(tile._xPos, tile._yPos-1)
         if direction == "bottom":
             return self._grid.getTile(tile._xPos, tile._yPos+1)
+        if direction == "topLeft":
+            return self._grid.getTile(tile._xPos-1, tile._yPos-1)
+        if direction == "topRight":
+            return self._grid.getTile(tile._xPos+1, tile._yPos-1)
+        if direction == "bottomLeft":
+            return self._grid.getTile(tile._xPos-1, tile._yPos+1)
+        if direction == "bottomRight":
+            return self._grid.getTile(tile._xPos+1, tile._yPos+1)
 
     def finishLandmark(self, landmark, endgame=False):
         """Frees up meeples and assigns scores to players."""
+        print("Finishing landmark:", landmark)
         owners = {}
         for tile in landmark.getTiles():
+            print(tile)
             if tile._meeple_placement == landmark:
                 # record meeple count for owner
                 owner = tile._meeple.getPlayer()
+                print(owner)
                 owners[owner] = owners.get(owner, 0) + 1
 
                 # clear meeples from tile + player
@@ -237,10 +257,9 @@ class GameController:
         sides = ["left", "right", "top", "bottom"]
         # dict to make getting the opposide side easier
         opposite = {"left": "right", "right":"left", "top":"bottom", "bottom":"top" }
-        
         if not self._grid.insertTile(x,y,self._tile):
             print("Tile insertion failed")
-
+            
         for side in sides:
             if not isinstance(self.getTileSide(self._tile, side), Grass):
                 neighbour = self.getNeighbour(self._tile, side)
@@ -250,15 +269,31 @@ class GameController:
                     if self.isLandmarkComplete(self.getTileSide(self._tile, side)):
                         # this gets score, frees up meeples etc
                         self.finishLandmark(self.getTileSide(self._tile, side))
+        self.checkNeighbouringMonasteries()
         # returns a list of valid places to place a meeple (to be used with placeMeeple()
         self._validPlacements = []
         self._validMeeplePlacements = []
-        
         for side in sides:
             landmark = self.getTileSide(self._tile, side)
             if (not self.isLandmarkComplete(landmark)) and landmark._meeples == []:
                 self._validMeeplePlacements.append(landmark)
+        # check if tile has a monastery, if so allow meeple placement
+        if hasattr(self._tile, '_monastery'):
+            self._tile._monastery.setNeighbourCount(self.getNeighbourCount())
+            if not self.isLandmarkComplete(self._tile._monastery):
+                self._validMeeplePlacements.append(self._tile._monastery)
         return self._validMeeplePlacements
+
+    def getNeighbourCount(self):
+        """Returns the number of neighbours (including diagonal) self._tile has."""
+        neighbourCount = 0
+        for side in ["left", "right", "top", "bottom"]:
+            if self.getNeighbour(self._tile, side) != None:
+                neighbourCount += 1
+        for side in ["topLeft", "topRight", "bottomLeft", "bottomRight"]:
+            if self.getNeighbour(self._tile, side) != None:
+                neighbourCount += 1
+        return neighbourCount
 
     def placeMeeple(self, user_choice):
         # This function places a Meeple on a landmark
@@ -278,48 +313,18 @@ class GameController:
             print("Cannot place on grass")
         self._validMeeplePlacements = []
 
+    def checkNeighbouringMonasteries(self):
+        """Check if any neighbours (including diagonal) have monasteries."""
+        directions = ["left", "right", "top", "bottom", "topLeft", "topRight",
+                "bottomLeft", "bottomRight"]
+        for direction in directions:
+            neighbour = self.getNeighbour(self._tile, direction)
+            if neighbour != None:
+                if hasattr(neighbour, '_monastery'):
+                    neighbour._monastery.incrementNeighbourCount()
+                    if self.isLandmarkComplete(neighbour._monastery):
+                        self.finishLandmark(neighbour._monastery)
 
-def main():
-    from unittest.mock import MagicMock
-    from TileTypes import FourWayCrossroad
-    A = Player("Anne")
-    A.createMeeples()
-    B = Player("Brian")
-    B.createMeeples()
-    
-    gc = GameController()
-    gc.joinGame(A)
-    gc.joinGame(B)
-    gc._deck.drawTile = MagicMock(return_value=FourWayCrossroad())
-    print("Game Beginning!")
-    print()
-    gc.nextGo()
-    print(gc._players[gc._playing]._name + "'s go")
-    print(gc._tile)
-    print(gc.getValidTilePlacements())
-    gc.placeTile(1, 0)
-    print("Placed FourWayCrossroad at 1, 0")
-    print("valid meeple placements=", gc.getValidMeeplePlacements())
-    gc.placeMeeple(gc._tile._right)
-    print("Placed on left")
-    print()
-    gc._deck.drawTile = MagicMock(return_value=FourWayCrossroad())
-    gc.nextGo()
-    print(gc._players[gc._playing]._name + "'s go")
-    print(gc._tile)
-    print(gc.getValidTilePlacements())
-    gc.placeTile(-1, 0)
-    print("valid meeple placements=", gc.getValidMeeplePlacements())
-    print(A._score)
-    gc.placeMeeple(gc._tile._top)
-
-    gc._deck.drawTile = MagicMock(return_value=FourWayCrossroad())
-    gc.nextGo()
-    print(gc._players[gc._playing]._name + "'s go")
-    print(gc._tile)
-    print(gc.getValidTilePlacements())
-    gc.placeTile(2, 0)
-    print(A._score)
     
 def main2():
     from unittest.mock import MagicMock
@@ -363,10 +368,49 @@ def main2():
 
     print(A._score)
        
+def main3():
+    from unittest.mock import MagicMock
+    from TileTypes import MonasteryTile, StraightRoad
+    gc = GameController()
+    A = Player("A")
+    B = Player("B")
+    A.createMeeples()
+    B.createMeeples()
+    gc.joinGame(A)
+    gc.joinGame(B)
+
+    gc._deck.drawTile = MagicMock(return_value=MonasteryTile())
+    gc.nextGo()
+    gc.placeTile(0, 1)
+    gc.placeMeeple(gc._tile._monastery)
+    print(gc._grid.getTile(0, 1)._monastery.getNeighbourCount())
+
+    gc._deck.drawTile = MagicMock(return_value=StraightRoad())
+    gc.nextGo()
+    gc.rotateTile()
+    gc.placeTile(-1, 0)
+    print(gc._grid.getTile(0, 1)._monastery.getNeighbourCount())
+
+    gc._deck.drawTile = MagicMock(return_value=StraightRoad())
+    gc.nextGo()
+    gc.rotateTile()
+    gc.placeTile(1, 0)
+    print(gc._grid.getTile(0, 1)._monastery.getNeighbourCount())
+    
+    for x, y in [(-1, 1), (1, 1), (-1, 2), (0, 2), (1, 2)]:
+        gc._deck.drawTile = MagicMock(return_value=MonasteryTile())
+        gc.nextGo()
+        gc.placeTile(x, y)
+        print(gc._grid.getTile(0, 1)._monastery.getNeighbourCount())
+
+    print("A's score=", A._score)
+    print("B's score=", B._score)
+    print(gc.isLandmarkComplete(gc._grid.getTile(0, 1)._monastery))
+    #print(gc._grid.getTile(0, 1)._monastery.getNeighbourCount())
     
     
 if __name__ == "__main__":
-    main2()
+    main3()
     
 
     

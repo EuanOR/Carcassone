@@ -126,8 +126,21 @@ class Grass(Landmark):
     
 #--- May or may not be added in at a later stage. ---#
 class Monastery(Landmark):
-    def __init__(self):
+    def __init__(self, tiles):
         """Monasteries have a score of 9 when completed."""
         score = 9
-        Landmark.__init__(self, score)
+        self._neighbourCount = 0
+        Landmark.__init__(self, score, tiles)
+
+    def getNeighbourCount(self):
+        return self._neighbourCount
+
+    def setNeighbourCount(self, neighbourCount):
+        self._neighbourCount = neighbourCount
+
+    def incrementNeighbourCount(self):
+        self._neighbourCount += 1
+
+    def getEndgameScore(self):
+        return self._neighbourCount
         
