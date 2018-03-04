@@ -110,10 +110,12 @@ class CapStraightRoad(Tile):
 class CapTJunction(Tile):
     def __init__(self):
         self._city1 = City([self])
-        self._road1 = Road([self])
+        self._road1 = Road([self], 1)
+        self._road2 = Road([self], 1)
+        self._road3 = Road([self], 1)
         self._image = "3T4R2G.png"
         self._id = "20"
-        Tile.__init__(self, self._id, self._city1, self._road1, self._road1, self._road1, self._image)
+        Tile.__init__(self, self._id, self._city1, self._road1, self._road2, self._road3, self._image)
 
         
     def getTile(self):
@@ -269,7 +271,7 @@ class ThreeSidedCapRoadCrest(Tile):
         self._road1 = Road([self], 1)
         self._image = "8T1Rshield.png"
         self._id = "04"
-        Tile.__init__(self, id, self._city1, self._city1, self._city1, self._city1, self._image)
+        Tile.__init__(self, id, self._city1, self._city1, self._city1, self._road1, self._image)
                            
 
         
@@ -285,7 +287,7 @@ class ThreeSidedCapRoadCrest(Tile):
 class MonasteryTile(Tile):
     def __init__(self):
         self._grass1 = Grass()
-        self._monastery = Monastery([self])
+        self._monastery = Monastery([road])
         self._image = "Cathedral.png"
         self._id = "01"
         Tile.__init__(self, self._id, self._grass1, self._grass1, self._grass1, self._grass1, self._image)
