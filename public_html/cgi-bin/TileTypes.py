@@ -287,7 +287,7 @@ class ThreeSidedCapRoadCrest(Tile):
 class MonasteryTile(Tile):
     def __init__(self):
         self._grass1 = Grass()
-        self._monastery = Monastery([road])
+        self._monastery = Monastery([self])
         self._image = "Cathedral.png"
         self._id = "01"
         Tile.__init__(self, self._id, self._grass1, self._grass1, self._grass1, self._grass1, self._image)
