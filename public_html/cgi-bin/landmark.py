@@ -73,14 +73,13 @@ class Road(Landmark):
     def join(road1, road2):
         """Join this road with another road, making a longer road.
         This should be called by GameController when a tile is placed."""
-        resScore = road1._score + road2._score
         resMeeples = road1._meeples + road2._meeples
         resTiles = road1._tiles + road2._tiles
         resEndCount = road1._endCount + road2._endCount
         
         resultRoad = Road(resTiles, resEndCount)
         resultRoad._meeples = resMeeples
-        resultRoad._score = resScore
+        resultRoad._score = len(resTiles)
 
         Landmark.reassignSides(resultRoad, resTiles, road1, road2)
 
@@ -105,14 +104,13 @@ class City(Landmark):
     def join(city1, city2):
         """Join this road with another city, making a bigger city.
         This should be called by GameController when a tile is placed."""
-        resScore = city1._score + city2._score
         resMeeples = city1._meeples + city2._meeples
         resTiles = city1._tiles + city2._tiles
         resCrestCount = city1._crestCount + city2._crestCount
 
         resultCity = City(resTiles, resCrestCount)
         resultCity._meeples = resMeeples
-        resultCity._score = resScore
+        resultCity._score = len(resTiles)*2
 
         Landmark.reassignSides(resultCity, resTiles, city1, city2)
     
@@ -137,9 +135,6 @@ class Monastery(Landmark):
 
     def setNeighbourCount(self, neighbourCount):
         self._neighbourCount = neighbourCount
-
-    def incrementNeighbourCount(self):
-        self._neighbourCount += 1
 
     def getEndgameScore(self):
         return self._neighbourCount

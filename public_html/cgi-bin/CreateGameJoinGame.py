@@ -120,7 +120,7 @@ print("""
         <div id="createPlayerDiv">
             <form action="lobby.py" method="GET">
                 Name:
-                <input type = "text" name = "name" placeholder="Enter name..">
+                <input type = "text" name = "name" placeholder="Enter name.." required>
                 <br>
                 <br>
                 
@@ -152,19 +152,19 @@ print("""
                 
                 <div>
                     <label class="labelForImage">
-                    <input type = "radio" name = "colour" value = "red">
+                    <input type = "radio" name = "colour" value = "red" required>
                     <img src="../MeepleAssets/redMeeple.png" alt="Red Meeple" class="meepleColor">
                     </label>
                     <label class="labelForImage">
-                    <input type = "radio" name = "colour" value = "blue">
+                    <input type = "radio" name = "colour" value = "blue" required>
                     <img src="../MeepleAssets/blueMeeple.png" alt="Blue Meeple" class="meepleColor">
                     </label>
                     <label class="labelForImage">
-                    <input type = "radio" name = "colour" value = "green">
+                    <input type = "radio" name = "colour" value = "green" required>
                     <img src="../MeepleAssets/greenMeeple.png" alt="Green Meeple" class="meepleColor">
                     </label>
                     <label id="yellowMeepleImage">
-                    <input type = "radio" name = "colour" value = "yellow">
+                    <input type = "radio" name = "colour" value = "yellow" required>
                     <img src="../MeepleAssets/yellowMeeple.png" alt="Yellow Meeple" class="meepleColor">
                     </label>
                 </div>

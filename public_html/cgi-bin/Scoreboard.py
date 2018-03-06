@@ -19,12 +19,13 @@ def tableCreator(GameController):
                     <th>Meeples Remaining</th>
                 </tr>\n""")
     for i in Players:
+        style = "style='background-color: white;'"
         outstr+=("""
-                <tr id='%s'>
+                <tr id='%s' %s>
                     <th>%s</th>
                     <th>%i</th>
                     <th>%i</th>
-                </tr>\n"""%(i._id, i._name,i._score,len(i._inactiveMeeples)))
+                </tr>\n"""%(i._id, style, i._name,i._score,len(i._inactiveMeeples)))
     outstr+=("""
         </table>""")
     return outstr

@@ -13,9 +13,17 @@ meeplePlacements = gC.getValidMeeplePlacements()
 setGameController(gC)
 sides = []
 if meeplePlacements != []:
-	for side in ["left", "top", "right", "bottom"]:
-		# Get all the sides that have a landmark object on tile that a meeple can be placed on
-		if gC.getTileSide(gC._tile, side) in meeplePlacements:
-			sides.append(side)
-print(",".join(sides))
+    for side in ["left", "top", "right", "bottom"]:
+        # Get all the sides that have a landmark object on tile that a meeple can be placed on
+        if gC.getTileSide(gC._tile, side) in meeplePlacements:
+            sides.append(side)
+    if hasattr(gC._tile, "_monastery"):
+        if gC._tile._monastery in meeplePlacements:
+            sides.append("monastery")
+
+player = gC._players[gC._playing]
+if len(player._inactiveMeeples) == 0:
+    print("")
+else:
+    print(",".join(sides))
 

@@ -279,19 +279,19 @@ class GameController:
                 self._validMeeplePlacements.append(landmark)
         # check if tile has a monastery, if so allow meeple placement
         if hasattr(self._tile, '_monastery'):
-            self._tile._monastery.setNeighbourCount(self.getNeighbourCount())
+            self._tile._monastery.setNeighbourCount(self.getNeighbourCount(self._tile))
             if not self.isLandmarkComplete(self._tile._monastery):
                 self._validMeeplePlacements.append(self._tile._monastery)
         return self._validMeeplePlacements
 
-    def getNeighbourCount(self):
+    def getNeighbourCount(self, tile):
         """Returns the number of neighbours (including diagonal) self._tile has."""
         neighbourCount = 0
         for side in ["left", "right", "top", "bottom"]:
-            if self.getNeighbour(self._tile, side) != None:
+            if self.getNeighbour(tile, side) != None:
                 neighbourCount += 1
         for side in ["topLeft", "topRight", "bottomLeft", "bottomRight"]:
-            if self.getNeighbour(self._tile, side) != None:
+            if self.getNeighbour(tile, side) != None:
                 neighbourCount += 1
         return neighbourCount
 
@@ -321,7 +321,8 @@ class GameController:
             neighbour = self.getNeighbour(self._tile, direction)
             if neighbour != None:
                 if hasattr(neighbour, '_monastery'):
-                    neighbour._monastery.incrementNeighbourCount()
+                    neighbourCount = self.getNeighbourCount(neighbour)
+                    neighbour._monastery.setNeighbourCount(neighbourCount)
                     if self.isLandmarkComplete(neighbour._monastery):
                         self.finishLandmark(neighbour._monastery)
 
@@ -401,12 +402,18 @@ def main3():
         gc._deck.drawTile = MagicMock(return_value=MonasteryTile())
         gc.nextGo()
         gc.placeTile(x, y)
+        print(gc.isLandmarkComplete(gc._grid.getTile(0, 1)._monastery))
         print(gc._grid.getTile(0, 1)._monastery.getNeighbourCount())
 
     print("A's score=", A._score)
     print("B's score=", B._score)
     print(gc.isLandmarkComplete(gc._grid.getTile(0, 1)._monastery))
     #print(gc._grid.getTile(0, 1)._monastery.getNeighbourCount())
+
+    gc._deck.drawTile = MagicMock(return_value=None)
+    gc.nextGo()
+    
+    print(A._score)
     
     
 if __name__ == "__main__":
