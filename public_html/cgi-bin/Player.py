@@ -16,13 +16,13 @@ class Player(object):
     #Player sets the colour their meeples will be
     def setColour(self,colour):
         self._colour = colour
-
+        
     #Returns the players colour
     def getColour(self):
         return self._colour
-    
+
+    #Returns the player's ID
     def getID(self):
-        #Returns the player's ID
         return self._id
 
     #Sets the player's name
@@ -41,10 +41,9 @@ class Player(object):
     def setMeepleImage(self, src):
         self._meepleImage = src
 
-    #This method will calculate the score of a finished set of tiles and
-    #increment the players score accordingly
-    def increaseScore(self):
-        pass
+    #Increase the player's score by int amount
+    def increaseScore(self, amount):
+        self._score += amount
 
     #returns the players current score
     def getScore(self):
@@ -81,6 +80,7 @@ class Player(object):
         else:
             print("No meeples available for placement; all on board.")
 
+    #returns a meeple to inactive meeples
     def takeBack(self,meeple):
-        m = self._activeMeeples.pop(meeple)
+        m = self._activeMeeples.remove(meeple)
         self._inactiveMeeples.append(m)
