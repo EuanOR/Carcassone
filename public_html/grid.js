@@ -42,28 +42,57 @@
     var pTagTile = 71;
     // Player score display
     var scoreboard;
+	
+	// AUDIO DECLARATIONS
+    var background;
+    var draw;
+    var placeM;
+    var placeT;
+    var point;
+    var rotate;
+    var victory;
+	
     
     document.addEventListener("DOMContentLoaded", init, false);
 
     function init(){
+		// AUDIO FILES
+		background = new Audio("AudioAssets/background_music.mp3");
+		draw = new Audio("AudioAssets/draw_tile.mp3");
+		placeM = new Audio("AudioAssets/place_meeple.mp3");
+		placeT = new Audio("AudioAssets/place_tile.mp3");
+		point = new Audio("AudioAssets/point_gain.mp3");
+		rotate = new Audio("AudioAssets/rotate_tile.mp3")
+		victory = new Audio("AudioAssets/victory_fanfare.mp3");
+		// GAME START
         console.log("GAME STARTING");
-	pTagTile = document.getElementById("tileCount");
+		background.volume = 0.15;
+		background.addEventListener("ended", restartMusic, false);
+		background.load();
+		background.play();
+		pTagTile = document.getElementById("tileCount");
         grid = document.getElementById("grid");
-	board = document.getElementById("board");
-	deckTileDiv = document.getElementById("deckTile");
-	meepleQuestion = document.getElementById("meepleQuestion");
-	curTile = document.getElementById("curTile");
-	rotateButton = document.getElementById("rotateImage");
-	console.log("geting cookie ID");
-	getCookieID();
+		board = document.getElementById("board");
+		deckTileDiv = document.getElementById("deckTile");
+		meepleQuestion = document.getElementById("meepleQuestion");
+		curTile = document.getElementById("curTile");
+		rotateButton = document.getElementById("rotateImage");
+		console.log("geting cookie ID");
+		getCookieID();
         startGame();
-	console.log("playerCookie=" + playerCookie);
-	playerPoll = setInterval(pollTurn, 2000);
+		console.log("playerCookie=" + playerCookie);
+		playerPoll = setInterval(pollTurn, 2000);
+    }
+	
+    function restartMusic() {
+    	background.currentTime = 0;
+		background.load();
+		background.play();
     }
     
     // Get players cookie
     function getCookieID(){
-	console.log("getting player");
+		console.log("getting player");
         var url = "cgi-bin/getCookie.py";
         cookieRequest = new XMLHttpRequest();
         cookieRequest.addEventListener("readystatechange", cookieReceived, false);
@@ -72,24 +101,24 @@
     }
     
     function cookieReceived(){
-	console.log("cookie received");
-	console.log("readyState = " + cookieRequest.readyState);
+		console.log("cookie received");
+		console.log("readyState = " + cookieRequest.readyState);
         if (cookieRequest.readyState === 4) {
-	    console.log("ready");
-	    console.log("cookieRequest.status = " + cookieRequest.status);
+			console.log("ready");
+			console.log("cookieRequest.status = " + cookieRequest.status);
             if (cookieRequest.status === 200) {
-		console.log("OK");
-		console.log("cookieRequest = " + cookieRequest.responseText.trim());
+				console.log("OK");
+				console.log("cookieRequest = " + cookieRequest.responseText.trim());
                 if (cookieRequest.responseText.trim() != "problem") {
-		    playerCookie = cookieRequest.responseText.trim();
-		    console.log("playerCookie =" + playerCookie);
+					playerCookie = cookieRequest.responseText.trim();
+					console.log("playerCookie =" + playerCookie);
+				}
+			}
 		}
-	    }
-	}
     }
     
     function pollTurn(){
-	console.log("getting player");
+		console.log("getting player");
         var url = "cgi-bin/getPlayer.py";
         playerRequest = new XMLHttpRequest();
         playerRequest.addEventListener("readystatechange", playerReceived, false);
@@ -98,7 +127,7 @@
     }
     
     function pollBoard(){
-	console.log("getting board");
+		console.log("getting board");
         var url = "cgi-bin/getBoard.py";
         boardRequest = new XMLHttpRequest();
         boardRequest.addEventListener("readystatechange", boardReceived, false);
@@ -129,16 +158,16 @@
         console.log("GameBoard");
         //Create gameboard
         createGameBoard();
-	//Create initial leaderboard;
-	console.log("get leaderboard");
-	getLeaderBoard();
-	//Place initial tile in grid cell [0,0]
+		//Create initial leaderboard;
+		console.log("get leaderboard");
+		getLeaderBoard();
+		//Place initial tile in grid cell [0,0]
         console.log("PLACE START TILE");
         placeStartTile(0,0);
         //Get player name
-	console.log("made it out");
-	//Get player turn
-	pollTurn();
+		console.log("made it out");
+		//Get player turn
+		pollTurn();
     }
 
     //CREATE TABLE FOR GAMEBOARD
@@ -160,15 +189,15 @@
                 // Create column
                 var cell = document.createElement("td");
                 // Adds an ID for each cell of table
-		cell.id = ((xStart.toString()).concat(",")).concat((yStart.toString()));
+				cell.id = ((xStart.toString()).concat(",")).concat((yStart.toString()));
                 // Add blank image for each cell
                 var emptyCell = document.createElement('img');
                 emptyCell.src = "TileAssets/FreeTile.png";
                 emptyCell.className = "unplaced";
-		emptyCell.style.zIndex= "1";
+				emptyCell.style.zIndex= "1";
                 emptyCell.style.visibility = "hidden";
                 cell.appendChild(emptyCell);
-		row.appendChild(cell);
+				row.appendChild(cell);
 
                 // Increment cell position
             }
@@ -185,14 +214,14 @@
     function placeStartTile(x,y){
         console.log("Placing start tile");
         // Cell to place start tile
-	var ID = (x.toString()).concat(",").concat((y.toString()));
-	var cell = document.getElementById(ID);
-	console.log(cell);
+		var ID = (x.toString()).concat(",").concat((y.toString()));
+		var cell = document.getElementById(ID);
+		console.log(cell);
         var image = document.createElement('img');
         image.src = "TileAssets/Start.png";
         image.className = "placed";
         cell.innerHTML = "";
-	pTagTile.innerHTML = "Remaining tiles: " + tileCount;
+		pTagTile.innerHTML = "Remaining tiles: " + tileCount;
 
         // Place tile in central grid cell [0,0]
         cell.appendChild(image);
@@ -201,15 +230,15 @@
     // Handler for 'getPlayer()'
     function playerReceived(){
         console.log("player received");
-	console.log("readyState = " + playerRequest.readyState);
+		console.log("readyState = " + playerRequest.readyState);
         if (playerRequest.readyState === 4) {
-	    console.log("ready");
-	    console.log("playerRequest.status = " + playerRequest.status);
+			console.log("ready");
+			console.log("playerRequest.status = " + playerRequest.status);
             if (playerRequest.status === 200) {
-		console.log("OK");
-		console.log("playerresponse = " + playerRequest.responseText.trim());
+				console.log("OK");
+				console.log("playerresponse = " + playerRequest.responseText.trim());
                 if (playerRequest.responseText.trim() != "problem") {
-		    console.log("success");
+					console.log("success");
 		    var responseList = playerRequest.responseText.trim().split(",");
 		    var player_id = responseList[0];
 		    tileCount = responseList[2];
@@ -272,6 +301,8 @@
         currentTile = tilePath;
 	console.log(currentTile);
         curTile.appendChild(image);
+	draw.load();
+	draw.play();
     }
 
     //SHOW AVAILABLE VALID CELLS
@@ -339,6 +370,8 @@
 	image[0].style.transform = "rotate(" + rotation + "deg)";
 	console.log(image[0]);
         console.log("placed tile");
+	placeT.load();
+	placeT.play();
 	tableCellID = cellID;
 	console.log("CELL TILE PLACED IN: " + cellID);
 	console.log("disable multiple placements");
@@ -421,6 +454,8 @@
                 placeMeepleRequest.open("GET", url, true);
                 placeMeepleRequest.send(null);
             }, false);
+		placeM.load();
+	    placeM.play();
 	    }
         var endGo = document.createElement("button");
         endGo.innerHTML = "NO";
@@ -465,6 +500,8 @@
 	    winner = winner.childNodes[0];
 	    console.log(winner);
 	    window.alert("Game Over!! Winner is " + winner);
+		victory.load();
+	    victory.play();
 	}
 	hideValidPlaces();
         getLeaderBoard();
@@ -504,6 +541,8 @@
             rotation += 90;
         }
         tile.style.transform = "rotate(" + rotation + "deg)";
+	rotate.load();
+	rotate.play();
 	hideValidPlaces();
         getValidPlaces("True");
     }
