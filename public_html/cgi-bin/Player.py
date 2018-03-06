@@ -16,9 +16,14 @@ class Player(object):
     #Player sets the colour their meeples will be
     def setColour(self,colour):
         self._colour = colour
+
     #Returns the players colour
     def getColour(self):
         return self._colour
+    
+    def getID(self):
+        #Returns the player's ID
+        return self._id
 
     #Sets the player's name
     def setName(self, name):
