@@ -408,7 +408,7 @@
 	animation: spin 3s 1s linear infinite;
 }
 
-#loading {
+#loading, #error {
 	text-align: center;
 	font-family: Poppins;
 	color: white;
@@ -498,7 +498,12 @@
 			  filter: brightness(1.2) grayscale(.5) opacity(1);
 			  border:2px solid #f00;
   }
-  
+ 
+ #yellowMeepleImage:hover > img{
+   -webkit-filter: brightness(1.2) grayscale(.5) opacity(1);
+   -moz-filter: brightness(1.2) grayscale(.5) opacity(1);
+   filter: brightness(1.2) grayscale(.5) opacity(1);
+}
   
   
   .meepleColor {
