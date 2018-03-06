@@ -39,7 +39,7 @@
     var side;
     // Count of remaining tiles
     var tileCount;
-    var pTagTile = 71;
+    var pTagTile = 72;
     // Player score display
     var scoreboard;
 	
