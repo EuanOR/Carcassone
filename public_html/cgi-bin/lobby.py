@@ -10,6 +10,9 @@ from Player import *
 from GameController import *
 from getGameController import *
 
+print("Content-Type:text/html")
+print()
+
 #Takes the Name, Colour and Avatar values sent from the previous page
 #and assigns them to variables
 name = ""
@@ -49,15 +52,28 @@ player = gc.getPlayer(playerID)
 #Sets the name, avatar and meeple colour attributes based on the values
 #sent by the previous page
 player.setName(name)
+
+free_colours = ["red", "green", "blue", "yellow"]
+taken_colours = []
+for p in gc._players:
+    c = p.getColour()
+    taken_colours.append(c)
+    if c in free_colours:
+        free_colours.remove(c)
+
+message = ""
+if colour in taken_colours:
+    colour = free_colours.pop()
+    message = "<p id='error'>Apologies, the colour you selected was already taken. You have been given %s instead.</p>" %colour
+
 meepleImage = "MeepleAssets/" + colour + "Meeple.png"
 player.setMeepleImage(meepleImage)
+player.setColour(colour)
 player.setAvatar(avatar)
 #closes the GameController
 setGameController(gc)
 
 #Displays an animation while the player waits for the lobby to fill.
-print("Content-Type:text/html")
-print()
 print("""<!DOCTYPE html>
     <html class="lobbyPage">
     <head>
@@ -75,6 +91,7 @@ print("""<!DOCTYPE html>
     <img src="../TileAssets/loader.png" id="loader">
     <p id="playerCount"></p>
     </div>
+    %s
     </section>
     </body>
-    </html>""")
+    </html>""" %message)
