@@ -1,12 +1,12 @@
 class Meeple(object):
     
-    #Creates a meeple Object
-    #01/02/18 - Stephen and Euan
+    """Creates a meeple Object
+    01/02/18 - Stephen and Euan
     
-    #Initiates a Meeple Object.
-    #player points to the player object which "owns" the Meeple
-    #placed is a boolean which represents if the Meeple is placed on the board or not
-    #colour is a string which represents the Meeple's colour, this is found using the Player's getColour method
+    Initiates a Meeple Object.
+    player points to the player object which "owns" the Meeple
+    placed is a boolean which represents if the Meeple is placed on the board or not
+    colour is a string which represents the Meeple's colour, this is found using the Player's getColour method"""
     
     def __init__(self,player):
         self._player =  player
