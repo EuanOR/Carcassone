@@ -8,17 +8,19 @@
 	height: 100%;
 }
 
-.gamePage, .createGamePage {
+.createGamePage {
 	margin: 0;
 	background: linear-gradient(to bottom, #1d111b 18%, #512021 100%);
 }
 
-.homePage {
-	
+.homePage, .gamePage {
 	width: 100%;
 	height: 100%;
 	margin: 0;
 	background-color: #502021;
+}
+.gamePage{
+  overflow-x: hidden;
 }
 
 .homePageSection {
@@ -266,10 +268,10 @@
     position: absolute;
     left: 70%;
     float: right;
-    overflow: auto;
+    /*overflow: auto;*/
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
-    width: 30%;
+    width: 25%;
     height: 100%;
 }
 
@@ -291,15 +293,16 @@
 }
 
 .meepleButtons {
-  width: 75px;
-  height: 55px;
   font-family: Poppins;
   font-size: 20px;
-  padding: 2px;
+  padding: 20px;
   color: white;
   background-color: #6A3997;
 }
 
+#meepleQuestion{
+   margin: 20px;
+}
 
 /* Leaderboard CSS */
 #leaderboard{    
@@ -312,9 +315,9 @@
 
 /* leaderboard table CSS */
 #scoreboard{
-  width: 90%;
+  width: 100%;
   height: 100%;
-  z-index: 1;
+  /*z-index: 1;*/
   margin: 2px;
   background-color: white;
   border-bottom: 1px solid black;
@@ -323,8 +326,6 @@
 #scoreboard th {
     font-family: "Montserrat";
 }
-
-
   
 #scoreboard td{
     font-family: "Poppins";
