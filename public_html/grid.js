@@ -41,25 +41,31 @@
     var side;
     // Count of remaining tiles
     var tileCount;
-    var pTagTile = 71;
+    var pTagTile = 72;
     // Player score display
     var scoreboard;
     // if rotateButton pressed
     var rotateActive = true;
     
     //Audio files
-     var background = new Audio("AudioAssets/background_music.mp3");
-     var defeat = new Audio("AudioAssets/defeat_fanfare.mp3");
-     var draw = new Audio("AudioAssets/draw_tile.mp3");
-     var placeM = new Audio("AudioAssets/place_meeple.mp3");
-     var placeT = new Audio("AudioAssets/place_tile.mp3");
-     var point = new Audio("AudioAssets/point_gain.mp3");
-     var rotate = new Audio("AudioAssets/rotate_tile.mp3");
-     var victory = new Audio("AudioAssets/victory_fanfare.mp3");
+     var background;
+     var draw;
+     var placeM;
+     var placeT;
+     var point;
+     var rotate;
+     var victory;
     
     document.addEventListener("DOMContentLoaded", init, false);
 
     function init(){
+        background = new Audio("AudioAssets/background_music.mp3");
+        draw = new Audio("AudioAssets/draw_tile.mp3");
+        placeM = new Audio("AudioAssets/place_meeple.mp3");
+        placeT = new Audio("AudioAssets/place_tile.mp3");
+        point = new Audio("AudioAssets/point_gain.mp3");
+        rotate = new Audio("AudioAssets/rotate_tile.mp3")
+        victory = new Audio("AudioAssets/victory_fanfare.mp3");
         console.log("GAME STARTING");
 	pTagTile = document.getElementById("tileCount");
         grid = document.getElementById("grid");
@@ -70,6 +76,7 @@
 	rotateButton = document.getElementById("rotateImage");
 	background.addEventListener("ended", restartMusic, false);
 	background.volume = 0.5;
+        background.load();
 	background.play();
 	console.log("geting cookie ID");
 	getCookieID();
@@ -81,6 +88,7 @@
     //Background music
     function restartMusic(){
       background.currentTime = 0;
+      background.load();
       background.play();
     }
     
@@ -292,6 +300,7 @@
         console.log("end game function");
         getLeaderBoard();
         window.alert("Game Over!! Final scores are: <table>" + scoreboard + "</table>");
+	victory.load();
 	victory.play();
     }
 
@@ -326,6 +335,7 @@
         currentTile = tilePath;
 	console.log(currentTile);
         curTile.appendChild(image);
+	draw.load()
 	draw.play();
     }
 
@@ -390,7 +400,6 @@
 
     //PLAYER PLACES TILE ON TURN
     function placeTile(cellID){
-        placeT.play();
         var image = document.getElementById(cellID).childNodes;
 	console.log(currentTile);
         image[0].src = currentTile;
@@ -399,6 +408,8 @@
 	console.log(image[0]);
         console.log("placed tile");
 	tableCellID = cellID;
+	placeT.load();
+	placeT.play();
 	console.log("CELL TILE PLACED IN: " + cellID);
 	console.log("disable multiple placements");
 	hideValidPlaces();
@@ -481,6 +492,8 @@
                 placeMeepleRequest.open("GET", url, true);
                 placeMeepleRequest.send(null);
 	    }, false);
+	    placeM.load();
+	    placeM.play();
 	    }
         var endGo = document.createElement("button");
         endGo.innerHTML = "NO";
@@ -563,6 +576,7 @@
             rotation += 90;
         }
         tile.style.transform = "rotate(" + rotation + "deg)";
+	rotate.load();
 	rotate.play();
 	hideValidPlaces();
         getValidPlaces("True");
