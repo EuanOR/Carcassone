@@ -6,6 +6,8 @@ enable()
 
 print("Content-Type: text/plain")
 print()
+"""Creates an ingame scoreboard.
+Author : Stephen"""
 
 def tableCreator(GameController):
     Players=GameController._players
