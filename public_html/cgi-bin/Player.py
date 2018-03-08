@@ -58,7 +58,7 @@ class Player(object):
     def setAvatar(self,src):
         self._avatar = src
 
-    #Prompts user to enter colour of their meeples and spawns 9 meeples
+    #Prompts user to enter colour of their meeples and spawns 8 meeples
     #of that colour and places them in the inactive meeple list
     def createMeeples(self):
         for _ in range(0,8):
