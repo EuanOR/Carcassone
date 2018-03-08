@@ -1,9 +1,13 @@
-# List structure to hold all tiles to be played in game
-# Needs to generate tiles randomly!!!
+"""
+Purpose: Builds deck of tiles for GameController
+Author: Brendan
+"""
+
 from TileTypes import *
 from landmark import *
 from random import randint
 
+# Uses a stack as the underlying data structure for the Deck
 class Stack:
 
     def __init__(self):
@@ -28,6 +32,8 @@ class Stack:
     def is_empty(self):
         return self.length() == 0
 
+#Object to represent the deck in Carcassonne
+#Uses an implementation of Stack to mimic a copy
 class DeckOfTiles():
     def __init__(self):
         self._tileList = []
@@ -36,6 +42,11 @@ class DeckOfTiles():
         self.generateTiles()
         self.buildDeck()
 
+    #Creates a randomized version of the tileList, then casts it to the Stack
+    #object
+    #
+    #Uses randint to choose a random list index, then pushes the item to
+    #the Stack before removing it from the list
     def buildDeck(self):
         for i in range(len(self._tileList)):
             rand = len(self._tileList) - 1
@@ -45,10 +56,13 @@ class DeckOfTiles():
                 del self._tileList[point]
                 rand -= 1
         self._nextTile = self._deck.top()
-    
-    def moveToBottom(self, tile):
-        self._deck.alist = [tile] + self._deck._alist
 
+    #Adds the tile to the bottom of the list
+    def moveToBottom(self, tile):
+        self._deck._alist = [tile] + self._deck._alist
+
+    #Creates a list containing every tile in TileTypes.py (excluding the
+    #FreeTile and the InitialTile classes)
     def generateTiles(self):
         
         ct = CityTile()
@@ -110,6 +124,7 @@ class DeckOfTiles():
     def getTileList(self):
         return self._tileList
 
+    #Draws a tile using Stack.pop()
     def drawTile(self):
         return self._deck.pop()
 
