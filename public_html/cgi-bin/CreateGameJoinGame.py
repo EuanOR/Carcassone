@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-#Authors: Catherine, Eimear and Euan
+#Authors: Catherine, Eimear and Henry
 #Contains fucntions for creating games and adding players to games
 #User is presented with a form for entering their name, selecting an
 #avatar and meeple colour which is hadled by lobby.py
@@ -39,7 +39,7 @@ def makePlayerSession(playerID, gameID, index):
 
 
 def newGame(playerID, player):
-    """Makes a new game for the player."""
+    #Makes a new game for the player.
     game_sessions = open("../game_sessions/sessionlist", writeback=True)
     # create a new entry in game_sessions
     gameID = sha256(repr(time()).encode()).hexdigest()
@@ -59,7 +59,7 @@ def newGame(playerID, player):
     return str([pl._name for pl in player_list])
 
 def joinGame(gameID, playerID, player):
-    """Adds player to an already existing game."""
+    #Adds player to an already existing game.
     game_sessions = open("../game_sessions/sessionlist", writeback=True)
     # add to entry in game_sessions
     player_list = game_sessions[gameID]
@@ -78,6 +78,24 @@ def joinGame(gameID, playerID, player):
     # make player session
     makePlayerSession(playerID, gameID, index)
     return str([pl._name for pl in player_list])
+
+def getGameController(playerID):
+    #Gets the gameController that playerID is a player in
+    try:
+        player_session = open('../player_sessions/sess_' + playerID, writeback=False)
+        gameID = player_session['gameID']
+        player_session.close()
+        game = open("../game_sessions/sess_" + gameID, writeback=False)
+        gC = game["GameController"]
+        game.close()
+        return gC
+    except Exception as e:
+        # if resource unavailable, wait and try again
+        if e.errno == 11:
+            import time
+            time.sleep(0.5)
+            return getGameController(playerID)
+
 
 result = ""
 mode = ""
@@ -111,6 +129,50 @@ while loop_again:
             time.sleep(0.5)
             loop_again = True             
 
+
+taken_avatars = []
+taken_colours = []
+
+gc = getGameController(playerID)
+if gc._players != []:
+    for p in gc._players:
+        taken_avatars.append(p.getAvatar())
+        taken_colours.append(p.getColour())
+
+avatars = {"avatar1":'<input type = "radio" name = "avatar" value = "avatar1" id="avatar1"> <img src = "../TileAssets/avatar1.png" alt = "Gandalf (Lord of the Ring) Avatar" class="avatars">',\
+"avatar2":'<input type = "radio" name = "avatar" value = "avatar2" id="avatar2"> <img src = "../TileAssets/avatar2.png" alt = "Knight Avatar" class="avatars">',\
+"avatar3":'<input type = "radio" name = "avatar" value = "avatar3" id="avatar3"> <img src = "../TileAssets/avatar3.png" alt = "Sword Guy Avatar" class="avatars">',\
+"avatar4":'<input type = "radio" name = "avatar" value = "avatar4" id="avatar4"> <img src = "../TileAssets/avatar4.png" alt = "Korg (Thor) Avatar" class="avatars">',\
+"avatar5":'<input type = "radio" name = "avatar" value = "avatar5" id="avatar5"> <img src = "../TileAssets/avatar5.png" alt = "Assasin Avatar" class="avatars">',\
+"avatar6":'<input type = "radio" name = "avatar" value = "avatar6" id="avatar6"> <img src = "../TileAssets/avatar6.png" alt = "Legolas (Lord of the Ring) Avatar" class="avatars">'}
+
+avatar_str = ""
+for avatar in sorted(avatars):
+    if avatar not in taken_avatars:
+        avatar_str += '<label class="labelForImage">'
+        avatar_str += avatars[avatar]
+        avatar += '</label>'
+
+colours = {"red":"""<input type = "radio" name = "colour" value = "red" required>
+                    <img src="../MeepleAssets/redMeeple.png" alt="Red Meeple" class="meepleColor">""",\
+"blue":"""<input type = "radio" name = "colour" value = "blue" required>
+                    <img src="../MeepleAssets/blueMeeple.png" alt="Blue Meeple" class="meepleColor">""",\
+"green":"""<input type = "radio" name = "colour" value = "green" required>
+                    <img src="../MeepleAssets/greenMeeple.png" alt="Green Meeple" class="meepleColor">""",\
+"yellow":"""<input type = "radio" name = "colour" value = "yellow" required>
+                    <img src="../MeepleAssets/yellowMeeple.png" alt="Yellow Meeple" class="meepleColor">"""}
+
+colour_str = ""
+for colour in sorted(colours):
+    if colour not in taken_colours:
+        if colour != "yellow":
+            colour_str += """<label class="labelForImage">"""
+        else:
+            colour_str += """<label id="yellowMeepleImage">"""
+        colour_str += colours[colour]
+        colour_str += "</label>"
+
+
 print("""
 <!DOCTYPE html>
 <html class="createGamePage">
@@ -132,47 +194,10 @@ print("""
                 <p id="selectAvatarHeading"> Select an avatar </p>
                 
                 <div>
-                    <label class="labelForImage">
-                    <input type = "radio" name = "avatar" value = "avatar1" id="avatar1"> <img src = "../TileAssets/avatar1.png" alt = "Gandalf (Lord of the Ring) Avatar" class="avatars">
-                    </label>
-                    <label class="labelForImage">
-                    <input type = "radio" name = "avatar" value = "avatar2" id="avatar2"> <img src = "../TileAssets/avatar2.png" alt = "Knight Avatar" class="avatars">
-                    </label>
-                    <label class="labelForImage">
-                    <input type = "radio" name = "avatar" value = "avatar3" id="avatar3"> <img src = "../TileAssets/avatar3.png" alt = "Sword Guy Avatar" class="avatars">
-                    </label>
-                    <br>
-                    <label class="labelForImage">
-                    <input type = "radio" name = "avatar" value = "avatar4" id="avatar4"> <img src = "../TileAssets/avatar4.png" alt = "Krog (Thor) Avatar" class="avatars">
-                    </label>
-                    <label class="labelForImage">
-                    <input type = "radio" name = "avatar" value = "avatar5" id="avatar5"> <img src = "../TileAssets/avatar5.png" alt = "Assasin Avatar" class="avatars">
-                    </label>
-                    <label class="labelForImage">
-                    <input type = "radio" name = "avatar" value = "avatar6" id="avatar6"> <img src = "../TileAssets/avatar6.png" alt = "Legolas (Lord of the Ring) Avatar" class="avatars">
-                    </label>
-                    <br>
+                    %s
                 </div>
-                <p id="selectColorHeading"> Select an meeple colour <p>
-                
-                <div>
-                    <label class="labelForImage">
-                    <input type = "radio" name = "colour" value = "red" required>
-                    <img src="../MeepleAssets/redMeeple.png" alt="Red Meeple" class="meepleColor">
-                    </label>
-                    <label class="labelForImage">
-                    <input type = "radio" name = "colour" value = "blue" required>
-                    <img src="../MeepleAssets/blueMeeple.png" alt="Blue Meeple" class="meepleColor">
-                    </label>
-                    <label class="labelForImage">
-                    <input type = "radio" name = "colour" value = "green" required>
-                    <img src="../MeepleAssets/greenMeeple.png" alt="Green Meeple" class="meepleColor">
-                    </label>
-                    <label id="yellowMeepleImage">
-                    <input type = "radio" name = "colour" value = "yellow" required>
-                    <img src="../MeepleAssets/yellowMeeple.png" alt="Yellow Meeple" class="meepleColor">
-                    </label>
-                </div>
+                <p id="selectColorHeading"> Select a meeple colour <p>
+                %s
                 <br>
                 <input type="submit" value="Submit" id="submitFormButton">
             </form>
@@ -180,4 +205,4 @@ print("""
     </section>
 </body>
 </html>
-    """)
+    """ %(avatar_str, colour_str))
