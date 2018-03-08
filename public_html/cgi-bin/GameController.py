@@ -19,27 +19,27 @@ class GameController:
 
         
     def getPlayer(self, playerID):
-        # Returns the player with the id playerID
+        """Returns the player with the id playerID"""
         for player in self._players:
             if player._id == playerID:
                 return player
         return None
 
     def getTile(self):
-        # Get the tile currently being placed.
+        """Get the tile currently being placed."""
         return self._tile
 
     def getValidTilePlacements(self):
-        # Returns list of coords to place current tile.
+        """Returns list of coords to place current tile."""
         return self._validPlacements
 
     def getValidMeeplePlacements(self):
-        # Gets list of places to place meeple on current tile.
+        """Gets list of places to place meeple on current tile."""
         return self._validMeeplePlacements
 
     def nextGo(self):
-        # Begin a new player's go. Also used to begin game. 
-        # Returns the tile for their go and a list of valid locations to place that tile.
+        """Begin a new player's go. Also used to begin game. 
+        Returns the tile for their go and a list of valid locations to place that tile."""
         self._playing = (self._playing + 1) % len(self._players)
         valid_tile = False
         runThrough = False
@@ -75,13 +75,13 @@ class GameController:
         return self._tile, self._validPlacements
 
     def rotateTile(self):
-        # Rotates the tile and returns a list of valid locations to place that tile.
+        """Rotates the tile and returns a list of valid locations to place that tile."""
         self._tile.rotateTile()
         self._validPlacements =  self._grid.returnValidLocations(self._tile)
         return self._validPlacements
 
     def finishGame(self):
-        # Finshes the game, allocates points for unfinished landmarks, returns winner.
+        """Finshes the game, allocates points for unfinished landmarks, returns winner."""
         self._gameOver = True
         # give points for unfinished landmarks
         for pos, tile in self._grid._grid:
@@ -104,13 +104,13 @@ class GameController:
         return winners
 
     def joinGame(self,player):
-        # Allow another player should join the game.
-        # Player should already have created meeples!
+        """Allow another player should join the game.
+        Player should already have created meeples!"""
         if len(self._players) < 4:
             self._players.append(player)
 	
     def isLandmarkComplete(self, landmark):
-        # Returns True if the landmark 'landmark' is complete.
+        """Returns True if the landmark 'landmark' is complete."""
         if isinstance(landmark, City):
             return self.isCityComplete(landmark)
         elif isinstance(landmark, Road):
@@ -121,11 +121,11 @@ class GameController:
             return self.isMonasteryComplete(landmark)
 
     def isMonasteryComplete(self, monastery):
-        # Returns True if the monastery 'monastery' is complete.
+        """Returns True if the monastery 'monastery' is complete."""
         return monastery.getNeighbourCount() == 8
 
     def isRoadComplete(self, road):
-        # Returns True if the road 'road' is complete.
+        """Returns True if the road 'road' is complete."""
         if road.getEndCount() == 2:
             return True
         else:
@@ -150,7 +150,7 @@ class GameController:
             return True
 
     def isCityComplete(self, city):
-        # Returns True if the city 'city' is complete.
+        """Returns True if the city 'city' is complete."""
         tiles = city.getTiles()
         for tile in tiles:
             if tile._left == city:
@@ -172,9 +172,9 @@ class GameController:
         return True
     
     def getNeighbour(self, tile, direction):
-        # Returns a neighbour of tile 'tile'
-        # direction is a string to specify which neighbour 
-        # eg "left" for the neighbouring tile on the left
+        """Returns a neighbour of tile 'tile'
+        direction is a string to specify which neighbour 
+        eg "left" for the neighbouring tile on the left"""
         if direction == "left":
             return self._grid.getTile(tile._xPos-1, tile._yPos)
         if direction == "right":
@@ -193,15 +193,12 @@ class GameController:
             return self._grid.getTile(tile._xPos+1, tile._yPos+1)
 
     def finishLandmark(self, landmark, endgame=False):
-        # Frees up meeples and assigns scores to players.
-        # print("Finishing landmark:", landmark)
+        """Frees up meeples and assigns scores to players."""
         owners = {}
         for tile in landmark.getTiles():
-            print(tile)
             if tile._meeple_placement == landmark:
                 # record meeple count for owner
                 owner = tile._meeple.getPlayer()
-                print(owner)
                 owners[owner] = owners.get(owner, 0) + 1
 
                 # clear meeples from tile + player
@@ -252,7 +249,7 @@ class GameController:
             return tile._bottom
 
     def placeTile(self,x,y):
-        # Place a tile on the grid.
+        """Place a tile on the grid."""
         # list to make iterating with getTileSide easier
         sides = ["left", "right", "top", "bottom"]
         # dict to make getting the opposide side easier
@@ -285,7 +282,7 @@ class GameController:
         return self._validMeeplePlacements
 
     def getNeighbourCount(self, tile):
-        #Returns the number of neighbours (including diagonal) self._tile has.
+        """Returns the number of neighbours (including diagonal) self._tile has."""
         neighbourCount = 0
         for side in ["left", "right", "top", "bottom"]:
             if self.getNeighbour(tile, side) != None:
@@ -314,7 +311,7 @@ class GameController:
         self._validMeeplePlacements = []
 
     def checkNeighbouringMonasteries(self):
-        # Check if any neighbours (including diagonal) have monasteries.
+        """Check if any neighbours (including diagonal) have monasteries."""
         directions = ["left", "right", "top", "bottom", "topLeft", "topRight",
                 "bottomLeft", "bottomRight"]
         for direction in directions:
