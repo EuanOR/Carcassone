@@ -1,8 +1,9 @@
 from Meeple import Meeple
 class Player(object):
 
-    #initialises the player object, only name can be set via this method
-    #all other attributes will have default values across all players.
+    """initialises the player object, only name can be set via this method
+    all other attributes will have default values across all players.
+    Author : Euan and Stephen"""
     def __init__(self, playerID):
         self._id = playerID
         self._meepleImage = None
