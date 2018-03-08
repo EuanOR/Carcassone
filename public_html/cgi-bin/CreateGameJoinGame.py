@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-#Catherine, Eimear and Euan
+#Authors: Catherine, Eimear and Euan
 #Contains fucntions for creating games and adding players to games
 #User is presented with a form for entering their name, selecting an
 #avatar and meeple colour which is hadled by lobby.py
