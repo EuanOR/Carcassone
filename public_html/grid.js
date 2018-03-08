@@ -41,7 +41,7 @@
     var side;
     // Count of remaining tiles
     var tileCount;
-    var pTagTile = 72;
+    var pTagTile = 71;
     // Player score display
     var scoreboard;
     // if rotateButton pressed
@@ -335,7 +335,7 @@
         currentTile = tilePath;
 	console.log(currentTile);
         curTile.appendChild(image);
-	draw.load()
+	draw.load();
 	draw.play();
     }
 
