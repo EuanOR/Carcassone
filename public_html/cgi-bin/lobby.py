@@ -1,5 +1,12 @@
 #!/usr/bin/python3
 
+#Catherine, Eimear and Euan
+#A lobby that players wait in before the game starts
+#Displays a rotating icon and how many players the user is waiting on
+#Also handles the form data from the previous page (CreateGameJoinGame.py)
+#Calls the game controller and updates the players Name, Avatar and Colour values
+#for the player associated with the cookie sent by the browser
+
 from cgitb import enable
 enable()
 
