@@ -110,7 +110,7 @@ class City(Landmark):
 
         resultCity = City(resTiles, resCrestCount)
         resultCity._meeples = resMeeples
-        resultCity._score = len(resTiles)*2
+        resultCity._score = len(resTiles)*2 + resCrestCount*2
 
         Landmark.reassignSides(resultCity, resTiles, city1, city2)
     
